@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HCI-OnFitApp</string>
+    <string name="launcher">¡Dejanos a nosotros armarte la rutina! Empeza a entrenar hoy con rutinas pensadas para vos… y sin cargo</string>
+    <string name="log_in">Iniciar Sesión</string>
 </resources>
