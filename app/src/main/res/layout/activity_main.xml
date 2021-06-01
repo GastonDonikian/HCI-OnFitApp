@@ -4,15 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo2"
     tools:context=".MainActivity">
 
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="286dp"
-        android:layout_height="195dp"
+        android:layout_height="150dp"
         android:text="¡Dejanos a nosotros armarte la rutina! Empeza a entrenar hoy con rutinas pensadas para vos… y sin cargo"
         android:textColor="#000000"
+        android:background="#BFEBEBEB"
         android:textSize="24sp"
         android:textStyle="normal|bold"
         app:layout_constraintBottom_toBottomOf="parent"
