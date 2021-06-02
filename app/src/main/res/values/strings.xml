@@ -5,4 +5,8 @@
     <string name="mostrar_contrasenia">Mostrar contraseña</string>
     <string name="e_mail">E-mail</string>
     <string name="contrasenia">Contraseña</string>
+    <string name ="Confirmar_contrasenia"> Confirmar Contraseña</string>
+    <string name="name">Nombre</string>
+    <string name="lastName">Apellido</string>
+    <string name="Register">Registrarse</string>
 </resources>
