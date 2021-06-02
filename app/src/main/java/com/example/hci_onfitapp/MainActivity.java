@@ -22,6 +22,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button button2 = findViewById(R.id.to_register);
+        button2.setOnClickListener(view -> {
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+        });
+
         TextView textView = findViewById(R.id.textView);
         textView.setOnClickListener(view -> {
             Intent intent = new Intent(this, ProfileActivity.class);
