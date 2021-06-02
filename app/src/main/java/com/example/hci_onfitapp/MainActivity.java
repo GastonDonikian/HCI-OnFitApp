@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
         Button button = findViewById(R.id.to_log_in);
         button.setOnClickListener(view -> {
             Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        });
+
+        TextView textView = findViewById(R.id.textView);
+        textView.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
         });
     }
