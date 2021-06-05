@@ -33,6 +33,12 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
         });
+
+        Button homeButton = findViewById(R.id.button5);
+        homeButton.setOnClickListener(view -> {
+            Intent intent = new Intent(this, HomeActivity.class);
+            startActivity(intent);
+        });
     }
 
 }
