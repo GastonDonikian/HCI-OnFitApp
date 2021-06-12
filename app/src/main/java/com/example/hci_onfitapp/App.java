@@ -2,12 +2,18 @@ package com.example.hci_onfitapp;
 
 import android.app.Application;
 
+import com.example.hci_onfitapp.api.ApiUserService;
+
 public class App extends Application {
 
     private static AppPreferences preferences;
+    private static ApiUserService userService;
 
     public static AppPreferences getPreferences() {
         return preferences;
+    }
+    public static ApiUserService getUserService(){
+        return userService;
     }
 
     @Override

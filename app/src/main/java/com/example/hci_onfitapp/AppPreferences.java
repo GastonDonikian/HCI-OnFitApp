@@ -7,6 +7,7 @@ public class AppPreferences {
     private  static final String PREFERENCES_NAME = "my-preferences";
     private static final String AUTH_TOKEN = "auth_token";
     private final SharedPreferences sharedPreferences;
+
     public AppPreferences(Context context){
         sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
     }
