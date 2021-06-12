@@ -5,6 +5,9 @@
     <string name="mostrar_contrasenia">Mostrar contraseña</string>
     <string name="e_mail">E-mail</string>
     <string name="contrasenia">Contraseña</string>
+    <string name="entrada_en_calor">Entrada en calor</string>
+    <string name="principal">Principal</string>
+    <string name="elongacion">Elongación</string>
     <string name="Confirmar_contrasenia"> Confirmar Contraseña</string>
     <string name="name">Nombre</string>
     <string name="lastName">Apellido</string>
