@@ -25,7 +25,7 @@ public class LoginActivity extends AppCompatActivity {
         credentials.setPassword("123456790");
         LiveData<ApiResponse<Token>> token = App.getUserService().login(credentials);
         token.observe(()->{
-            App.getPreferences().setAuthToken(token.getValue().toString());
+            App.getPreferences().setAuthToken();
         });
 
         LiveData<ApiResponse<User>> userLiveData = App.getUserService().getCurrent();
