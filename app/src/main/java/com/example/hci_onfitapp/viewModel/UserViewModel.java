@@ -13,9 +13,11 @@ import com.example.hci_onfitapp.api.User;
 import com.example.hci_onfitapp.api.model.ApiClient;
 import com.example.hci_onfitapp.api.model.ApiService;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
@@ -68,7 +70,7 @@ public class UserViewModel extends AndroidViewModel {
                             try {
                                 Gson gson = new Gson();
                                 ApiError error;
-                                error = gson.fromJson(httpException.response().errorBody().string(), new TypeToken<ErrorResponse>() {
+                                error = gson.fromJson(httpException.response().errorBody().string(), new TypeToken<ApiError>() {
                                 }.getType());
                                 loginError.setValue(error);
                             } catch (IOException ioException) {
@@ -80,5 +82,41 @@ public class UserViewModel extends AndroidViewModel {
                     }
                 })
         );
+    }
+
+    public MutableLiveData<User> getUserInfo() {
+        return userInfo;
+    }
+
+    public MutableLiveData<Boolean> getVerified() {
+        return verified;
+    }
+
+    public MutableLiveData<User> getUserData() {
+        return userInfo;
+    }
+
+    public MutableLiveData<Token> getToken() {
+        return token;
+    }
+
+    public MutableLiveData<Boolean> getLoading() {
+        return loading;
+    }
+
+    public MutableLiveData<ApiError> getLoginError() {
+        return loginError;
+    }
+
+    public MutableLiveData<ApiError> getRegisterError() {
+        return registerError;
+    }
+
+    public void setLoginErrorCode(ApiError error) {
+        loginError.setValue(error);
+    }
+
+    public void setRegisterError(ApiError error) {
+        registerError.setValue(error);
     }
 }
