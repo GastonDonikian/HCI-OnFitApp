@@ -2,7 +2,7 @@ package com.example.hci_onfitapp;
 
 import android.app.Application;
 
-import com.example.hci_onfitapp.api.ApiUserService;
+import com.example.hci_onfitapp.api.model.ApiUserService;
 
 public class App extends Application {
 
