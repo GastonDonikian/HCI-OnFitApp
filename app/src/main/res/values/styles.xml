@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Titles" parent="@android:style/Widget.TextView">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="Titles.RoutineTitle">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="Titles.AuthorTitle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+
+    <style name="TextBody" parent="@android:style/Widget.TextView">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextBody.Description">
+        <item name="android:textColor">@color/purple</item>
+
+    </style>
+</resources>

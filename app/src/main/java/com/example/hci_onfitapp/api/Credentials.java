@@ -12,12 +12,8 @@ public class Credentials {
         @Expose
         private String password;
 
-        public Credentials(){
-
-        }
 
         public Credentials(String username, String password) {
-            super();
             this.username = username;
             this.password = password;
         }

@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/fondo_opacity70"
-    tools:context=".RegisterActivity">
+    tools:context=".MainActivity">
+
 
     <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/nav_host_register"
+        android:id="@+id/nav_host_main"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -17,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_main"
+        app:navGraph="@navigation/login_navigation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

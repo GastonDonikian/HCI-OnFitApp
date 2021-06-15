@@ -20,4 +20,8 @@ public class AppPreferences {
     public String getAuthToken(){
         return sharedPreferences.getString(AUTH_TOKEN, null);
     }
+
+    public Boolean loadNightModeState(){
+        return sharedPreferences.getBoolean("NightMode",false);
+    }
 }

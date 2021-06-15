@@ -8,6 +8,7 @@ import com.example.hci_onfitapp.api.AuthInterceptor;
 import com.example.hci_onfitapp.api.Credentials;
 import com.example.hci_onfitapp.api.Token;
 import com.example.hci_onfitapp.api.User;
+import com.example.hci_onfitapp.api.Verification;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -18,7 +19,9 @@ import java.util.concurrent.TimeUnit;
 import io.reactivex.rxjava3.core.Single;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient extends ApiService implements ApiUserService{
@@ -29,7 +32,7 @@ public class ApiClient extends ApiService implements ApiUserService{
                 .setLevel(HttpLoggingInterceptor.Level.BODY);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(httpLoggingInterceptor)
-                .addInterceptor(new AuthInterceptor())
+                .addInterceptor(new AuthInterceptor(context))
                 .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                 .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
                 .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
@@ -41,8 +44,9 @@ public class ApiClient extends ApiService implements ApiUserService{
                 .baseUrl(BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
                 .build()
-                .create(ApiClient.class);
+                .create(ApiUserService.class);
     }
 
     public ApiUserService getApi(){
@@ -56,7 +60,7 @@ public class ApiClient extends ApiService implements ApiUserService{
     }
 
     @Override
-    public Single<ApiResponse<Void>> logout() {
+    public Single<Response<Void>> logout() {
         return api.logout();
     }
 
@@ -71,7 +75,12 @@ public class ApiClient extends ApiService implements ApiUserService{
     }
 
     @Override
-    public Single<ApiResponse<Void>> resendVerification(Map<String, String> data) {
+    public Single<Response<Void>> resendVerification(Map<String, String> data) {
         return api.resendVerification(data);
+    }
+
+    @Override
+    public Single<Response<Void>> verifyEmail(Verification verification) {
+        return api.verifyEmail(verification);
     }
 }

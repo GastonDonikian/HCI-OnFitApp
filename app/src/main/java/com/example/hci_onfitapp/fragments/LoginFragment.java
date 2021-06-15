@@ -1,36 +1,52 @@
 package com.example.hci_onfitapp.fragments;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.NavDeepLinkBuilder;
+import androidx.navigation.Navigation;
 
+import com.example.hci_onfitapp.AppPreferences;
+import com.example.hci_onfitapp.HomeActivity;
+import com.example.hci_onfitapp.LoginActivity;
 import com.example.hci_onfitapp.MainActivity;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.databinding.FragmentLoginBinding;
+import com.example.hci_onfitapp.viewModel.UserFactory;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.Objects;
 
 public class LoginFragment extends Fragment {
     private TextInputLayout username;
     private TextInputLayout password;
     private TextView errorMessage;
+    private Activity mActivity;
 
-    private UserViewModel viewModel;
+    public UserViewModel viewModel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        super.onCreateView(inflater, container, savedInstanceState);
         FragmentLoginBinding binding = FragmentLoginBinding.inflate(getLayoutInflater());
         username = binding.editTextTextEmailAddress;
         password = binding.editTextTextPassword;
-        //errorMessage = binding.errorMessage;
+        errorMessage = binding.errorMessage;
         //progressBarHolder = binding.progressBarHolder;
 
         View view = binding.getRoot();
@@ -40,6 +56,20 @@ public class LoginFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+
+        if (context instanceof Activity){
+            mActivity =(Activity) context;
+        }
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = ViewModelProviders.of(this, new UserFactory(getActivity().getApplication())).get(UserViewModel.class);
+    }
 
     private void tryLogin() {
         if (!validateUsername() | !validatePassword()) {
@@ -47,11 +77,11 @@ public class LoginFragment extends Fragment {
         }
         viewModel.tryLogin(username.getEditText().getText().toString(), password.getEditText().getText().toString());
 
-       /* viewModel.getLoginError().observe(getViewLifecycleOwner(), error -> {
+        viewModel.getLoginError().observe(getViewLifecycleOwner(), error -> {
             if (error != null) {
                 switch (error.getCode()) {
                     case 4:
-                        errorMessage.setText(R.string.wrong_credentials);
+                        errorMessage.setText("Invalid username or password, try again.");
                         password.setError(" ");
                         username.setError(" ");
                         new Handler().postDelayed(() -> {
@@ -62,12 +92,13 @@ public class LoginFragment extends Fragment {
                         viewModel.setLoginErrorCode(null);
                         break;
                     case 8:
-                        errorMessage.setText(R.string.user_not_verified);
-                        new Handler().postDelayed(() -> Navigation.findNavController(getView()).navigate(LoginFragmentDirections.actionLoginFragmentToVerifyUserFragment()), 3000);
+                        errorMessage.setText("Your account is not verified, redirecting to verification screen.");
+                        new Handler().postDelayed(() -> Navigation.findNavController(getView()).navigate(LoginFragmentDirections.actionLoginToVerifyFragment()), 3000);
+                        viewModel.setUserData();
                         viewModel.setLoginErrorCode(null);
                         break;
                     default:
-                        errorMessage.setText(R.string.default_error);
+                        errorMessage.setText("Something went wrong, try again.");
                         new Handler().postDelayed(() -> errorMessage.setText(""), 3000);
                         break;
                 }
@@ -75,23 +106,24 @@ public class LoginFragment extends Fragment {
             }
         });
 
-        */
-
         viewModel.getToken().observe(getViewLifecycleOwner(), authToken -> {
             if (authToken != null) {
-                Intent intent2 = new Intent(getActivity(), MainActivity.class); //tienen un main activity aca
+                AppPreferences preferences = new AppPreferences(getContext());
+                preferences.setAuthToken(authToken.getToken());
+                Intent intent2 = new Intent(getActivity(), HomeActivity.class); //si no es un link voy al home
                 Bundle aux = getArguments();
-                //if (aux.get("RoutineId") != null) {
-                  //  Bundle bundle = new Bundle();
-                   // bundle.putInt("routineId", Integer.parseInt(aux.getString("RoutineId")));
-                   // new NavDeepLinkBuilder(getActivity()).setComponentName(LoginActivity.class).setGraph(R.navigation.app_navigation).setDestination(R.id.routineFragment).setArguments(bundle).createTaskStackBuilder().startActivities();
-               // } else {
+                if (aux != null && aux.get("RoutineId") != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("routineId", Integer.parseInt(aux.getString("RoutineId")));
+                    new NavDeepLinkBuilder(getActivity()).setComponentName(HomeActivity.class).setGraph(R.navigation.my_nav).setArguments(bundle).createTaskStackBuilder().startActivities();
+                } else {
                     startActivity(intent2);
-                //}
+                }
                 getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 getActivity().finish();
             }
         });
+
     }
 
     //Validation functions

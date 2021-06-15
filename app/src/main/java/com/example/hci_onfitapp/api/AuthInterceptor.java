@@ -1,5 +1,7 @@
 package com.example.hci_onfitapp.api;
 
+import android.content.Context;
+
 import com.example.hci_onfitapp.App;
 import com.example.hci_onfitapp.AppPreferences;
 
@@ -14,8 +16,8 @@ import okhttp3.Response;
 public class AuthInterceptor implements Interceptor {
    private final AppPreferences preferences;
 
-   public AuthInterceptor(){
-       preferences = App.getPreferences();
+   public AuthInterceptor(Context context){
+       this.preferences = new AppPreferences(context);
    }
 
     @NotNull
@@ -23,7 +25,7 @@ public class AuthInterceptor implements Interceptor {
     public Response intercept(@NotNull Chain chain) throws IOException {
         Request.Builder request = chain.request().newBuilder();
         if(preferences.getAuthToken() != null)
-        request.addHeader("Authorization", "Bearer" + preferences.getAuthToken());
+            request.addHeader("Authorization", "Bearer" + preferences.getAuthToken());
         return chain.proceed(request.build());
     }
 }
