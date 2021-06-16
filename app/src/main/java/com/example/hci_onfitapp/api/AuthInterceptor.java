@@ -2,7 +2,6 @@ package com.example.hci_onfitapp.api;
 
 import android.content.Context;
 
-import com.example.hci_onfitapp.App;
 import com.example.hci_onfitapp.AppPreferences;
 
 import org.jetbrains.annotations.NotNull;

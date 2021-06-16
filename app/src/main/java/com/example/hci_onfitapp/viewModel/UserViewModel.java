@@ -219,9 +219,7 @@ public class UserViewModel extends AndroidViewModel {
         return verified;
     }
 
-    public MutableLiveData<User> getUserData() {
-        return userInfo;
-    }
+    public MutableLiveData<User> getUserData() { return userInfo; }
 
     public MutableLiveData<Token> getToken() {
         return token;

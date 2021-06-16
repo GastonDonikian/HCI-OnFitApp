@@ -1,7 +1,6 @@
 package com.example.hci_onfitapp.fragments;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.User;
 import com.example.hci_onfitapp.databinding.FragmentRegisterBinding;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterFragment extends Fragment {
-    private TextInputLayout email, username, password;
+    private TextInputLayout email, username, password, name, lastName;
     private TextView errorMessage;
 
     private FragmentRegisterBinding binding;
@@ -40,6 +38,8 @@ public class RegisterFragment extends Fragment {
         email = binding.editTextTextEmailAddress;
         password = binding.editTextTextPassword;
         username = binding.editTextTextEmailAddress;
+        name = binding.nombre;
+        lastName = binding.apellido;
         Button registerBtn = binding.buttonToRegister;
 //        errorMessage = binding.registerErrorMessage;
 //        progressBarHolder = binding.progressBarHolder;
@@ -96,7 +96,7 @@ public class RegisterFragment extends Fragment {
         }
         User userInfo = new User(username.getEditText().getText().toString()
                 , password.getEditText().getText().toString()
-                , ""
+                , name.getEditText().getText().toString() + " " + lastName.getEditText().getText().toString()
                 , "other"
                 , (long) 0
                 , email.getEditText().getText().toString()
@@ -146,14 +146,14 @@ public class RegisterFragment extends Fragment {
 
     private boolean validatePassword() {
         String val = password.getEditText().getText().toString().trim();
-        String checkPassword = "^[a-zA-Z0-9\\-_]{8,}$"; //No whitespaces, must contain more than 8 characters.
+        //String checkPassword = "^[a-zA-Z0-9\\-_]{8,}$"; //No whitespaces, must contain more than 8 characters.
 
         if (val.isEmpty()) {
             password.setError("Field can not be empty");
             return false;
-        } else if (!val.matches(checkPassword)) {
-            password.setError("Password should contain at least 8 characters!");
-            return false;
+        //} else if (!val.matches(checkPassword)) {
+          //  password.setError("Password should contain at least 8 characters!");
+           // return false;
         } else {
             password.setError(null);
             password.setErrorEnabled(false);

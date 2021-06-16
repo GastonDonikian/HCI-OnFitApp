@@ -1,87 +1,133 @@
 package com.example.hci_onfitapp.fragments;
 
-import android.content.Intent;
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.hci_onfitapp.MainActivity;
-import com.example.hci_onfitapp.R;
+import com.bumptech.glide.Glide;
 import com.example.hci_onfitapp.databinding.FragmentProfileBinding;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    UserViewModel userviewModel;
+   // private FavouritesRoutinesViewModel favRoutinesViewModel;
+    private UserViewModel userViewModel;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private FragmentProfileBinding binding;
 
-    public ProfileFragment() {
-        // Required empty public constructor
-    }
+   // private FavoriteAdapter favoriteAdapter;
 
+    private RecyclerView favoriteCardsList;
 
+    private TextView username;
+    private TextView fullName;
+    private TextView phone;
+    private TextView birthdate;
+    private ImageView profilePic;
+    private View view;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ProfileFragment newInstance(String param1, String param2) {
-        ProfileFragment fragment = new ProfileFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private Spinner spinner;
+    private TextView mDisplayDate;
+    private DatePickerDialog.OnDateSetListener mDateSetListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FragmentProfileBinding binding = FragmentProfileBinding.inflate(getLayoutInflater());
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-        userviewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View viewRoot = inflater.inflate(R.layout.fragment_profile, container, false);
-        Button loginBtn = viewRoot.findViewById(R.id.btn_log_out);
-        loginBtn.setOnClickListener(v -> logout());
-        return viewRoot;
+
+        binding = FragmentProfileBinding.inflate(getLayoutInflater());
+        view = binding.getRoot();
+
+        //username = binding.userName;
+        fullName = binding.userName;
+        //phone = binding.phone;
+        //birthdate = binding.birthDate;
+        profilePic = binding.profilePic;
+
+        //favoriteCardsList = binding.favRecycler;
+
+        //((MainActivity) getActivity()).setNavigationVisibility(true);
+
+        return view;
     }
 
-    private void logout() {
-        userviewModel.logout();
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        getActivity().finish(); //elimino la actividad del stack
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+       // favRoutinesViewModel = new ViewModelProvider(getActivity()).get(FavouritesRoutinesViewModel.class);
+       // favRoutinesViewModel.updateData();
+
+        //favoriteAdapter = new FavoriteAdapter(new ArrayList<>(), new ViewModelProvider(getActivity()).get(RoutinesViewModel.class));
+
+        userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+
+        //favoriteCardsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        //favoriteCardsList.setAdapter(favoriteAdapter);
+
+        seedProfile();
     }
+
+
+    private void seedProfile() {
+        userViewModel.getUserInfo().observe(getViewLifecycleOwner(), userInfo -> {
+            if (userInfo != null) {
+                binding.setUserInformation(userInfo);
+                System.out.println(userInfo.getFullName());
+                if (!userInfo.getAvatarUrl().equals("")) {
+                    Glide.with(binding.getRoot()).load(userInfo.getAvatarUrl()).into(binding.profilePic);
+                }
+            }
+        });
+/*
+        favRoutinesViewModel.getFavouriteRoutines().observe(getViewLifecycleOwner(), favourites -> {
+            if (favourites != null) {
+                favoriteCardsList.setVisibility(View.VISIBLE);
+                favoriteAdapter.updateFavoriteList(favourites);
+            }
+        });
+        */
+    }
+
+/*
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.findItem(R.id.app_bar_settings).setVisible(true);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.app_bar_settings) {
+            settings();
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
+        return true;
+    }
+
+    public void settings() {
+        Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionMeFragmentToSettingsFragment());
+    }
+*/
+
 }
