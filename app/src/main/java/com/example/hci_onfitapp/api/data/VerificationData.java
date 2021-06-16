@@ -1,9 +1,9 @@
-package com.example.hci_onfitapp.api;
+package com.example.hci_onfitapp.api.data;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Verification {
+public class VerificationData {
     @SerializedName("email")
     @Expose
     private String email;
@@ -12,7 +12,7 @@ public class Verification {
     private String code;
 
 
-    public Verification(String email, String code) {
+    public VerificationData(String email, String code) {
         this.email = email;
         this.code = code;
     }

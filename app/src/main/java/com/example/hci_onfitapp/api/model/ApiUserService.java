@@ -1,10 +1,9 @@
 package com.example.hci_onfitapp.api.model;
 
-import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.Credentials;
 import com.example.hci_onfitapp.api.Token;
 import com.example.hci_onfitapp.api.User;
-import com.example.hci_onfitapp.api.Verification;
+import com.example.hci_onfitapp.api.data.VerificationData;
 
 import java.util.Map;
 
@@ -28,7 +27,7 @@ public interface ApiUserService {
     Single<User> register(@Body User userInfo);
 
     @POST("users/verify_email")
-    Single<Response<Void>> verifyEmail(@Body Verification verification);
+    Single<Response<Void>> verifyEmail(@Body VerificationData verificationData);
 
     @POST("users/resend_verification")
     Single<Response<Void>> resendVerification(@Body Map<String, String> data);

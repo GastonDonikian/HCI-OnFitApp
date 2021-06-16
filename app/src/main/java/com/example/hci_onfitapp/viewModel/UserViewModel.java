@@ -10,10 +10,9 @@ import com.example.hci_onfitapp.api.ApiError;
 import com.example.hci_onfitapp.api.Credentials;
 import com.example.hci_onfitapp.api.Token;
 import com.example.hci_onfitapp.api.User;
-import com.example.hci_onfitapp.api.Verification;
+import com.example.hci_onfitapp.api.data.VerificationData;
 import com.example.hci_onfitapp.api.model.ApiClient;
 import com.example.hci_onfitapp.api.model.ApiService;
-import com.example.hci_onfitapp.api.model.ApiUserService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -190,7 +189,7 @@ public class UserViewModel extends AndroidViewModel {
         loading.setValue(true);
         System.out.println(userInfo.getValue().getEmail());
         System.out.println(code);
-        disposable.add(userService.verifyEmail(new Verification(userInfo.getValue().getEmail(), code))
+        disposable.add(userService.verifyEmail(new VerificationData(userInfo.getValue().getEmail(), code))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<Response<Void>>() {

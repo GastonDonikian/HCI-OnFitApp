@@ -3,12 +3,11 @@ package com.example.hci_onfitapp.api.model;
 import android.content.Context;
 
 import com.example.hci_onfitapp.api.ApiDateTypeConverter;
-import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.AuthInterceptor;
 import com.example.hci_onfitapp.api.Credentials;
 import com.example.hci_onfitapp.api.Token;
 import com.example.hci_onfitapp.api.User;
-import com.example.hci_onfitapp.api.Verification;
+import com.example.hci_onfitapp.api.data.VerificationData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -80,7 +79,7 @@ public class ApiClient extends ApiService implements ApiUserService{
     }
 
     @Override
-    public Single<Response<Void>> verifyEmail(Verification verification) {
-        return api.verifyEmail(verification);
+    public Single<Response<Void>> verifyEmail(VerificationData verificationData) {
+        return api.verifyEmail(verificationData);
     }
 }

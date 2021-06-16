@@ -25,7 +25,7 @@ public class AuthInterceptor implements Interceptor {
     public Response intercept(@NotNull Chain chain) throws IOException {
         Request.Builder request = chain.request().newBuilder();
         if(preferences.getAuthToken() != null)
-            request.addHeader("Authorization", "Bearer" + preferences.getAuthToken());
+            request.addHeader("Authorization", "bearer " + preferences.getAuthToken());
         return chain.proceed(request.build());
     }
 }
