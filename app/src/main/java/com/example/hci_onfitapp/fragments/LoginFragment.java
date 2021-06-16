@@ -108,6 +108,7 @@ public class LoginFragment extends Fragment {
 
         viewModel.getToken().observe(getViewLifecycleOwner(), authToken -> {
             if (authToken != null) {
+                viewModel.setUserData();
                 AppPreferences preferences = new AppPreferences(getContext());
                 preferences.setAuthToken(authToken.getToken());
                 Intent intent2 = new Intent(getActivity(), HomeActivity.class); //si no es un link voy al home

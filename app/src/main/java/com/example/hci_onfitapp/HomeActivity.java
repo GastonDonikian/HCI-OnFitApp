@@ -1,15 +1,19 @@
 package com.example.hci_onfitapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 import android.os.Bundle;
 
+import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends AppCompatActivity {
+
+    private UserViewModel userviewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +25,8 @@ public class HomeActivity extends AppCompatActivity {
         final NavController navController = navHostFragment.getNavController();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
         NavigationUI.setupWithNavController(bottomNavigationView, navController);
+        userviewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userviewModel.setUserData();
+
     }
 }

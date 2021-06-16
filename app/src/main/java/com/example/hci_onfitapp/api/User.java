@@ -19,8 +19,12 @@ public class User {
     private String password;
 
     @Expose
-    @SerializedName("fullName")
-    private String fullName;
+    @SerializedName("firstName")
+    private String firstName;
+
+    @Expose
+    @SerializedName("lastName")
+    private String lastName;
 
     @Expose
     @SerializedName("gender")
@@ -44,10 +48,11 @@ public class User {
 
     private Drawable profileImg;
 
-    public User(String username, String password, String fullName, String gender, Long birthdate, String email, String phone, String avatarUrl) {
+    public User(String username, String password, String firstName, String lastName, String gender, Long birthdate, String email, String phone, String avatarUrl) {
         this.username = username;
         this.password = password;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.gender = gender;
         this.birthdate = birthdate;
         this.email = email;
@@ -81,8 +86,12 @@ public class User {
         return password;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
     }
 
     public String getGender() {

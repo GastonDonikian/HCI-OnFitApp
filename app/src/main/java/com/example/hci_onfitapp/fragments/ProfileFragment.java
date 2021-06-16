@@ -1,10 +1,12 @@
 package com.example.hci_onfitapp.fragments;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.hci_onfitapp.MainActivity;
+import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.databinding.FragmentProfileBinding;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 
@@ -54,6 +58,9 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
 
+        Button loginBtn = view.findViewById(R.id.btn_log_out);
+        loginBtn.setOnClickListener(v -> logout());
+
         //username = binding.userName;
         fullName = binding.userName;
         //phone = binding.phone;
@@ -87,10 +94,12 @@ public class ProfileFragment extends Fragment {
 
 
     private void seedProfile() {
+        System.out.println("en seed profile");
         userViewModel.getUserInfo().observe(getViewLifecycleOwner(), userInfo -> {
+            System.out.println(userInfo);
             if (userInfo != null) {
                 binding.setUserInformation(userInfo);
-                System.out.println(userInfo.getFullName());
+                System.out.println(userInfo.getFirstName());
                 if (!userInfo.getAvatarUrl().equals("")) {
                     Glide.with(binding.getRoot()).load(userInfo.getAvatarUrl()).into(binding.profilePic);
                 }
@@ -129,5 +138,13 @@ public class ProfileFragment extends Fragment {
         Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionMeFragmentToSettingsFragment());
     }
 */
+
+    private void logout() {
+        userViewModel.logout();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        getActivity().finish(); //elimino la actividad del stack
+    }
 
 }
