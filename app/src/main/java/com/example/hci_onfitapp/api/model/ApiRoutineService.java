@@ -1,6 +1,7 @@
 package com.example.hci_onfitapp.api.model;
 
 
+import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.data.RoutineData;
 
 import java.util.Map;

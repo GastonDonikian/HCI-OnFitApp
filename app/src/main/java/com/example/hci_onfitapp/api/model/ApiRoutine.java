@@ -3,6 +3,7 @@ package com.example.hci_onfitapp.api.model;
 import android.content.Context;
 
 
+import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.AuthInterceptor;
 import com.example.hci_onfitapp.api.data.RoutineData;
 
@@ -38,6 +39,7 @@ public class ApiRoutine extends ApiService implements ApiRoutineService{
 
     @Override
     public Single<PagedList<RoutineData>> getRoutines(Map<String, String> options) {
+        System.out.println("holis, estoy aca");
         return api.getRoutines(options);
     }
 

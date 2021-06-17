@@ -51,18 +51,19 @@ public class ExploreFragment extends Fragment {
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         binding = FragmentExploreBinding.inflate(getLayoutInflater());
 
         View view = binding.getRoot();
 
         nestedScrollView = binding.scrollView;
         recyclerView = binding.recyclerView;
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         progressBar = binding.progressBar;
         chipGroup = binding.chipGroupRoutines;
         swipeRefreshLayout = binding.swipeRefresh;
 
         //((HomeActivity) getActivity()).setNavigationVisibility(true);
-
         return view;
     }
 
@@ -82,17 +83,20 @@ public class ExploreFragment extends Fragment {
             if (firstLoad != null) {
                 if (firstLoad) {
                     viewModel.updateData();
+                    System.out.println("HOLA");
+                    System.out.println(viewModel.getUserRoutines().getValue());
                     viewModel.setRoutinesFirstLoad(false);
                 }
+
             }
         });
-
-        viewModel.getRoutineCards().observe(getViewLifecycleOwner(), routines -> {
+        viewModel.getRoutineCards().observe(requireActivity(), routines -> {
+            System.out.println("explore fragment");
+            System.out.println(routines);
             if (routines != null) {
                 routinesAdapter.updateRoutines(routines);
             }
-            System.out.println("explore fragment");
-            System.out.println(routines);
+
         });
 
         swipeRefreshLayout.setOnRefreshListener(() -> {

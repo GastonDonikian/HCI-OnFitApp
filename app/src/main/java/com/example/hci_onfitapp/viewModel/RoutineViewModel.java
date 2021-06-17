@@ -4,9 +4,11 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hci_onfitapp.R;
+import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
 import com.example.hci_onfitapp.api.model.PagedList;
@@ -26,7 +28,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RoutineViewModel extends AndroidViewModel {
-    private MutableLiveData<List<RoutineData>> routineCards = new MutableLiveData<>();
+    private MediatorLiveData<List<RoutineData>> routineCards = new MediatorLiveData<>();
     private MutableLiveData<List<RoutineData>> userRoutines = new MutableLiveData<>();
     private MutableLiveData<List<RoutineData>> userHistory = new MutableLiveData<>();
     private MutableLiveData<RoutineData> currentRoutine = new MutableLiveData<>();
@@ -82,7 +84,7 @@ public class RoutineViewModel extends AndroidViewModel {
                         .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
                             @Override
                             public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
-                                userRoutines.setValue(routinesEntries.getEntries());
+                                userRoutines.setValue(routinesEntries.getContent());
                             }
 
                             @Override
@@ -222,13 +224,15 @@ public class RoutineViewModel extends AndroidViewModel {
                                 isLastPage = routinesEntries.getLastPage();
                                 noMoreEntries.setValue(isLastPage);
                                 currentPage++;
-                                routineCards.setValue(routinesEntries.getEntries());
+                                System.out.println("im here trying1");
+                                System.out.println(routinesEntries.getContent());
+                                routineCards.setValue(routinesEntries.getContent());
                                 System.out.println("im here trying");
                                 System.out.println(routineCards.getValue());
                                 List<RoutineData> aux = routineCards.getValue();
                                 System.out.println(aux);
                                 if(aux != null)
-                                    aux.addAll(routinesEntries.getEntries());
+                                    aux.addAll(routinesEntries.getContent());
                                 totalPages = (int) Math.ceil(routinesEntries.getTotalCount() / (double) itemsPerRequest);
                                 loading.setValue(false);
                             }

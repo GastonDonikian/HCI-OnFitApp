@@ -75,14 +75,6 @@ public class ProfileFragment extends Fragment {
 
         //((MainActivity) getActivity()).setNavigationVisibility(true);
 
-        loginBtn.setOnClickListener((v) -> {
-
-            NavController navController = Navigation.findNavController(v);
-            @NonNull NavDirections action = MainFragmentDirections.actionMainFragmentToLogin();
-            //action.setRoutineId(arg1);
-            navController.navigate(action);
-
-        });
         ImageView settingsIcon = view.findViewById(R.id.imageView4);
         settingsIcon.setOnClickListener((v) -> {
             NavController navController = Navigation.findNavController(v);

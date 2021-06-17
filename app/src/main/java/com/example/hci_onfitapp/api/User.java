@@ -71,7 +71,14 @@ public class User {
 
     @Override
     public String toString() {
-        return "userame: "+username;
+        return "User{" +
+                "username=" + username +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email=" + email +
+                ", avatarUrl='" + avatarUrl + '\'' +
+                ", date=" + date +
+                '}';
     }
 
     public Drawable getProfileImg() {
