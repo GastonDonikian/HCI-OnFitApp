@@ -242,4 +242,23 @@ public class UserViewModel extends AndroidViewModel {
     public void setRegisterError(ApiError error) {
         registerError.setValue(error);
     }
+
+    public void modifyUser(User user) {
+        disposable.add(userService.modifyUser(user)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<User>() {
+                    @Override
+                    public void onSuccess(@NonNull User user) {
+                        System.out.println("funciona");
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        System.out.println("no funciona");
+                        e.printStackTrace();
+                    }
+                })
+        );
+    }
 }

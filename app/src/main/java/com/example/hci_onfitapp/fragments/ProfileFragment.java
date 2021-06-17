@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -24,13 +26,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.hci_onfitapp.MainActivity;
 import com.example.hci_onfitapp.R;
+import com.example.hci_onfitapp.api.User;
 import com.example.hci_onfitapp.databinding.FragmentProfileBinding;
+import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 
 public class ProfileFragment extends Fragment {
 
    // private FavouritesRoutinesViewModel favRoutinesViewModel;
     private UserViewModel userViewModel;
+    private RoutineViewModel routineViewModel;
 
     private FragmentProfileBinding binding;
 
@@ -62,11 +67,8 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
 
-        Button loginBtn = view.findViewById(R.id.btn_log_out);
-        loginBtn.setOnClickListener(v -> logout());
-
         //username = binding.userName;
-        fullName = binding.userName;
+//        fullName = binding.userName;
         //phone = binding.phone;
         //birthdate = binding.birthDate;
         profilePic = binding.profilePic;
@@ -75,6 +77,19 @@ public class ProfileFragment extends Fragment {
 
         //((MainActivity) getActivity()).setNavigationVisibility(true);
 
+
+//        userViewModel.getUserData();
+
+
+//
+//        loginBtn.setOnClickListener((v) -> {
+//
+//            NavController navController = Navigation.findNavController(v);
+//            @NonNull NavDirections action = MainFragmentDirections.actionMainFragmentToLogin();
+//            //action.setRoutineId(arg1);
+//            navController.navigate(action);
+//
+//        });
         ImageView settingsIcon = view.findViewById(R.id.imageView4);
         settingsIcon.setOnClickListener((v) -> {
             NavController navController = Navigation.findNavController(v);
@@ -97,9 +112,16 @@ public class ProfileFragment extends Fragment {
         //favoriteAdapter = new FavoriteAdapter(new ArrayList<>(), new ViewModelProvider(getActivity()).get(RoutinesViewModel.class));
 
         userViewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
+        routineViewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
 
         //favoriteCardsList.setLayoutManager(new LinearLayoutManager(getContext()));
         //favoriteCardsList.setAdapter(favoriteAdapter);
+
+        System.out.println(routineViewModel.getUserRoutines().getValue());
+
+        TextView nombre = view.findViewById(R.id.user_name);
+        nombre.setText(userViewModel.getUserInfo().getValue().getFirstName() +" "+
+                userViewModel.getUserInfo().getValue().getLastName());
 
         seedProfile();
     }
@@ -147,13 +169,5 @@ public class ProfileFragment extends Fragment {
         Navigation.findNavController(view).navigate(ProfileFragmentDirections.actionMeFragmentToSettingsFragment());
     }
 */
-
-    private void logout() {
-        userViewModel.logout();
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        getActivity().finish(); //elimino la actividad del stack
-    }
 
 }

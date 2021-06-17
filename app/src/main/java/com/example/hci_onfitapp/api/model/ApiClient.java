@@ -79,6 +79,16 @@ public class ApiClient extends ApiService implements ApiUserService{
     }
 
     @Override
+    public Single<User> modifyUser(User userInfo) {
+        return api.modifyUser(userInfo);
+    }
+
+    @Override
+    public Single<Response<Void>> deleteUser() {
+        return api.deleteUser();
+    }
+
+    @Override
     public Single<Response<Void>> verifyEmail(VerificationData verificationData) {
         return api.verifyEmail(verificationData);
     }
