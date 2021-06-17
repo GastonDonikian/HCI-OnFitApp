@@ -24,6 +24,14 @@
 
     <style name="TextBody.Description">
         <item name="android:textColor">@color/purple</item>
+    </style>
 
+    <style name="SwitchButtom" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/purple</item>
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">#758591FF</item>
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/gray</item>
     </style>
 </resources>

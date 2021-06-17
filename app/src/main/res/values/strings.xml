@@ -2,6 +2,7 @@
     <string name="app_name">HCI-OnFitApp</string>
     <string name="launcher">¡Dejanos a nosotros armarte la rutina! Empeza a entrenar hoy con rutinas pensadas para vos… y sin cargo</string>
     <string name="log_in">Iniciar Sesión</string>
+    <string name="log_out">Cerrar Sesión</string>
     <string name="mostrar_contrasenia">Mostrar contraseña</string>
     <string name="e_mail">E-mail</string>
     <string name="contrasenia">Contraseña</string>
@@ -12,6 +13,9 @@
     <string name="name">Nombre</string>
     <string name="lastName">Apellido</string>
     <string name="Register">Registrarse</string>
+    <string name="ModifyAvatar">Avatar Link</string>
+    <string name="DarkMode">Dark Mode</string>
+    <string name="EliminarCuenta">EliminarCuenta</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
