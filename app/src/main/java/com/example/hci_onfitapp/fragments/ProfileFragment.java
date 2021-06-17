@@ -1,13 +1,10 @@
 package com.example.hci_onfitapp.fragments;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -15,8 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -24,9 +19,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.hci_onfitapp.MainActivity;
 import com.example.hci_onfitapp.R;
-import com.example.hci_onfitapp.api.User;
 import com.example.hci_onfitapp.databinding.FragmentProfileBinding;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
@@ -120,8 +113,7 @@ public class ProfileFragment extends Fragment {
         System.out.println(routineViewModel.getUserRoutines().getValue());
 
         TextView nombre = view.findViewById(R.id.user_name);
-        nombre.setText(userViewModel.getUserInfo().getValue().getFirstName() +" "+
-                userViewModel.getUserInfo().getValue().getLastName());
+        nombre.setText(userViewModel.getUserInfo().getValue().getFirstName() + " " + userViewModel.getUserInfo().getValue().getLastName());
 
         seedProfile();
     }
