@@ -10,15 +10,30 @@
     </data>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/RoutineCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardCornerRadius="4dp">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/RoutineCardConstrainrLayout"
             android:layout_width="match_parent"
             android:layout_height="125dp"
             android:background="@color/white">
+
+            <TextView
+                android:id="@+id/routineTitle"
+                style="@style/routineTitle"
+                android:layout_width="202dp"
+                android:layout_height="23dp"
+                android:layout_marginTop="12dp"
+                android:text="@{rData.name}"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/routineImg"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/routineImg"
@@ -32,40 +47,24 @@
                 app:layout_constraintVertical_bias="0.48"/>
 
             <TextView
-                android:id="@+id/routineId"
+                android:id="@+id/routineDescription"
+                android:layout_width="202dp"
+                android:layout_height="23dp"
+                android:text="@{rData.detail}"
+                app:layout_constraintBottom_toTopOf="@+id/ratingBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/routineImg"
+                app:layout_constraintTop_toBottomOf="@+id/routineTitle" />
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{rData.id}"
-                android:visibility="gone"
-                android:textColor="@color/black"
-                app:layout_constraintBottom_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/routineTitle"
-                style="@style/routineTitle"
-                android:layout_width="202dp"
-                android:textColor="@color/black"
-                android:layout_height="23dp"
-                android:layout_marginTop="12dp"
-                android:text="@{rData.name}"
-                app:layout_constraintStart_toEndOf="@+id/routineImg"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/routineAuthor"
-                style="@style/routineSecondary"
-                android:layout_width="95dp"
-                android:layout_height="21dp"
-                android:textColor="@color/black"
-                android:layout_marginTop="14dp"
-                android:text="@{rData.user.firstName + ` ` + rData.user.lastName}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/routineImg"
-                app:layout_constraintTop_toBottomOf="@+id/routineTitle"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </LinearLayout>
 
             <RatingBar
                 android:id="@+id/ratingBar"
