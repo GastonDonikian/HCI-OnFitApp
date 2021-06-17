@@ -24,39 +24,47 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
-                android:id="@+id/destacado"
+                android:id="@+id/destacados"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/destacado"
-                android:text="Destacado"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="DESTACADO"
                 app:checkedIconVisible="false" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/en_casa"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/encasa"
-                android:text="En casa"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="EN CASA"
                 app:checkedIconVisible="false" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/running"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/running"
-                android:text="Running"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="RUNNING"
                 app:checkedIconVisible="false" />
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/pesas"
                 style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
+                android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/pesas"
-                android:text="Pesas"
+                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:text="PESAS"
                 app:checkedIconVisible="false" />
 
         </com.google.android.material.chip.ChipGroup>
@@ -102,6 +110,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:nestedScrollingEnabled="false"
                         tools:listitem="@layout/fragment_list_routine" />
 
                     <ProgressBar

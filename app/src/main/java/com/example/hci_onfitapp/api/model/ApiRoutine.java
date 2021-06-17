@@ -2,7 +2,6 @@ package com.example.hci_onfitapp.api.model;
 
 import android.content.Context;
 
-import androidx.paging.PagedList;
 
 import com.example.hci_onfitapp.api.AuthInterceptor;
 import com.example.hci_onfitapp.api.data.RoutineData;

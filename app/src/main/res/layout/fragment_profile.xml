@@ -132,13 +132,13 @@
             app:layout_constraintTop_toTopOf="parent"
             app:strokeColor="#EBEBEB"
             app:strokeWidth="1dp">
-
+<!--puse una foto de menor calidad porque me crasheaba-->
             <ImageView
                 android:id="@+id/profilePic"
                 android:layout_width="171dp"
                 android:layout_height="161dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/no_photo"
+                android:src="@drawable/no_photo2"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -6,4 +6,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#9E9E9E</color>
+    <color name="destacado">#89D9D2</color>
+    <color name="pesas">#7885FF</color>
+    <color name="running">#F1B0B8</color>
+    <color name="encasa">#B495C2</color>
 </resources>

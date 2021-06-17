@@ -1,6 +1,5 @@
 package com.example.hci_onfitapp.api.model;
 
-import androidx.paging.PagedList;
 
 import com.example.hci_onfitapp.api.data.RoutineData;
 

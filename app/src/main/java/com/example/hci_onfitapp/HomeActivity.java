@@ -1,6 +1,7 @@
 package com.example.hci_onfitapp;
 
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -15,6 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class HomeActivity extends AppCompatActivity {
 
     private UserViewModel userviewModel;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,4 +35,21 @@ public class HomeActivity extends AppCompatActivity {
         userviewModel.setUserData();
 
     }
+
+//    public void setUpBottomNavigation() {
+//        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+//
+//        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.homeFragment);
+//        assert navHostFragment != null;
+//        NavigationUI.setupWithNavController(bottomNavigationView,
+//                navHostFragment.getNavController());
+//    }
+//
+//    public void setNavigationVisibility(boolean b) {
+//        if (b) {
+//            bottomNavigationView.setVisibility(View.VISIBLE);
+//        } else {
+//            bottomNavigationView.setVisibility(View.GONE);
+//        }
+//    }
 }

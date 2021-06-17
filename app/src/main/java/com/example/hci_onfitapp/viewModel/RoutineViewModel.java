@@ -14,6 +14,7 @@ import com.example.hci_onfitapp.api.model.PagedList;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,6 +65,7 @@ public class RoutineViewModel extends AndroidViewModel {
         if (!isLastPage) {
             fetchFromRemote();
         }
+        System.out.println(isLastPage);
     }
 
     public void updateUserRoutines() {
@@ -73,22 +75,23 @@ public class RoutineViewModel extends AndroidViewModel {
         options.put("direction", direction);
         options.put("size", String.valueOf(1000));
         //TODO:el otro error que no entiendo
-//        disposable.add(
-//                routinesService.getUserRoutines(options)
-//                        .subscribeOn(Schedulers.newThread())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
-//                            @Override
-//                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
-//                                userRoutines.setValue(routinesEntries.getEntries());
-//                            }
-//
-//                            @Override
-//                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-//                                e.printStackTrace();
-//                            }
-//                        })
-//        );
+        disposable.add(
+                routinesService.getUserRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
+                                userRoutines.setValue(routinesEntries.getEntries());
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                e.printStackTrace();
+                            }
+                        })
+        );
+        System.out.println(disposable.toString());
     }
 
     public void getRoutineById(int id) {
@@ -138,6 +141,33 @@ public class RoutineViewModel extends AndroidViewModel {
         applyChanges();
     }
 
+    public void filterRoutines(Integer option) {
+        filterId = option;
+        switch (option) {
+            case -1:
+                filter = null;
+                break;
+
+            case 0:
+                filter = "destacados";
+                break;
+
+            case 1:
+                filter = "pesas";
+                break;
+
+            case 2:
+                filter = "encasa";
+                break;
+
+            case 3:
+                filter = "running";
+                break;
+        }
+
+        applyChanges();
+    }
+
     public void sortRoutines(int option) {
         orderById = option;
         switch (option) {
@@ -153,13 +183,10 @@ public class RoutineViewModel extends AndroidViewModel {
                 orderBy = "categoryId";
                 break;
 
-            case 3:
-                orderBy = "difficulty";
-                break;
-
             case 4:
                 orderBy = "name";
                 break;
+
         }
 
         applyChanges();
@@ -185,31 +212,34 @@ public class RoutineViewModel extends AndroidViewModel {
 
         loading.setValue(true);
         //TODO:hay un error y no lo entiendo
-//        disposable.add(
-//                routinesService.getRoutines(options)
-//                        .subscribeOn(Schedulers.newThread())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
-//                            @Override
-//                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
-//                                isLastPage = routinesEntries.getLastPage();
-//                                noMoreEntries.setValue(isLastPage);
-//                                currentPage++;
-//                                List<RoutineData> aux = routineCards.getValue();
-//                                if(aux != null)
-//                                    aux.addAll(routinesEntries.getEntries());
-//                                routineCards.setValue(aux);
-//                                totalPages = (int) Math.ceil(routinesEntries.getTotalCount() / (double) itemsPerRequest);
-//                                loading.setValue(false);
-//                            }
-//
-//                            @Override
-//                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-//                                loading.setValue(false);
-//                                e.printStackTrace();
-//                            }
-//                        })
-//        );
+        disposable.add(
+                routinesService.getRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
+                                isLastPage = routinesEntries.getLastPage();
+                                noMoreEntries.setValue(isLastPage);
+                                currentPage++;
+                                routineCards.setValue(routinesEntries.getEntries());
+                                System.out.println("im here trying");
+                                System.out.println(routineCards.getValue());
+                                List<RoutineData> aux = routineCards.getValue();
+                                System.out.println(aux);
+                                if(aux != null)
+                                    aux.addAll(routinesEntries.getEntries());
+                                totalPages = (int) Math.ceil(routinesEntries.getTotalCount() / (double) itemsPerRequest);
+                                loading.setValue(false);
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                loading.setValue(false);
+                                e.printStackTrace();
+                            }
+                        })
+        );
     }
 
     @Override
@@ -282,10 +312,6 @@ public class RoutineViewModel extends AndroidViewModel {
                 break;
 
             case 3:
-                orderBy = "difficulty";
-                break;
-
-            case 4:
                 orderBy = "name";
                 break;
         }
