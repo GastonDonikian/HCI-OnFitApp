@@ -151,14 +151,12 @@ public class UserViewModel extends AndroidViewModel {
 
     public void tryRegister(User data) {
         loading.setValue(true);
-
         disposable.add((userService.register(data))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User info) {
-
                         userInfo.setValue(info);
                         loading.setValue(false);
                     }
