@@ -1,25 +1,19 @@
 package com.example.hci_onfitapp.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.hci_onfitapp.HorizontalRecyclerAdapter;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.RoutineCardData;
 import com.example.hci_onfitapp.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -105,9 +99,6 @@ public class HomeFragment extends Fragment {
         recyclerView = (RecyclerView) viewReturn.findViewById(R.id.recyclerViewHor);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
-        HorizontalRecyclerAdapter adapter = new HorizontalRecyclerAdapter(lista);
-        recyclerView.setAdapter(adapter);
 
         // Inflate the layout for this fragment
         return view;

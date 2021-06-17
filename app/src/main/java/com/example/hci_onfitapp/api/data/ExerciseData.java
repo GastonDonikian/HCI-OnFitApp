@@ -76,8 +76,8 @@ public class ExerciseData {
         this.date = date;
     }
 
-    public Object getMetadata() {
-        return metadata;
+    public String getMetadata() {
+        return metadata.toString();
     }
 
     public void setMetadata(Object metadata) {
