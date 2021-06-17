@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name= "Routine"
+            type= "com.example.hci_onfitapp.api.data.RoutineData"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -30,7 +36,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="72dp"
-        android:text="Nombre de Rutina"
+        android:text="@{Routine.name}"
         android:textColor="#000000"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -202,3 +208,5 @@
         app:srcCompat="@drawable/ic_fav" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
