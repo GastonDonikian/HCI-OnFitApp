@@ -250,12 +250,28 @@ public class UserViewModel extends AndroidViewModel {
                 .subscribeWith(new DisposableSingleObserver<User>() {
                     @Override
                     public void onSuccess(@NonNull User user) {
-                        System.out.println("funciona");
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        System.out.println("no funciona");
+                        e.printStackTrace();
+                    }
+                })
+        );
+    }
+
+    public void deleteAccount() {
+        disposable.add(userService.deleteUser()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<Void>>() {
+                    @Override
+                    public void onSuccess(@NonNull Response<Void> voidResponse) {
+                        System.out.println("funciono! chau cuenta");
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
                         e.printStackTrace();
                     }
                 })
