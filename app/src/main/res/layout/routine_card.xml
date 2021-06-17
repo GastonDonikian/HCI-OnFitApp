@@ -14,15 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
-        android:background="@color/running"
         app:cardCornerRadius="4dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/RoutineCardConstrainrLayout"
+            android:id="@+id/RoutineCardConstrainLayout"
             android:layout_width="match_parent"
-            android:layout_height="125dp"
-            android:background="@color/white">
+            android:layout_height="125dp">
 
             <TextView
                 android:id="@+id/routineTitle"
@@ -54,7 +52,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_margin="5dp"
-                app:cardCornerRadius="50dp"
+                app:cardCornerRadius="25dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 

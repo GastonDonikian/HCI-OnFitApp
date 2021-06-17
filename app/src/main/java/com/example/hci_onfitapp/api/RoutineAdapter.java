@@ -3,6 +3,8 @@ package com.example.hci_onfitapp.api;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.databinding.RoutineCardBinding;
@@ -49,37 +52,24 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     @Override
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
         RoutineData routine = routinesList.get(position);
-//        System.out.println(routine.getUser().getAvatarUrl());
-//        if(!routine.getUser().getAvatarUrl().equals("")) {
-//            URL url = null;
-//            Bitmap bmp = null;
-//            try {
-//                url = new URL(routine.getUser().getAvatarUrl());
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            }
-//            try {
-//                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            holder.itemView.userImage.setImageBitmap(bmp);
-//        }
         int id = routine.getCategory().getId();
         switch (id) {
             case 1:
                 holder.itemView.routineImg.setImageResource(R.drawable.encasa);
                 routine.setImage(String.valueOf(R.drawable.encasa));
+                holder.itemView.RoutineCardConstrainLayout.setBackgroundColor(Color.parseColor("#B495C2"));
                 break;
 
             case 2:
                 holder.itemView.routineImg.setImageResource(R.drawable.pesas);
                 routine.setImage(String.valueOf(R.drawable.pesas));
+                holder.itemView.RoutineCardConstrainLayout.setBackgroundColor(Color.parseColor("#7885FF"));
                 break;
 
             case 3:
                 holder.itemView.routineImg.setImageResource(R.drawable.running);
                 routine.setImage(String.valueOf(R.drawable.running));
+                holder.itemView.RoutineCardConstrainLayout.setBackgroundColor(Color.parseColor("#F1B0B8"));
                 break;
         }
 

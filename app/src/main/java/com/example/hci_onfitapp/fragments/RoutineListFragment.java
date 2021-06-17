@@ -12,8 +12,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
 import com.example.hci_onfitapp.api.RoutineAdapter;
 import com.example.hci_onfitapp.databinding.FragmentListRoutineBinding;
+import com.example.hci_onfitapp.databinding.RoutineCardBinding;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +26,7 @@ import java.util.Arrays;
 public class RoutineListFragment extends Fragment {
     private RoutineViewModel viewModel;
     private FragmentListRoutineBinding binding;
+    private RoutineCardBinding routineCardBinding;
 
     private RecyclerView recyclerView;
 
@@ -35,13 +38,10 @@ public class RoutineListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = FragmentListRoutineBinding.inflate(getLayoutInflater());
-
+        routineCardBinding = RoutineCardBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 
-        System.out.println("entre?");
-
         recyclerView = binding.userRecyclerView;
-
         return view;
     }
 

@@ -21,9 +21,9 @@ public class ChipListener implements ChipGroup.OnCheckedChangeListener {
         } else if (checkedId == R.id.en_casa) {
             id = 1;
         } else if (checkedId == R.id.running) {
-            id = 2;
-        } else if (checkedId == R.id.pesas) {
             id = 3;
+        } else if (checkedId == R.id.pesas) {
+            id = 2;
         } else if (group.getCheckedChipId() == checkedId) {
             id = -1;
         }
