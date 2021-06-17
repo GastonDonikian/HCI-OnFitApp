@@ -6,14 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hci_onfitapp.R;
-import com.example.hci_onfitapp.RoutineCardData;
 import com.example.hci_onfitapp.databinding.FragmentHomeBinding;
 
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +25,6 @@ public class HomeFragment extends Fragment {
     private String mParam2;
 
     RecyclerView recyclerView;
-    ArrayList<RoutineCardData> lista = new ArrayList<>();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -96,9 +92,6 @@ public class HomeFragment extends Fragment {
 
         fillList();
 
-        recyclerView = (RecyclerView) viewReturn.findViewById(R.id.recyclerViewHor);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
 
         // Inflate the layout for this fragment
         return view;
@@ -108,8 +101,5 @@ public class HomeFragment extends Fragment {
 
     //Aca podria usar la api para llenar los elementos de la lista a mostrar
     private void fillList() {
-        lista.add(new RoutineCardData("primero", 10));
-        lista.add(new RoutineCardData("segundo", 20));
-        lista.add(new RoutineCardData("tercero", 30));
     }
 }
