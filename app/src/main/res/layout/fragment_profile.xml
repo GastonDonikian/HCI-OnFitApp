@@ -86,7 +86,7 @@
             android:id="@+id/button4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="104dp"
             android:width="220dp"
             android:background="@drawable/my_button"
             android:padding="10dp"
