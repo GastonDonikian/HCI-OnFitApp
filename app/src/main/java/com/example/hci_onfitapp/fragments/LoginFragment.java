@@ -1,5 +1,6 @@
 package com.example.hci_onfitapp.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,22 +15,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.navigation.NavDeepLinkBuilder;
 import androidx.navigation.Navigation;
 
 import com.example.hci_onfitapp.AppPreferences;
 import com.example.hci_onfitapp.HomeActivity;
-import com.example.hci_onfitapp.LoginActivity;
-import com.example.hci_onfitapp.MainActivity;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.databinding.FragmentLoginBinding;
 import com.example.hci_onfitapp.viewModel.UserFactory;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.Objects;
 
 public class LoginFragment extends Fragment {
     private TextInputLayout username;
@@ -71,6 +67,7 @@ public class LoginFragment extends Fragment {
         viewModel = ViewModelProviders.of(this, new UserFactory(getActivity().getApplication())).get(UserViewModel.class);
     }
 
+    @SuppressLint("SetTextI18n")
     private void tryLogin() {
         if (!validateUsername() | !validatePassword()) {
             return;
@@ -130,7 +127,6 @@ public class LoginFragment extends Fragment {
     //Validation functions
     private boolean validateUsername() {
         String val = username.getEditText().getText().toString().trim();
-        String checkspaces = "^[a-zA-Z0-9\\-_]{1,20}$"; //No white spaces, must contain at most 20 characters.
 
         if (val.isEmpty()) {
             username.setError("Field can not be empty");
@@ -138,27 +134,20 @@ public class LoginFragment extends Fragment {
         } else if (val.length() > 20) {
             username.setError("Username is too large!");
             return false;
-        //} else if (!val.matches(checkspaces)) {
-          //  username.setError("No white spaces are allowed!");
-            //return false;
        } else {
             username.setError(null);
-          //  username.setErrorEnabled(false);
+            username.setErrorEnabled(false);
             return true;
         }
     }
 
     private boolean validatePassword() {
         String val = password.getEditText().getText().toString().trim();
-        String checkPassword = "^[a-zA-Z0-9\\-_]{8,}$"; //No whitespaces, must contain more than 8 characters.
 
         if (val.isEmpty()) {
             password.setError("Field can not be empty");
             return false;
-        } //else if (!val.matches(checkPassword)) {
-            //password.setError("Password should contain at least 8 characters!");
-           // return false;
-        //}
+        }
          else {
             password.setError(null);
             //password.setErrorEnabled(false);

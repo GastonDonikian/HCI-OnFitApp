@@ -50,17 +50,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.499" />
 
-        <ImageView
-            android:id="@+id/profilePic"
-            android:layout_width="271dp"
-            android:layout_height="169dp"
-            android:layout_marginTop="28dp"
-            android:background="@drawable/round_outline"
-            android:src="@drawable/fondo2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/button2"
             android:layout_width="wrap_content"
@@ -69,7 +58,7 @@
             android:width="220dp"
             android:background="@drawable/my_button"
             android:padding="10dp"
-            android:text="7 RUTINAS COMPLETADAS"
+            android:text="routines -> totalCount +` RUTINAS CREADAS`"
             android:textColor="#ffffff"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -85,7 +74,7 @@
             android:width="220dp"
             android:background="@drawable/my_button"
             android:padding="10dp"
-            android:text="28 TROFEOS GANADOS"
+            android:text="userInformation.date - actualDate +` RUTINAS FAVORITAS`"
             android:textColor="#ffffff"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -101,7 +90,7 @@
             android:width="220dp"
             android:background="@drawable/my_button"
             android:padding="10dp"
-            android:text="4 DIAS ENTRENANDO"
+            android:text="@{userInformation.daysTraining +` DIAS ENTRENANDO`}"
             android:textColor="#ffffff"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -111,15 +100,16 @@
 
         <TextView
             android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{userInformation.firstName + userInformation.lastName}"
+            android:layout_width="0dp"
+            android:textAlignment="center"
+            android:layout_height="43dp"
+            android:text="@{userInformation.firstName + ` ` + userInformation.lastName}"
             android:textSize="34sp"
             app:layout_constraintBottom_toTopOf="@+id/listview"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profilePic" />
+            app:layout_constraintTop_toBottomOf="@+id/avatar"
+            android:gravity="center_horizontal" />
 
         <Button
             android:id="@+id/btn_log_out"
@@ -130,6 +120,29 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button4" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/avatar"
+            android:layout_width="171dp"
+            android:layout_height="161dp"
+            app:cardCornerRadius="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/user_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#EBEBEB"
+            app:strokeWidth="1dp">
+
+            <ImageView
+                android:id="@+id/profilePic"
+                android:layout_width="171dp"
+                android:layout_height="161dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/no_photo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.card.MaterialCardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

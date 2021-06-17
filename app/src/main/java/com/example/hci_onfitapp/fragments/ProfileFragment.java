@@ -94,12 +94,9 @@ public class ProfileFragment extends Fragment {
 
 
     private void seedProfile() {
-        System.out.println("en seed profile");
         userViewModel.getUserInfo().observe(getViewLifecycleOwner(), userInfo -> {
-            System.out.println(userInfo);
             if (userInfo != null) {
                 binding.setUserInformation(userInfo);
-                System.out.println(userInfo.getFirstName());
                 if (!userInfo.getAvatarUrl().equals("")) {
                     Glide.with(binding.getRoot()).load(userInfo.getAvatarUrl()).into(binding.profilePic);
                 }
