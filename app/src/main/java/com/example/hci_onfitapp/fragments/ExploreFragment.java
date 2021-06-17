@@ -4,9 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.hci_onfitapp.HomeActivity;
+
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.RoutineAdapter;
 import com.example.hci_onfitapp.databinding.FragmentExploreBinding;
@@ -83,16 +81,12 @@ public class ExploreFragment extends Fragment {
             if (firstLoad != null) {
                 if (firstLoad) {
                     viewModel.updateData();
-                    System.out.println("HOLA");
-                    System.out.println(viewModel.getUserRoutines().getValue());
                     viewModel.setRoutinesFirstLoad(false);
                 }
 
             }
         });
         viewModel.getRoutineCards().observe(requireActivity(), routines -> {
-            System.out.println("explore fragment");
-            System.out.println(routines);
             if (routines != null) {
                 routinesAdapter.updateRoutines(routines);
             }

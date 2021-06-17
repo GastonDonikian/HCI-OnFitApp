@@ -44,7 +44,7 @@ public class RoutineViewModel extends AndroidViewModel {
     private int itemsPerRequest = 15;
     private boolean isLastPage = false;
     private String direction = "desc";
-    private String filter = null;
+    private Integer filter = null;
     private String orderBy = "date";
     private int orderById = 0;
     private int directionId = 0;
@@ -145,28 +145,7 @@ public class RoutineViewModel extends AndroidViewModel {
 
     public void filterRoutines(Integer option) {
         filterId = option;
-        switch (option) {
-            case -1:
-                filter = null;
-                break;
-
-            case 0:
-                filter = "destacados";
-                break;
-
-            case 1:
-                filter = "pesas";
-                break;
-
-            case 2:
-                filter = "encasa";
-                break;
-
-            case 3:
-                filter = "running";
-                break;
-        }
-
+        filter = (option != -1 ? option : null);
         applyChanges();
     }
 
@@ -209,7 +188,7 @@ public class RoutineViewModel extends AndroidViewModel {
         options.put("direction", direction);
         options.put("size", String.valueOf(itemsPerRequest));
         if (filter != null) {
-            options.put("difficulty", filter);
+            options.put("categoryId", String.valueOf(filter));
         }
 
         loading.setValue(true);
@@ -288,7 +267,7 @@ public class RoutineViewModel extends AndroidViewModel {
         return direction;
     }
 
-    public String getFilter() {
+    public Integer getFilter() {
         return filter;
     }
 

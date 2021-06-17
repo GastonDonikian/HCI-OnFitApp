@@ -1,5 +1,8 @@
 package com.example.hci_onfitapp.api;
 
+import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,9 @@ import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.databinding.RoutineCardBinding;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -43,6 +49,22 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     @Override
     public void onBindViewHolder(@NonNull RoutineViewHolder holder, int position) {
         RoutineData routine = routinesList.get(position);
+//        System.out.println(routine.getUser().getAvatarUrl());
+//        if(!routine.getUser().getAvatarUrl().equals("")) {
+//            URL url = null;
+//            Bitmap bmp = null;
+//            try {
+//                url = new URL(routine.getUser().getAvatarUrl());
+//            } catch (MalformedURLException e) {
+//                e.printStackTrace();
+//            }
+//            try {
+//                bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            holder.itemView.userImage.setImageBitmap(bmp);
+//        }
         int id = routine.getCategory().getId();
         switch (id) {
             case 1:
@@ -94,6 +116,10 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    public RoutineViewModel getRoutinesViewModel() {
+        return routinesViewModel;
     }
 
     static class RoutineViewHolder extends RecyclerView.ViewHolder {

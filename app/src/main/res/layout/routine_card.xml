@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:background="@color/running"
         app:cardCornerRadius="4dp">
 
 
@@ -32,6 +33,7 @@
                 android:text="@{rData.name}"
                 android:textColor="@color/black"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.153"
                 app:layout_constraintStart_toEndOf="@+id/routineImg"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,12 +41,29 @@
                 android:id="@+id/routineImg"
                 android:layout_width="120dp"
                 android:layout_height="100dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="12dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.48"/>
+                app:layout_constraintVertical_bias="0.076" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="5dp"
+                app:cardCornerRadius="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:id="@+id/userImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@{rData.user.avatarUrl}"/>
+            </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/routineDescription"
@@ -53,8 +72,10 @@
                 android:text="@{rData.detail}"
                 app:layout_constraintBottom_toTopOf="@+id/ratingBar"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.153"
                 app:layout_constraintStart_toEndOf="@+id/routineImg"
-                app:layout_constraintTop_toBottomOf="@+id/routineTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/routineTitle"
+                app:layout_constraintVertical_bias="0.208" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -72,7 +93,10 @@
                 android:layout_width="180dp"
                 android:layout_height="31dp"
                 android:layout_marginBottom="12dp"
+                android:scaleX=".75"
+                android:scaleY=".75"
                 android:numStars="5"
+                android:rating="@{rData.averageRating}"
                 android:progressTint="@color/pink"
                 android:secondaryProgressTint="@color/pink"
                 app:layout_constraintBottom_toBottomOf="parent"
