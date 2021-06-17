@@ -60,10 +60,6 @@ public class ProfileFragment extends Fragment {
         binding = FragmentProfileBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
 
-        //username = binding.userName;
-//        fullName = binding.userName;
-        //phone = binding.phone;
-        //birthdate = binding.birthDate;
         profilePic = binding.profilePic;
 
         //favoriteCardsList = binding.favRecycler;
@@ -109,8 +105,6 @@ public class ProfileFragment extends Fragment {
 
         //favoriteCardsList.setLayoutManager(new LinearLayoutManager(getContext()));
         //favoriteCardsList.setAdapter(favoriteAdapter);
-
-        System.out.println(routineViewModel.getUserRoutines().getValue());
 
         TextView nombre = view.findViewById(R.id.user_name);
         nombre.setText(userViewModel.getUserInfo().getValue().getFirstName() + " " + userViewModel.getUserInfo().getValue().getLastName());

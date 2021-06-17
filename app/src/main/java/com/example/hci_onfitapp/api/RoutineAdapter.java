@@ -17,6 +17,7 @@ import com.bumptech.glide.Glide;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.databinding.RoutineCardBinding;
+import com.example.hci_onfitapp.fragments.RoutineListener;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 
 import java.io.IOException;
@@ -29,14 +30,10 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     private List<RoutineData> routinesList;
     private RoutineViewModel routinesViewModel;
     private View view;
-    private int host;
 
 
     public RoutineAdapter(List<RoutineData> routinesList, RoutineViewModel routinesViewModel) {
         this.routinesList = routinesList;
-        System.out.println("Routine Adapter");
-        System.out.println(this.routinesList);
-//        this.host = host;
         this.routinesViewModel = routinesViewModel;
     }
 
@@ -74,7 +71,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         }
 
         holder.itemView.setRData(routine);
-//        holder.itemView.setClickListener(new RoutineClickListener(routinesViewModel, host));
+        holder.itemView.setListener(new RoutineListener(routinesViewModel));
     }
 
     @Override
@@ -83,7 +80,6 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     }
 
     public void updateRoutines(List<RoutineData> routineCards) {
-        System.out.println(Arrays.toString(routineCards.toArray()));
         routinesList.clear();
         routinesList.addAll(routineCards);
         notifyDataSetChanged();

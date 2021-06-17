@@ -7,6 +7,9 @@
         <variable
             name= "rData"
             type= "com.example.hci_onfitapp.api.data.RoutineData"/>
+        <variable
+            name= "listener"
+            type= "com.example.hci_onfitapp.fragments.RoutineListener"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -15,7 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         app:cardCornerRadius="4dp"
-        android:clickable="true">
+        android:onClick="@{listener::onClick}"
+        android:clickable="true"
+        android:focusable="true">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,6 +53,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.076" />
+
+            <TextView
+                android:id="@+id/routineId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(rData.id)}"
+                android:visibility="gone"
+                android:textColor="#00FFFFFF"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.cardview.widget.CardView
                 android:layout_width="50dp"
@@ -91,7 +108,6 @@
                 style="@style/Widget.AppCompat.RatingBar.Indicator"
                 android:layout_width="180dp"
                 android:layout_height="31dp"
-                android:clickable="true"
                 android:layout_marginBottom="12dp"
                 android:scaleX=".75"
                 android:scaleY=".75"
@@ -99,7 +115,6 @@
                 android:rating="@{rData.averageRating}"
                 android:progressTint="@color/pink"
                 android:secondaryProgressTint="@color/pink"
-                android:isIndicator="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:focusable="true" />

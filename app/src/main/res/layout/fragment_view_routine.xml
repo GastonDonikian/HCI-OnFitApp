@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name= "Routine"
             type= "com.example.hci_onfitapp.api.data.RoutineData"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,26 +21,29 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewEntrada"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="126dp"
             android:layout_weight="1"
             tools:listitem="@layout/fragment_list_excercise" />
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/routTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="52dp"
         android:text="@{Routine.name}"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:textSize="24sp"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_horizontal" />
 
     <TextView
         android:id="@+id/textView5"
@@ -54,7 +57,7 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/routTitle" />
 
     <TextView
         android:id="@+id/textView6"
@@ -93,10 +96,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewElong"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="143dp"
             android:layout_weight="1"
             tools:listitem="@layout/fragment_list_excercise" />
     </LinearLayout>
@@ -172,27 +176,16 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
         app:srcCompat="@android:drawable/ic_media_play" />
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="85dp"
-        android:layout_height="85dp"
-        android:layout_marginTop="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButtonShare"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
-        app:layout_constraintVertical_bias="0.673"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_share" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -206,6 +199,26 @@
         app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
         app:layout_constraintVertical_bias="0.673"
         app:srcCompat="@drawable/ic_fav" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="180dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="28dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:progressTint="@color/pink"
+        android:rating="@{Routine.averageRating}"
+        android:scaleX=".75"
+        android:scaleY=".75"
+        android:secondaryProgressTint="@color/pink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/floatingActionButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/floatingActionButtonFavorite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

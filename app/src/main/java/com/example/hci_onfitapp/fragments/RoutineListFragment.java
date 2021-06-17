@@ -49,7 +49,6 @@ public class RoutineListFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        System.out.println("Routine List");
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
 
         viewModel.updateUserRoutines();
@@ -62,7 +61,6 @@ public class RoutineListFragment extends Fragment {
         viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routines -> {
             if (routines != null) {
                 routinesAdapter.updateRoutines(routines);
-                System.out.println(Arrays.toString(routinesAdapter.getRoutinesList().toArray()));
             }
         });
 

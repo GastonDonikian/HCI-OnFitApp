@@ -22,7 +22,11 @@
         android:id="@+id/exploreFragment"
         android:name="com.example.hci_onfitapp.fragments.ExploreFragment"
         android:label="fragment_explore"
-        tools:layout="@layout/fragment_explore" />
+        tools:layout="@layout/fragment_explore" >
+        <action
+            android:id="@+id/action_exploreFragment_to_viewRoutineFragment"
+            app:destination="@id/viewRoutineFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.hci_onfitapp.fragments.SettingsFragment"
@@ -31,4 +35,8 @@
             android:id="@+id/action_settingsFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/viewRoutineFragment"
+        android:name="com.example.hci_onfitapp.fragments.ViewRoutineFragment"
+        android:label="ViewRoutineFragment" />
 </navigation>
