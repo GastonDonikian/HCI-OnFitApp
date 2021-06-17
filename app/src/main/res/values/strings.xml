@@ -16,6 +16,11 @@
     <string name="ModifyAvatar">Avatar Link</string>
     <string name="DarkMode">Dark Mode</string>
     <string name="EliminarCuenta">EliminarCuenta</string>
+    <string name="checkMail">Revise su email e ingrese su codigo de verificación</string>
+    <string name="reenviarMail">Si no le llego el codigo, vuelva a ingresar su email</string>
+    <string name="codigo">Código</string>
+    <string name="verificar">Verificar</string>
+    <string name="reenviar">Reenvíar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

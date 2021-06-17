@@ -4,12 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 
 import com.example.hci_onfitapp.AppPreferences;
 import com.example.hci_onfitapp.HomeActivity;
+import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.databinding.FragmentSettingsBinding;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 
@@ -25,7 +31,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         userviewModel = new ViewModelProvider(getActivity()).get(UserViewModel.class);
-
         super.onCreate(savedInstanceState);
 
     }
@@ -50,6 +55,14 @@ public class SettingsFragment extends Fragment {
 
        // main.showUpButton();
        // main.setNavigationVisibility(false);
+        ImageView settingsIcon = view.findViewById(R.id.imageView4);
+        settingsIcon.setOnClickListener((v) -> {
+            NavController navController = Navigation.findNavController(v);
+            @NonNull NavDirections action = SettingsFragmentDirections.actionSettingsFragmentToProfileFragment();
+            navController.navigate(action);
+        });
+
+
         return view;
     }
 }
