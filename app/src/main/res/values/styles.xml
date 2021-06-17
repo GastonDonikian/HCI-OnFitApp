@@ -34,4 +34,15 @@
         <!-- inactive track color (30% transparency) -->
         <item name="android:colorForeground">@color/gray</item>
     </style>
+
+    <style name="routineTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
+    <style name="routineSecondary">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
