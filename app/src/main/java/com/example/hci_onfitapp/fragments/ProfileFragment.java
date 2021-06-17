@@ -14,7 +14,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -70,6 +74,22 @@ public class ProfileFragment extends Fragment {
         //favoriteCardsList = binding.favRecycler;
 
         //((MainActivity) getActivity()).setNavigationVisibility(true);
+
+        loginBtn.setOnClickListener((v) -> {
+
+            NavController navController = Navigation.findNavController(v);
+            @NonNull NavDirections action = MainFragmentDirections.actionMainFragmentToLogin();
+            //action.setRoutineId(arg1);
+            navController.navigate(action);
+
+        });
+        ImageView settingsIcon = view.findViewById(R.id.imageView4);
+        settingsIcon.setOnClickListener((v) -> {
+            NavController navController = Navigation.findNavController(v);
+            @NonNull NavDirections action = ProfileFragmentDirections.actionProfileFragmentToSettingsFragment();
+            navController.navigate(action);
+        });
+
 
         return view;
     }
