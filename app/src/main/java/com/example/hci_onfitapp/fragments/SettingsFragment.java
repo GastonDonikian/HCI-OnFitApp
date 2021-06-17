@@ -66,7 +66,7 @@ public class SettingsFragment extends Fragment {
         loginBtn.setOnClickListener(v -> logout());
 
         Button deleteAccountBtn = view.findViewById(R.id.eliminarCuenta);
-//        deleteAccountBtn.setOnClickListener(v -> deleteAccount());
+        deleteAccountBtn.setOnClickListener(v -> deleteAccount());
 
 
         ImageView settingsIcon = view.findViewById(R.id.imageView4);
@@ -83,6 +83,7 @@ public class SettingsFragment extends Fragment {
     }
 
     // Recomendado: lavarse los ojos con lavandina despues de leer esta funcion
+    // Hice esta asquerocidad porque no se hacer un async await. No juzgar
     private void acceptChanges(int countRec) {
         if (countRec <= 0) return;
         System.out.println(userviewModel.getUserInfo().getValue().getFirstName());
@@ -108,10 +109,6 @@ public class SettingsFragment extends Fragment {
 //          TODO no funciona el modifyUser deSystem.out.println("funciona"); UserViewModel
         userviewModel.modifyUser(user);
         userviewModel.setUserData();
-        System.out.println("-------NOMBRES-------");
-        System.out.println(userviewModel.getUserInfo().getValue().getFirstName());
-        System.out.println(userviewModel.getUserInfo().getValue().getLastName());
-        updateProfileValues();
 
         acceptChanges(countRec-1);
     }
@@ -135,17 +132,14 @@ public class SettingsFragment extends Fragment {
         getActivity().finish(); //elimino la actividad del stack
     }
 
-    private void updateProfileValues() {
-        System.out.println(userviewModel.getUserInfo().getValue().getFirstName() +" "+
-                userviewModel.getUserInfo().getValue().getLastName());
-//        TextView nombre = view.findViewById(R.id.user_name);
-//        nombre.setText(userviewModel.getUserInfo().getValue().getFirstName() +" "+
-//                userviewModel.getUserInfo().getValue().getLastName());
-    }
 
-//    private void deleteAccount() {
-//        userviewModel.
-//    }
+    private void deleteAccount() {
+        userviewModel.deleteAccount();
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        startActivity(intent);
+        getActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+        getActivity().finish(); //elimino la actividad del stack
+    }
 }
 
 
