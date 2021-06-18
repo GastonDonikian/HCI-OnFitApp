@@ -4,6 +4,10 @@
     <string name="log_in">Iniciar Sesión</string>
     <string name="log_out">Cerrar Sesión</string>
     <string name="mostrar_contrasenia">Mostrar contraseña</string>
+    <string name="pesas">PESAS</string>
+    <string name="destacado">DESTACADO</string>
+    <string name="enCasa">EN CASA</string>
+    <string name="running">RUNNING</string>
     <string name="e_mail">E-mail</string>
     <string name="contrasenia">Contraseña</string>
     <string name="entrada_en_calor">Entrada en calor</string>
