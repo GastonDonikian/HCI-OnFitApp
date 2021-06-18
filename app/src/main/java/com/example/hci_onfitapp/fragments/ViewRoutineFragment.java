@@ -31,6 +31,7 @@ public class ViewRoutineFragment extends Fragment {
     private RoutineViewModel viewModel;
     private ExerciseViewModel exerciseViewModel;
     private RatingBar ratingBar;
+    FavouritesModel favouritesModel;
 
     private RoutineAdapter routinesAdapter;
     private FavouritesModel favViewModel;
@@ -51,6 +52,7 @@ public class ViewRoutineFragment extends Fragment {
     private @NonNull
     int routineId;
     private Integer routId;
+    private boolean fav = false;
 
 
     public ViewRoutineFragment() {
