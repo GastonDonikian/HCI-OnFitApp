@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -20,16 +21,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.hci_onfitapp.R;
+import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.databinding.FragmentProfileBinding;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
+
+import org.joda.time.Days;
+import org.joda.time.Instant;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
    // private FavouritesRoutinesViewModel favRoutinesViewModel;
     private UserViewModel userViewModel;
     private RoutineViewModel routineViewModel;
-
+    private List<RoutineData> routineData = new ArrayList<>();
     private FragmentProfileBinding binding;
 
    // private FavoriteAdapter favoriteAdapter;
@@ -108,6 +117,26 @@ public class ProfileFragment extends Fragment {
 
         TextView nombre = view.findViewById(R.id.user_name);
         nombre.setText(userViewModel.getUserInfo().getValue().getFirstName() + " " + userViewModel.getUserInfo().getValue().getLastName());
+
+        Button favRoutines = view.findViewById(R.id.button3);
+
+        Button createdRoutines = view.findViewById(R.id.button2);
+
+        Button birthdayBtn = view.findViewById(R.id.button4);
+        String date = userViewModel.getUserInfo().getValue().getDate();
+        long timeInMilis = (long) (System.currentTimeMillis() - Float.parseFloat(date));
+        int days = (int) (timeInMilis / (1000*60*60*24));
+        birthdayBtn.setText(String.valueOf(days) + " Dias entrenando");
+
+        routineViewModel.getFavouriteRoutines(); //Seria mas como un updateFavouriteRoutines pero no tengo ganas de cambiar el nombre
+        routineViewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), routineData -> {
+            favRoutines.setText(routineData.size() + " rutinas favoritas");
+        });
+
+        routineViewModel.updateUserRoutines();
+        routineViewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
+            createdRoutines.setText(routineData.size() + " rutinas creadas");
+        });
 
         seedProfile();
     }

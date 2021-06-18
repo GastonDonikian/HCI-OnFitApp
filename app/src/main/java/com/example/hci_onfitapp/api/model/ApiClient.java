@@ -7,6 +7,7 @@ import com.example.hci_onfitapp.api.AuthInterceptor;
 import com.example.hci_onfitapp.api.Credentials;
 import com.example.hci_onfitapp.api.Token;
 import com.example.hci_onfitapp.api.User;
+import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.data.VerificationData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

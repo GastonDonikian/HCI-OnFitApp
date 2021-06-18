@@ -25,6 +25,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class RoutineViewModel extends AndroidViewModel {
     private MediatorLiveData<List<RoutineData>> routineCards = new MediatorLiveData<>();
     private MutableLiveData<List<RoutineData>> userRoutines = new MutableLiveData<>();
+    private MutableLiveData<List<RoutineData>> userFavourites = new MutableLiveData<>();
     private MutableLiveData<List<RoutineData>> userHistory = new MutableLiveData<>();
     private MutableLiveData<RoutineData> currentRoutine = new MutableLiveData<>();
     private MutableLiveData<Boolean> noMoreEntries = new MutableLiveData<>();
@@ -80,6 +81,29 @@ public class RoutineViewModel extends AndroidViewModel {
                             @Override
                             public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
                                 userRoutines.setValue(routinesEntries.getContent());
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                e.printStackTrace();
+                            }
+                        })
+        );
+        System.out.println(disposable.toString());
+    }
+
+    public void getFavouriteRoutines() {
+        Map<String, String> options = new HashMap<>();
+        options.put("page", "0");
+        options.put("size", String.valueOf(1000));
+        disposable.add(
+                routinesService.getFavouriteRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
+                                userFavourites.setValue(routinesEntries.getContent());
                             }
 
                             @Override
@@ -259,6 +283,8 @@ public class RoutineViewModel extends AndroidViewModel {
         return userRoutines;
     }
 
+    public MutableLiveData<List<RoutineData>> getUserFavouriteRoutines() { return userFavourites; }
+
     public MutableLiveData<RoutineData> getCurrentRoutine() {
         return currentRoutine;
     }
@@ -299,7 +325,6 @@ public class RoutineViewModel extends AndroidViewModel {
                 break;
         }
     }
-
     public int getOrderById() {
         return orderById;
     }

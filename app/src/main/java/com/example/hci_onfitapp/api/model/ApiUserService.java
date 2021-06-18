@@ -3,6 +3,7 @@ package com.example.hci_onfitapp.api.model;
 import com.example.hci_onfitapp.api.Credentials;
 import com.example.hci_onfitapp.api.Token;
 import com.example.hci_onfitapp.api.User;
+import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.data.VerificationData;
 
 import java.util.Map;
@@ -14,6 +15,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.QueryMap;
 
 public interface ApiUserService {
     @POST("users/login")
