@@ -25,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 public class ViewRoutineFragment extends Fragment {
     private RoutineViewModel viewModel;
     private RatingBar ratingBar;
+    FavouritesModel favouritesModel;
 
     private RoutineAdapter routinesAdapter;
     private FavouritesModel favViewModel;
@@ -41,6 +42,7 @@ public class ViewRoutineFragment extends Fragment {
     private @NonNull
     int routineId;
     private Integer routId;
+    private boolean fav = false;
 
 
     public ViewRoutineFragment() {
@@ -54,6 +56,8 @@ public class ViewRoutineFragment extends Fragment {
         routineTitle = binding.routTitle;
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
+        favButton.setOnClickListener(binding.getFavsListener());
+        System.out.println("LO SETEO");
         /*
         recyclerViewElong = binding.recyclerViewElong;
         recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -73,21 +77,15 @@ public class ViewRoutineFragment extends Fragment {
 
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
-
-            System.out.println(routineId);
-            System.out.println("VIEW ROUTINE FRAGMENT");
         }
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
-        favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);
-        int i=0;
-        while(i<10) {
-            viewModel.getRoutineById(routineId);
-            i++;
-        }
+        //favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);
+
+        viewModel.getRoutineById(routineId);
+
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
                 this.routineData = routineData;
                 routineTitle.setText(routineData.getName());
-                ratingBar.setRating(routineData.getAverageRating());
         });
     }
 

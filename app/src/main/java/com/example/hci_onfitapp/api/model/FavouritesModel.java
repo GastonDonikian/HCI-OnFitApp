@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.hci_onfitapp.api.data.RoutineData;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -17,12 +19,8 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Response;
 
 public class FavouritesModel extends AndroidViewModel {
+    private boolean fav = false;
 
-    public FavouritesModel(@androidx.annotation.NonNull Application application) {
-        super(application);
-        routinesService = new ApiRoutine(application) {
-        };
-    }
     private MutableLiveData<List<RoutineData>> favouriteRoutines = new MutableLiveData<>();
 
     private ApiRoutine routinesService;
@@ -44,6 +42,8 @@ public class FavouritesModel extends AndroidViewModel {
                     }
                 }));
     }
+
+
     public void unfavRoutine(int routineId) {
         disposable.add(routinesService.unfavRoutine(routineId)
                 .subscribeOn(Schedulers.newThread())
@@ -59,5 +59,49 @@ public class FavouritesModel extends AndroidViewModel {
                         e.printStackTrace();
                     }
                 }));
+    }
+
+    public FavouritesModel(@androidx.annotation.NonNull Application application) {
+        super(application);
+        routinesService = new ApiRoutine(application);
+    }
+
+    public void updateData() {
+        fetchFromRemote();
+    }
+
+    private void fetchFromRemote() {
+        Map<String, String> options = new HashMap<>();
+        options.put("page", String.valueOf(0));
+        options.put("orderBy", "averageRating");
+        options.put("direction", "desc");
+        options.put("size", String.valueOf(100));
+
+        disposable.add(
+                routinesService.getFavouriteRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            @Override
+                            public void onSuccess(@NonNull PagedList<RoutineData> favourites) {
+                                favouriteRoutines.setValue(favourites.getContent());
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                e.printStackTrace();
+                            }
+                        })
+        );
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposable.clear();
+    }
+
+    public MutableLiveData<List<RoutineData>> getFavouriteRoutines() {
+        return favouriteRoutines;
     }
 }
