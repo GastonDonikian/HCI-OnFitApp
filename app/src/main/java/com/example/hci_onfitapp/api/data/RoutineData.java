@@ -1,6 +1,6 @@
 package com.example.hci_onfitapp.api.data;
 
-import android.service.autofill.UserData;
+import android.annotation.SuppressLint;
 
 import com.example.hci_onfitapp.api.User;
 import com.example.hci_onfitapp.api.model.PagedList;
@@ -8,6 +8,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class RoutineData implements Serializable {
 
@@ -170,5 +171,19 @@ public class RoutineData implements Serializable {
 
     public String getImage(String image){
         return image;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoutineData that = (RoutineData) o;
+        return id == that.id;
+    }
+
+    @SuppressLint("NewApi")
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

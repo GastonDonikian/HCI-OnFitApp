@@ -8,21 +8,16 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.hci_onfitapp.R;
-import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
 import com.example.hci_onfitapp.api.model.PagedList;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -192,28 +187,32 @@ public class RoutineViewModel extends AndroidViewModel {
         }
 
         loading.setValue(true);
-        //TODO:hay un error y no lo entiendo
         disposable.add(
                 routinesService.getRoutines(options)
                         .subscribeOn(Schedulers.newThread())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            List<RoutineData> aux;
+                            boolean duplicate = false;
                             @Override
                             public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
                                 isLastPage = routinesEntries.getLastPage();
                                 noMoreEntries.setValue(isLastPage);
                                 currentPage++;
-                                System.out.println("im here trying1");
-                                System.out.println(routinesEntries.getContent());
                                 routineCards.setValue(routinesEntries.getContent());
-                                System.out.println("im here trying");
-                                System.out.println(routineCards.getValue());
-                                List<RoutineData> aux = routineCards.getValue();
-                                System.out.println(aux);
-                                if(aux != null)
+                                aux = routineCards.getValue();
+                                if(aux != null && !duplicate) {
                                     aux.addAll(routinesEntries.getContent());
+                                    duplicate = true;
+                                }
                                 totalPages = (int) Math.ceil(routinesEntries.getTotalCount() / (double) itemsPerRequest);
                                 loading.setValue(false);
+                            }
+
+                            @Override
+                            protected void onStart() {
+                                super.onStart();
+                                aux=null;
                             }
 
                             @Override
