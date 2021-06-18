@@ -45,10 +45,11 @@ public class ViewRoutineFragment extends Fragment {
     private RecyclerView recyclerViewPrin;
     private RecyclerView recyclerViewEntrada;
 
-    private ExerciseAdapter EntradaAdapter = new ExerciseAdapter(new PagedList<CycleExerciseData>());
-    private ExerciseAdapter PrinAdapter = new ExerciseAdapter(new PagedList<CycleExerciseData>());
-    private ExerciseAdapter ElongAdapter = new ExerciseAdapter(new PagedList<CycleExerciseData>());
+    private ExerciseAdapter EntradaAdapter;
+    private ExerciseAdapter PrinAdapter;
+    private ExerciseAdapter ElongAdapter;
     private TextView routineTitle;
+
     private @NonNull
     int routineId;
     private Integer routId;
@@ -67,12 +68,7 @@ public class ViewRoutineFragment extends Fragment {
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
 
-        recyclerViewElong = binding.recyclerViewElong;
-        recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewPrin = binding.recyclerViewPrincipal;
-        recyclerViewPrin.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewEntrada = binding.recyclerViewEntrada;
-        recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
 
         return view;
@@ -90,6 +86,7 @@ public class ViewRoutineFragment extends Fragment {
         }
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
         favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);
+
         viewModel.getRoutineById(routineId);
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
                 this.routineData = routineData;
@@ -99,6 +96,23 @@ public class ViewRoutineFragment extends Fragment {
 
         exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
         exerciseViewModel.refresh(routineId);
+
+        System.out.println(exerciseViewModel.getElongExercises().getValue());
+        System.out.println(exerciseViewModel.getPrinExercises().getValue());
+        System.out.println(exerciseViewModel.getEntradaExercises().getValue());
+        System.out.println(exerciseViewModel.getElongExercises());
+
+        ElongAdapter = new ExerciseAdapter(exerciseViewModel.getElongExercises().getValue());
+        PrinAdapter = new ExerciseAdapter(exerciseViewModel.getPrinExercises().getValue());
+        EntradaAdapter = new ExerciseAdapter(exerciseViewModel.getEntradaExercises().getValue());
+
+        recyclerViewElong = binding.recyclerViewElong;
+        recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewPrin = binding.recyclerViewPrincipal;
+        recyclerViewPrin.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewEntrada = binding.recyclerViewEntrada;
+        recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
+
 
         recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewEntrada.setAdapter(EntradaAdapter);
@@ -115,19 +129,19 @@ public class ViewRoutineFragment extends Fragment {
     private void observeExerciseViewModel() {
         exerciseViewModel.getEntradaExercises().observe(getViewLifecycleOwner(), EntradaExercises -> {
             if (EntradaExercises != null) {
-                EntradaAdapter.updateExercises(EntradaExercises);
+                EntradaAdapter.updateExercises(EntradaExercises.getContent());
             }
         });
 
         exerciseViewModel.getPrinExercises().observe(getViewLifecycleOwner(), PrinExercises -> {
             if (PrinExercises != null) {
-                PrinAdapter.updateExercises(PrinExercises);
+                PrinAdapter.updateExercises(PrinExercises.getContent());
             }
         });
 
         exerciseViewModel.getElongExercises().observe(getViewLifecycleOwner(), ElongExercises -> {
             if (ElongExercises != null) {
-                ElongAdapter.updateExercises(ElongExercises);
+                ElongAdapter.updateExercises(ElongExercises.getContent());
             }
         });
     }

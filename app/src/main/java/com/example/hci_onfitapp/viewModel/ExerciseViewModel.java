@@ -3,9 +3,11 @@ package com.example.hci_onfitapp.viewModel;
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
+import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.data.CycleData;
 import com.example.hci_onfitapp.api.data.CycleExerciseData;
 import com.example.hci_onfitapp.api.data.ExerciseData;
@@ -14,30 +16,35 @@ import com.example.hci_onfitapp.api.model.ApiRoutineService;
 import com.example.hci_onfitapp.api.model.PagedList;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Scheduler;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.internal.util.EndConsumerHelper;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import okhttp3.Response;
 
 public class ExerciseViewModel extends AndroidViewModel {
 
 
 
-    private MutableLiveData<List<CycleExerciseData>> EntradaExercises = new MutableLiveData<>();
-    private MutableLiveData<List<CycleExerciseData>> PrinExercises = new MutableLiveData<>();
-    private MutableLiveData<List<CycleExerciseData>> ElongExercises = new MutableLiveData<>();
+    private MediatorLiveData<PagedList<CycleExerciseData>> EntradaExercises = new MediatorLiveData<>();
+    private MediatorLiveData<PagedList<CycleExerciseData>> PrinExercises = new MediatorLiveData<>();
+    private MediatorLiveData<PagedList<CycleExerciseData>> ElongExercises = new MediatorLiveData<>();
     private MutableLiveData<Boolean> isFav = new MutableLiveData<>();
 
     private ApiRoutineService routinesService;
     private CompositeDisposable disposable = new CompositeDisposable();
 
     private boolean started = false; //borrar
-    private boolean played; // borrar
 
     private int currentCycle;
     private String cycleTitle;
@@ -55,6 +62,7 @@ public class ExerciseViewModel extends AndroidViewModel {
     }
 
     public void refresh(int routineId) {
+        System.out.println("refresh");
         fetchFromRemote(routineId);
     }
 
@@ -62,13 +70,12 @@ public class ExerciseViewModel extends AndroidViewModel {
         Map<String, String> options = new HashMap<>();
         options.put("page", "0");
         options.put("size", "100");
-
+        System.out.println("fetchFromRemote");
+        String string;
         List<CycleData> routineCycles = new ArrayList<>();
 
         disposable.add(
                 routinesService.getRoutineCycles(routineId, options)
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
                         .subscribeWith(new DisposableSingleObserver<PagedList<CycleData>>() {
                             @Override
                             public void onSuccess(@NonNull PagedList<CycleData> cycles) {
@@ -83,17 +90,16 @@ public class ExerciseViewModel extends AndroidViewModel {
                                                         public void onSuccess(@NonNull PagedList<CycleExerciseData> cycleExercises) {
                                                             switch (cycle.getType()) {
                                                                 case "warmup":
-                                                                    EntradaExercises.setValue(cycleExercises.getContent());
+                                                                    EntradaExercises.setValue(cycleExercises);
                                                                     break;
                                                                 case "exercise":
-                                                                    PrinExercises.setValue(cycleExercises.getContent());
+                                                                    PrinExercises.setValue(cycleExercises);
                                                                     break;
                                                                 case "cooldown":
-                                                                    ElongExercises.setValue(cycleExercises.getContent());
+                                                                    ElongExercises.setValue(cycleExercises);
                                                                     break;
                                                             }
                                                         }
-
                                                         @Override
                                                         public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
                                                             e.printStackTrace();
@@ -104,11 +110,21 @@ public class ExerciseViewModel extends AndroidViewModel {
                             }
                             @Override
                             public void onError(@NonNull Throwable e) {
+                                System.out.println("onError");
                                 e.printStackTrace();
                             }
+
+                            @Override
+                            protected void onStart() {
+                                System.out.println("LPM");
+                                super.onStart();
+                            }
+
+
                         })
         );
-
+        System.out.println("end fetchFromRemote");
+        System.out.println();
     }
 
 
@@ -136,15 +152,15 @@ public class ExerciseViewModel extends AndroidViewModel {
     }
 
 
-    public MutableLiveData<List<CycleExerciseData>> getEntradaExercises() {
+    public MutableLiveData<PagedList<CycleExerciseData>> getEntradaExercises() {
         return EntradaExercises;
     }
 
-    public MutableLiveData<List<CycleExerciseData>> getPrinExercises() {
+    public MutableLiveData<PagedList<CycleExerciseData>> getPrinExercises() {
         return PrinExercises;
     }
 
-    public MutableLiveData<List<CycleExerciseData>> getElongExercises() {return ElongExercises;}
+    public MutableLiveData<PagedList<CycleExerciseData>> getElongExercises() {return ElongExercises;}
 
 
     public void setStarted(boolean state) {
@@ -176,10 +192,6 @@ public class ExerciseViewModel extends AndroidViewModel {
 
     public void setCurrentExercise(int currentExercise) {
         this.currentExercise = currentExercise;
-    }
-
-    public boolean getPlayed() {
-        return played;
     }
 }
 

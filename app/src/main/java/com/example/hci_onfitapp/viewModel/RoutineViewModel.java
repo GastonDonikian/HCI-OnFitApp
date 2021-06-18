@@ -135,9 +135,7 @@ public class RoutineViewModel extends AndroidViewModel {
                                         routine.setImage(String.valueOf(R.drawable.running));
                                         break;
                                 }
-                                System.out.println("ESTOY ANTES");
                                 currentRoutine.setValue(routine);
-
                             }
 
                             @Override
