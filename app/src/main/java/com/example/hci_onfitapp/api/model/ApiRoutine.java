@@ -3,6 +3,9 @@ package com.example.hci_onfitapp.api.model;
 import android.content.Context;
 
 import com.example.hci_onfitapp.api.AuthInterceptor;
+import com.example.hci_onfitapp.api.data.CycleData;
+import com.example.hci_onfitapp.api.data.CycleExerciseData;
+import com.example.hci_onfitapp.api.data.ExerciseData;
 import com.example.hci_onfitapp.api.data.RoutineData;
 
 import java.util.Map;
@@ -70,15 +73,15 @@ public class ApiRoutine extends ApiService implements ApiRoutineService{
         return api.unfavRoutine(routineId);
     }
 
-//    @Override
-//    public Single<PagedList<ExerciseData>> getExercises(Integer routineId, Integer cycleId, Map<String, String> options) {
-//        return api.getExercises(routineId, cycleId, options);
-//    }
-//
-//    @Override
-//    public Single<PagedList<RoutineCycleData>> getRoutineCycles(Integer routineId, Map<String, String> options) {
-//        return api.getRoutineCycles(routineId, options);
-//    }
+    @Override
+    public Single<PagedList<CycleExerciseData>> getExercises(Integer cycleId, Map<String, String> options) {
+        return api.getExercises(cycleId, options);
+    }
+
+    @Override
+    public Single<PagedList<CycleData>> getRoutineCycles(Integer routineId, Map<String, String> options) {
+        return api.getRoutineCycles(routineId, options);
+    }
 
 //    @Override
 //    public Single<RoutineData> addRoutineExecution(Integer routineId, RoutineExecution routineExecution) {

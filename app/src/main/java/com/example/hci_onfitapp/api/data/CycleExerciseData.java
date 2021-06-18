@@ -27,6 +27,8 @@ public class CycleExerciseData {
         this.exercise = exercise;
     }
 
+
+
     public int getOrder() {
         return order;
     }

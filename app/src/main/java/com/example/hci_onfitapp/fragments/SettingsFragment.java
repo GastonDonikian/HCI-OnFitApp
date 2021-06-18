@@ -1,6 +1,7 @@
 package com.example.hci_onfitapp.fragments;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -50,17 +52,28 @@ public class SettingsFragment extends Fragment {
         preferences = new AppPreferences(getActivity().getApplication());
         //binding.logOutButtom.setOnClickListener(v -> logout());
         //switchDarkMode = binding.enableDarkModeSwitch;
-       // if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-         //   switchDarkMode.setChecked(true);
-       // switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-       //     preferences.setNightModeState(isChecked);
+        // if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        //   switchDarkMode.setChecked(true);
+        // switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        //     preferences.setNightModeState(isChecked);
         //    restartApp();
-       // });
+        // });
 
-       // main = (HomeActivity) getActivity();
+        // main = (HomeActivity) getActivity();
 
-       // main.showUpButton();
-       // main.setNavigationVisibility(false);
+        // main.showUpButton();
+        // main.setNavigationVisibility(false);
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            binding.enableDarkModeSwitch.setChecked(true);
+        } else {
+            if (binding.enableDarkModeSwitch.isChecked()) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        }
+
 
         Button loginBtn = view.findViewById(R.id.cerrarSesion);
         loginBtn.setOnClickListener(v -> logout());
@@ -78,7 +91,14 @@ public class SettingsFragment extends Fragment {
 
         Button aceptarButton = view.findViewById(R.id.aceptarCambios);
         aceptarButton.setOnClickListener(v -> acceptChanges(10));
-
+        Button darkMode = view.findViewById(R.id.enableDarkModeSwitch);
+        darkMode.setOnClickListener(v -> {
+            if (binding.enableDarkModeSwitch.isChecked()) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
         return view;
     }
 
@@ -110,8 +130,9 @@ public class SettingsFragment extends Fragment {
         userviewModel.modifyUser(user);
         userviewModel.setUserData();
 
-        acceptChanges(countRec-1);
+        acceptChanges(countRec - 1);
     }
+
     private void validation(EditText nombre, EditText apellido, EditText avatar, User user) {
         if (nombre.getText() != null && !nombre.getText().toString().equals("")) {
             user.setFirstName(nombre.getText().toString());

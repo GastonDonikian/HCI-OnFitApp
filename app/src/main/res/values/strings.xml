@@ -27,4 +27,6 @@
     <string name="reenviar">Reenvíar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="avatar_link">Avatar Link</string>
+    <string name="apellido">Apellido</string>
 </resources>

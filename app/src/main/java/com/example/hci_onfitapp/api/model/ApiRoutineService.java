@@ -2,6 +2,9 @@ package com.example.hci_onfitapp.api.model;
 
 
 import com.example.hci_onfitapp.api.ApiResponse;
+import com.example.hci_onfitapp.api.data.CycleData;
+import com.example.hci_onfitapp.api.data.CycleExerciseData;
+import com.example.hci_onfitapp.api.data.ExerciseData;
 import com.example.hci_onfitapp.api.data.RoutineData;
 
 import java.util.Map;
@@ -32,18 +35,17 @@ public interface ApiRoutineService {
             @Path("routineId") Integer routineId
     );
 
-//    @GET("routines/{routineId}/cycles")
-//    Single<PagedList<RoutineCycleData>> getRoutineCycles(
-//            @Path("routineId") Integer routineId,
-//            @QueryMap Map<String, String> options
-//    );
+    @GET("routines/{routineId}/cycles")
+    Single<PagedList<CycleData>> getRoutineCycles(
+            @Path("routineId") Integer routineId,
+            @QueryMap Map<String, String> options
+    );
 
-//    @GET("routines/{routineId}/cycles/{cycleId}/exercises")
-//    Single<PagedList<ExerciseData>> getExercises(
-//            @Path("routineId") Integer routineId,
-//            @Path("cycleId") Integer cycleId,
-//            @QueryMap Map<String, String> options
-//    );
+    @GET("cycles/{cycleId}/exercises")
+    Single<PagedList<CycleExerciseData>> getExercises(
+            @Path("cycleId") Integer cycleId,
+            @QueryMap Map<String, String> options
+    );
 
     @GET("favourites")
     Single<PagedList<RoutineData>> getFavouriteRoutines(

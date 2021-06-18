@@ -45,6 +45,10 @@ public class PagedList<T> {
         this.isLastPage = isLastPage;
     }
 
+    public PagedList(){
+
+    }
+
     public Integer getTotalCount() {
         return totalCount;
     }

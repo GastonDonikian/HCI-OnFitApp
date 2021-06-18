@@ -263,6 +263,14 @@ public class RoutineViewModel extends AndroidViewModel {
         return currentRoutine;
     }
 
+    public MutableLiveData<RoutineData> loadRoutineInformation(){
+        Map<String, String> options = new HashMap<>();
+        options.put("page", "0");
+        options.put("size", "100");
+
+        return currentRoutine;
+    }
+
     public String getDirection() {
         return direction;
     }
