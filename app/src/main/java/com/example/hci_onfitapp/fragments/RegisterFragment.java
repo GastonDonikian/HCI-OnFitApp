@@ -20,7 +20,7 @@ import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class RegisterFragment extends Fragment {
-    private TextInputLayout email, username, password, name, lastName;
+    private TextInputLayout email, username, password, name, lastName, confirmPassword;
     private TextView errorMessage;
 
     private FragmentRegisterBinding binding;
@@ -40,6 +40,7 @@ public class RegisterFragment extends Fragment {
         username = binding.editTextTextEmailAddress;
         name = binding.nombre;
         lastName = binding.apellido;
+        confirmPassword = binding.confirmarContrasenia;
         Button registerBtn = binding.buttonToRegister;
 //        errorMessage = binding.registerErrorMessage;
 //        progressBarHolder = binding.progressBarHolder;
@@ -149,14 +150,15 @@ public class RegisterFragment extends Fragment {
 
     private boolean validatePassword() {
         String val = password.getEditText().getText().toString().trim();
+        String val2 = confirmPassword.getEditText().getText().toString().trim();
         //String checkPassword = "^[a-zA-Z0-9\\-_]{8,}$"; //No whitespaces, must contain more than 8 characters.
 
         if (val.isEmpty()) {
             password.setError("Field can not be empty");
             return false;
-        //} else if (!val.matches(checkPassword)) {
-          //  password.setError("Password should contain at least 8 characters!");
-           // return false;
+        } else if (val.compareTo(val2) != 0) {
+            password.setError("Passwords are not equal");
+            return false;
         } else {
             password.setError(null);
             password.setErrorEnabled(false);
