@@ -38,7 +38,8 @@ public class ViewRoutineFragment extends Fragment {
     private RecyclerView recyclerViewPrin;
     private RecyclerView recyclerViewEntrada;
     private TextView routineTitle;
-    private int routineId;
+    private @NonNull
+    int routineId;
     private Integer routId;
 
 
@@ -72,6 +73,9 @@ public class ViewRoutineFragment extends Fragment {
 
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
+
+            System.out.println(routineId);
+            System.out.println("VIEW ROUTINE FRAGMENT");
         }
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
         favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);

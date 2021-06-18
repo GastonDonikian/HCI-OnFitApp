@@ -50,7 +50,6 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = FragmentExploreBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
 
         nestedScrollView = binding.scrollView;
         recyclerView = binding.recyclerView;
@@ -58,7 +57,7 @@ public class ExploreFragment extends Fragment {
         progressBar = binding.progressBar;
         chipGroup = binding.chipGroupRoutines;
         swipeRefreshLayout = binding.swipeRefresh;
-
+        View view = binding.getRoot();
         //((HomeActivity) getActivity()).setNavigationVisibility(true);
         return view;
     }

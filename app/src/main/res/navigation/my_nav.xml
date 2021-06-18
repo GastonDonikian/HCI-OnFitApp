@@ -38,5 +38,13 @@
     <fragment
         android:id="@+id/viewRoutineFragment"
         android:name="com.example.hci_onfitapp.fragments.ViewRoutineFragment"
-        android:label="ViewRoutineFragment" />
+        android:label="ViewRoutineFragment" >
+        <argument
+            android:name="routineId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_viewRoutineFragment_to_exploreFragment2"
+            app:destination="@id/exploreFragment" />
+    </fragment>
 </navigation>
