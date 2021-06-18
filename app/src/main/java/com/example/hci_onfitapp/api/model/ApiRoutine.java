@@ -55,10 +55,10 @@ public class ApiRoutine extends ApiService implements ApiRoutineService{
         return api.getFavouriteRoutines(options);
     }
 
-//    @Override
-//    public Single<RoutineData> rateRoutine(Integer routineId, RoutineRating rating) {
-//        return api.rateRoutine(routineId, rating);
-//    }
+    @Override
+    public Single<RoutineData> rateRoutine(Integer routineId, RoutineRating rating) {
+        return api.rateRoutine(routineId, rating);
+   }
 
     @Override
     public Single<Response<Void>> favRoutine(Integer routineId) {

@@ -50,11 +50,11 @@ public interface ApiRoutineService {
             @QueryMap Map<String, String> options
     );
 
-//    @POST("reviews/{routineId}")
-//    Single<RoutineData> rateRoutine(
-//            @Path("routineId") Integer routineId,
-//            @Body RoutineRating rating
-//    );
+    @POST("reviews/{routineId}")
+    Single<RoutineData> rateRoutine(
+            @Path("routineId") Integer routineId,
+            @Body RoutineRating rating
+    );
 
     @POST("favourites/{routineId}/")
     Single<Response<Void>> favRoutine(
