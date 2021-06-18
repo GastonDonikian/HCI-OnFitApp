@@ -7,6 +7,8 @@
     tools:context=".fragments.RoutineListFragment">
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:id="@+id/userRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -66,21 +66,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="5dp"
-                app:cardCornerRadius="25dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <ImageView
-                    android:id="@+id/userImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@{rData.user.avatarUrl}"/>
-            </androidx.cardview.widget.CardView>
-
             <TextView
                 android:id="@+id/routineDescription"
                 android:layout_width="202dp"
