@@ -73,7 +73,7 @@ public class ExploreFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(routinesAdapter);
-
+        viewModel.updateUserRoutines();
         viewModel.getRoutinesFirstLoad().observe(getViewLifecycleOwner(), firstLoad -> {
             if (firstLoad != null) {
                 if (firstLoad) {
@@ -83,6 +83,7 @@ public class ExploreFragment extends Fragment {
 
             }
         });
+        viewModel.updateUserRoutines();
         viewModel.getRoutineCards().observe(requireActivity(), routines -> {
             if (routines != null) {
                 routinesAdapter.updateRoutines(routines);
@@ -92,6 +93,7 @@ public class ExploreFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(() -> {
                     routinesAdapter.resetRoutines();
                     viewModel.resetData();
+                    viewModel.updateUserRoutines();
                     swipeRefreshLayout.setRefreshing(false);
                 }
         );

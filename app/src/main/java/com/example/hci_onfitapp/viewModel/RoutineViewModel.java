@@ -31,6 +31,7 @@ public class RoutineViewModel extends AndroidViewModel {
     private MutableLiveData<Boolean> noMoreEntries = new MutableLiveData<>();
     private MutableLiveData<Boolean> loading = new MutableLiveData<>();
     private MutableLiveData<Boolean> routinesFirstLoad = new MutableLiveData<>(true);
+    private MutableLiveData<Boolean> routinesFavFirstLoad = new MutableLiveData<>(true);
 
     private ApiRoutine routinesService;
     private CompositeDisposable disposable = new CompositeDisposable();
@@ -59,11 +60,24 @@ public class RoutineViewModel extends AndroidViewModel {
         updateData();
     }
 
+    public void resetDataFavs() {
+        currentPage = 0;
+        isLastPage = false;
+        totalPages = 0;
+        routineCards.setValue(new ArrayList<>());
+        updateDataFavs();
+    }
+
     public void updateData() {
         if (!isLastPage) {
             fetchFromRemote();
         }
-        System.out.println(isLastPage);
+    }
+
+    public void updateDataFavs() {
+        if (!isLastPage) {
+            fetchFromRemoteFavs();
+        }
     }
 
     public void updateUserRoutines() {
@@ -249,6 +263,54 @@ public class RoutineViewModel extends AndroidViewModel {
         );
     }
 
+    private void fetchFromRemoteFavs() {
+        Map<String, String> options = new HashMap<>();
+        options.put("page", String.valueOf(currentPage));
+        options.put("orderBy", orderBy);
+        options.put("direction", direction);
+        options.put("size", String.valueOf(itemsPerRequest));
+        if (filter != null) {
+            options.put("categoryId", String.valueOf(filter));
+        }
+
+        loading.setValue(true);
+        disposable.add(
+                routinesService.getFavouriteRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            List<RoutineData> aux;
+                            boolean duplicate = false;
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
+                                isLastPage = routinesEntries.getLastPage();
+                                noMoreEntries.setValue(isLastPage);
+                                currentPage++;
+                                routineCards.setValue(routinesEntries.getContent());
+                                aux = routineCards.getValue();
+                                if(aux != null && !duplicate) {
+                                    aux.addAll(routinesEntries.getContent());
+                                    duplicate = true;
+                                }
+                                totalPages = (int) Math.ceil(routinesEntries.getTotalCount() / (double) itemsPerRequest);
+                                loading.setValue(false);
+                            }
+
+                            @Override
+                            protected void onStart() {
+                                super.onStart();
+                                aux=null;
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                loading.setValue(false);
+                                e.printStackTrace();
+                            }
+                        })
+        );
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -270,9 +332,13 @@ public class RoutineViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> getRoutinesFirstLoad() {
         return routinesFirstLoad;
     }
+    public MutableLiveData<Boolean> getRoutinesFirstLoadFavs() {
+        return routinesFavFirstLoad;
+    }
 
     public void setRoutinesFirstLoad(Boolean firstLoad) {
         routinesFirstLoad.setValue(firstLoad);
+        routinesFavFirstLoad.setValue(firstLoad);
     }
 
     public MutableLiveData<Boolean> getLoading() {
