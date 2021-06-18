@@ -19,7 +19,7 @@
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefresh"
                 android:layout_width="420dp"
-                android:layout_height="542dp"
+                android:layout_height="match_parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -81,9 +81,9 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="405dp"
             android:layout_height="67dp"
-            android:layout_marginEnd="6dp"
-            android:layout_marginRight="6dp"
+            android:translationY="-15dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 

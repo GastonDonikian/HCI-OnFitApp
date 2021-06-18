@@ -83,8 +83,7 @@ import org.jetbrains.annotations.NotNull;
             detail = binding.routineDescription;
 
             //playBtn = binding.playBtn;
-
-            image = binding.userImage;
+            
 
             view = binding.getRoot();
 
