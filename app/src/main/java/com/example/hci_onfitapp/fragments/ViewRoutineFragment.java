@@ -31,7 +31,7 @@ public class ViewRoutineFragment extends Fragment {
     private RecyclerView recyclerViewElong;
     private RecyclerView recyclerViewPrin;
     private RecyclerView recyclerViewEntrada;
-    private TextView routTitle;
+    private TextView routineTitle;
     private int routineId;
     private Integer routId;
 
@@ -44,8 +44,7 @@ public class ViewRoutineFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = FragmentViewRoutineBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        routTitle = binding.routTitle;
-        System.out.println("ACA");
+        routineTitle = binding.routTitle;
         /*
         recyclerViewElong = binding.recyclerViewElong;
         recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -66,15 +65,15 @@ public class ViewRoutineFragment extends Fragment {
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
         }
-
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
-        viewModel.getRoutineById(routineId);
-
+        int i=0;
+        while(i<10) {
+            viewModel.getRoutineById(routineId);
+            i++;
+        }
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
-            if (routineData != null) {
                 this.routineData = routineData;
-                routTitle.setText(routineData.getName());
-            }
+                routineTitle.setText(routineData.getName());
         });
     }
 

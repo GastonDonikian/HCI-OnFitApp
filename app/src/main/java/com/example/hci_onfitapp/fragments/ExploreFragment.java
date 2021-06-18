@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.RoutineAdapter;
 import com.example.hci_onfitapp.databinding.FragmentExploreBinding;
@@ -51,7 +50,6 @@ public class ExploreFragment extends Fragment {
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         binding = FragmentExploreBinding.inflate(getLayoutInflater());
-
         View view = binding.getRoot();
 
         nestedScrollView = binding.scrollView;
@@ -90,7 +88,6 @@ public class ExploreFragment extends Fragment {
             if (routines != null) {
                 routinesAdapter.updateRoutines(routines);
             }
-
         });
 
         swipeRefreshLayout.setOnRefreshListener(() -> {

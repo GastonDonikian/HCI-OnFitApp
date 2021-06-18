@@ -40,7 +40,7 @@ public class RoutineViewModel extends AndroidViewModel {
     private boolean isLastPage = false;
     private String direction = "desc";
     private Integer filter = null;
-    private String orderBy = "date";
+    private String orderBy = "averageRating";
     private int orderById = 0;
     private int directionId = 0;
     private int filterId = -1;
@@ -111,7 +111,6 @@ public class RoutineViewModel extends AndroidViewModel {
                                         routine.setImage(String.valueOf(R.drawable.running));
                                         break;
                                 }
-
                                 currentRoutine.setValue(routine);
                             }
 
