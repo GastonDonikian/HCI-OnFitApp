@@ -8,6 +8,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 
+import com.example.hci_onfitapp.App;
 import com.example.hci_onfitapp.api.ApiResponse;
 import com.example.hci_onfitapp.api.data.CycleData;
 import com.example.hci_onfitapp.api.data.CycleExerciseData;
@@ -44,6 +45,7 @@ public class ExerciseViewModel extends AndroidViewModel {
 
     private ApiRoutineService routinesService;
     private CompositeDisposable disposable = new CompositeDisposable();
+    private App app;
 
     private boolean started = false; //borrar
 
@@ -61,70 +63,6 @@ public class ExerciseViewModel extends AndroidViewModel {
         super(application);
         routinesService = new ApiRoutine(application);
     }
-
-    public void refresh(int routineId) {
-        System.out.println("refresh");
-        fetchFromRemote(routineId);
-    }
-
-    private void fetchFromRemote(int routineId) {
-        Map<String, String> options = new HashMap<>();
-        options.put("page", "0");
-        options.put("size", "100");
-        System.out.println("fetchFromRemote");
-        List<CycleData> routineCycles = new ArrayList<>();
-
-        disposable.add(
-                routinesService.getRoutineCycles(routineId, options)
-                        .subscribeWith(new DisposableSingleObserver<PagedList<CycleData>>() {
-                            @Override
-                            public void onSuccess(@NonNull PagedList<CycleData> cycles) {
-                                System.out.println("onSuccess");
-                                routineCycles.addAll(cycles.getContent());
-                                for (CycleData cycle : routineCycles) {
-                                    System.out.println(cycle.getId());
-                                    System.out.println(routinesService.getExercises(cycle.getId(), options));
-                                    disposable.add(
-                                            routinesService.getExercises(cycle.getId(), options)
-                                                    .subscribeOn(Schedulers.newThread())
-                                                    .observeOn(AndroidSchedulers.mainThread())
-                                                    .subscribeWith(new DisposableSingleObserver<PagedList<CycleExerciseData>>() {
-                                                        @Override
-                                                        public void onSuccess(@NonNull PagedList<CycleExerciseData> cycleExercises) {
-                                                            System.out.println("onSuccess2");
-                                                            switch (cycle.getType()) {
-                                                                case "warmup":
-                                                                    EntradaExercises.setValue(cycleExercises);
-                                                                    System.out.println(EntradaExercises.getValue());
-                                                                    break;
-                                                                case "exercise":
-                                                                    PrinExercises.setValue(cycleExercises);
-                                                                    break;
-                                                                case "cooldown":
-                                                                    ElongExercises.setValue(cycleExercises);
-                                                                    break;
-                                                            }
-                                                        }
-                                                        @Override
-                                                        public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                                                            System.out.println("onError");
-                                                            e.printStackTrace();
-                                                        }
-                                                    })
-                                    );
-                                }
-                            }
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-                                e.printStackTrace();
-                            }
-                        })
-        );
-        System.out.println("end fetchFromRemote");
-        System.out.println();
-    }
-
-
 
     @Override
     protected void onCleared() {

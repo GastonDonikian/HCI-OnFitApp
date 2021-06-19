@@ -49,6 +49,13 @@ public class CycleExerciseData {
         return repetitions;
     }
 
+    public String getRepetitionsString(){
+        return String.valueOf(repetitions);
+    }
+    public String getDurationString(){
+        return String.valueOf(duration);
+    }
+
     public void setRepetitions(int repetitions) {
         this.repetitions = repetitions;
     }
