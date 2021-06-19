@@ -1,5 +1,6 @@
 package com.example.hci_onfitapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,6 +44,7 @@ public class ViewRoutineFragment extends Fragment {
     private ExerciseAdapter ElongAdapter;
     private TextView routineTitle;
     private FloatingActionButton favouriteBtn;
+    private FloatingActionButton shareBtn;
 
     private @NonNull
     int routineId;
@@ -60,6 +62,7 @@ public class ViewRoutineFragment extends Fragment {
         routineTitle = binding.routTitle;
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
+        shareBtn = binding.floatingActionButtonShare;
 
 
         favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
@@ -112,6 +115,9 @@ public class ViewRoutineFragment extends Fragment {
                     viewModel.rateRoutine(routineId,(int)ratingBar.getRating());
 
                 }
+            });
+            shareBtn.setOnClickListener(v->{
+                share();
             });
 
         });
@@ -171,6 +177,16 @@ public class ViewRoutineFragment extends Fragment {
                 ElongAdapter.updateExercises(ElongExercises.getContent());
             }
         });
+    }
+
+    private void share(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://www.onFit.com/Routines/" + routineId);
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, "Mensaje");
+        startActivity(shareIntent);
     }
 
 }
