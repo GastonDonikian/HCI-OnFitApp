@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -28,7 +27,6 @@ import com.example.hci_onfitapp.api.User;
 import com.example.hci_onfitapp.databinding.FragmentSettingsBinding;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 
-import static android.content.res.Configuration.UI_MODE_NIGHT_MASK;
 
 public class SettingsFragment extends Fragment {
     FragmentSettingsBinding binding;
@@ -59,19 +57,7 @@ public class SettingsFragment extends Fragment {
         binding = FragmentSettingsBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
         preferences = new AppPreferences(getActivity().getApplication());
-        //binding.logOutButtom.setOnClickListener(v -> logout());
-        //switchDarkMode = binding.enableDarkModeSwitch;
-        // if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-        //   switchDarkMode.setChecked(true);
-        // switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
-        //     preferences.setNightModeState(isChecked);
-        //    restartApp();
-        // });
 
-        // main = (HomeActivity) getActivity();
-
-        // main.showUpButton();
-        // main.setNavigationVisibility(false);
 
 
         Button logoutBtn = view.findViewById(R.id.cerrarSesion);
@@ -91,13 +77,6 @@ public class SettingsFragment extends Fragment {
         Button aceptarButton = view.findViewById(R.id.aceptarCambios);
         aceptarButton.setOnClickListener(v -> acceptChanges(10));
 
-        binding.enableDarkModeSwitch.setOnClickListener(v -> {
-            if (binding.enableDarkModeSwitch.isChecked()) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            }
-        });
         return view;
     }
 
