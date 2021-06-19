@@ -9,6 +9,9 @@
         <variable
             name="FavsListener"
             type="com.example.hci_onfitapp.fragments.FavouritesListener" />
+        <variable
+            name="Cycle"
+            type="com.example.hci_onfitapp.api.data.CycleData" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -109,26 +112,26 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/repesEntrada"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="4dp"
-        android:text="x1"
+        android:text="@{`x` + Cycle.repetitions}"
         android:textColor="@color/purple"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/repesPrin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:text="x1"
+        android:text="@{`x` + Cycle.repetitions}"
         android:textColor="@color/purple"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
@@ -136,13 +139,13 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/repesElong"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        android:text="x1"
+        android:text="@{`x` + Cycle.repetitions}"
         android:textColor="@color/purple"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
