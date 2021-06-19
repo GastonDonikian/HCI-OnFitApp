@@ -21,11 +21,13 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
     private List<RoutineData> routinesList;
     private RoutineViewModel routinesViewModel;
     private View view;
+    int from;
 
 
-    public RoutineAdapter(List<RoutineData> routinesList, RoutineViewModel routinesViewModel) {
+    public RoutineAdapter(List<RoutineData> routinesList, RoutineViewModel routinesViewModel, int from) {
         this.routinesList = routinesList;
         this.routinesViewModel = routinesViewModel;
+        this.from = from;
     }
 
     @NonNull
@@ -62,7 +64,7 @@ public class RoutineAdapter extends RecyclerView.Adapter<RoutineAdapter.RoutineV
         }
 
         holder.itemView.setRData(routine);
-        holder.itemView.setListener(new RoutineListener(routinesViewModel));
+        holder.itemView.setListener(new RoutineListener(routinesViewModel, from));
     }
 
     @Override

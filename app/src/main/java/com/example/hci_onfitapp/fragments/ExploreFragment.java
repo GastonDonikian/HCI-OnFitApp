@@ -68,7 +68,7 @@ public class ExploreFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
 
-        routinesAdapter = new RoutineAdapter(new ArrayList<>(), viewModel);
+        routinesAdapter = new RoutineAdapter(new ArrayList<>(), viewModel, RoutineListener.ROUTINES_ID);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

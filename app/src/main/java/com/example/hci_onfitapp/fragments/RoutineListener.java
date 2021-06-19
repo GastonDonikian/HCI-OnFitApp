@@ -15,15 +15,21 @@ public class RoutineListener implements View.OnClickListener {
     public static final int ROUTINES_ID = 1;
     public static final int FAV_ID = 2;
 
-    public RoutineListener(RoutineViewModel routineViewModel) {
+    public RoutineListener(RoutineViewModel routineViewModel, int from) {
         this.routineViewModel = routineViewModel;
+        this.from = from;
     }
 
     @Override
     public void onClick(View view) {
         int routineId = Integer.parseInt(((TextView) view.findViewById(R.id.routineId)).getText().toString());
         routineViewModel.getRoutineById(routineId);
-        NavDirections action1 = ExploreFragmentDirections.actionExploreFragmentToViewRoutineFragment().setRoutineId(routineId);
-        Navigation.findNavController(view).navigate(action1);
+        if (from == ROUTINES_ID){
+            NavDirections action1 = ExploreFragmentDirections.actionExploreFragmentToViewRoutineFragment().setRoutineId(routineId);
+            Navigation.findNavController(view).navigate(action1);
+        } else if (from == FAV_ID) {
+            NavDirections action2 = HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId);
+            Navigation.findNavController(view).navigate(action2);
+        }
     }
 }

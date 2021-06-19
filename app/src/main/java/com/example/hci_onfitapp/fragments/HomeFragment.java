@@ -59,7 +59,7 @@ public class HomeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
 
-        routinesAdapter = new RoutineAdapter(new ArrayList<>(), viewModel);
+        routinesAdapter = new RoutineAdapter(new ArrayList<>(), viewModel, RoutineListener.FAV_ID);
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

@@ -2,19 +2,16 @@ package com.example.hci_onfitapp.api;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.data.CycleExerciseData;
-import com.example.hci_onfitapp.api.data.ExerciseData;
 import com.example.hci_onfitapp.api.model.PagedList;
 import com.example.hci_onfitapp.databinding.FragmentExcerciseBinding;
 
@@ -43,16 +40,15 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     @NonNull
     @Override
     public ExerciseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        this.parentContext = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(parentContext);
-        binding = DataBindingUtil.inflate(inflater, R.id.exercise_card, parent, false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_excercise, parent, false);
         return new ExerciseViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
-        CycleExerciseData exercise = exerciseList.getContent().get(position);
-        holder.itemView.setEData(exercise);
+//        CycleExerciseData exercise = exerciseList.getContent().get(position);
+//        holder.itemView.setEData(exercise);
 //        if (exercise.isRunning()){
 //            holder.itemView.exerciseContainer.setBackgroundColor(parentContext.getColor(R.color.executionNotSelected));
 //            holder.itemView.exerciseName.setTextColor(parentContext.getColor(R.color.mainTextColorAlternative));
@@ -69,15 +65,15 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 //        }
 
 //        holder.itemView.infoButton.setOnClickListener(v -> openExerciseInfoDialog(exercise));
-        if(exercise.getRepetitions() != 0) {
-            holder.itemView.repsExercise.setText(exercise.getRepetitions());
-        } else
-            holder.itemView.repsExercise.setText(exercise.getDuration());
+//        if(exercise.getRepetitions() != 0) {
+//            holder.itemView.repsExercise.setText(exercise.getRepetitions());
+//        } else
+//            holder.itemView.repsExercise.setText(exercise.getDuration());
     }
 
     @Override
     public int getItemCount() {
-        return exerciseList.getTotalCount();
+        return 3;
     }
 
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {

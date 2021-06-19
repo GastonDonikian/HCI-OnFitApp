@@ -27,6 +27,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.TimeUnit;
+
 public class ViewRoutineFragment extends Fragment {
     private RoutineViewModel viewModel;
     private ExerciseViewModel exerciseViewModel;
@@ -67,10 +69,6 @@ public class ViewRoutineFragment extends Fragment {
         routineTitle = binding.routTitle;
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
-
-
-
-
         return view;
     }
 
@@ -96,34 +94,28 @@ public class ViewRoutineFragment extends Fragment {
 
         exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
         exerciseViewModel.refresh(routineId);
+        exerciseViewModel.refresh(routineId);
 
         System.out.println(exerciseViewModel.getElongExercises().getValue());
         System.out.println(exerciseViewModel.getPrinExercises().getValue());
         System.out.println(exerciseViewModel.getEntradaExercises().getValue());
-        System.out.println(exerciseViewModel.getElongExercises());
 
         ElongAdapter = new ExerciseAdapter(exerciseViewModel.getElongExercises().getValue());
         PrinAdapter = new ExerciseAdapter(exerciseViewModel.getPrinExercises().getValue());
         EntradaAdapter = new ExerciseAdapter(exerciseViewModel.getEntradaExercises().getValue());
 
-        recyclerViewElong = binding.recyclerViewElong;
-        recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerViewPrin = binding.recyclerViewPrincipal;
-        recyclerViewPrin.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewEntrada = binding.recyclerViewEntrada;
-        recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
-
-
         recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewEntrada.setAdapter(EntradaAdapter);
 
+        recyclerViewPrin = binding.recyclerViewPrincipal;
         recyclerViewPrin.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewPrin.setAdapter(PrinAdapter);
 
+        recyclerViewElong = binding.recyclerViewElong;
         recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewElong.setAdapter(ElongAdapter);
-
-        observeExerciseViewModel();
+//        observeExerciseViewModel();
     }
 
     private void observeExerciseViewModel() {

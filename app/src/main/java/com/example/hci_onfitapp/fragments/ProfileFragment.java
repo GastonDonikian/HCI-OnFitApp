@@ -26,9 +26,6 @@ import com.example.hci_onfitapp.databinding.FragmentProfileBinding;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 
-import org.joda.time.Days;
-import org.joda.time.Instant;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;

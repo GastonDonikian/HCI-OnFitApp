@@ -75,8 +75,8 @@ public class SettingsFragment extends Fragment {
         }
 
 
-        Button loginBtn = view.findViewById(R.id.cerrarSesion);
-        loginBtn.setOnClickListener(v -> logout());
+        Button logoutBtn = view.findViewById(R.id.cerrarSesion);
+        logoutBtn.setOnClickListener(v -> logout());
 
         Button deleteAccountBtn = view.findViewById(R.id.eliminarCuenta);
         deleteAccountBtn.setOnClickListener(v -> deleteAccount());

@@ -1,6 +1,7 @@
 package com.example.hci_onfitapp.viewModel;
 
 import android.app.Application;
+import android.text.format.Time;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
@@ -71,7 +72,6 @@ public class ExerciseViewModel extends AndroidViewModel {
         options.put("page", "0");
         options.put("size", "100");
         System.out.println("fetchFromRemote");
-        String string;
         List<CycleData> routineCycles = new ArrayList<>();
 
         disposable.add(
@@ -79,8 +79,11 @@ public class ExerciseViewModel extends AndroidViewModel {
                         .subscribeWith(new DisposableSingleObserver<PagedList<CycleData>>() {
                             @Override
                             public void onSuccess(@NonNull PagedList<CycleData> cycles) {
+                                System.out.println("onSuccess");
                                 routineCycles.addAll(cycles.getContent());
                                 for (CycleData cycle : routineCycles) {
+                                    System.out.println(cycle.getId());
+                                    System.out.println(routinesService.getExercises(cycle.getId(), options));
                                     disposable.add(
                                             routinesService.getExercises(cycle.getId(), options)
                                                     .subscribeOn(Schedulers.newThread())
@@ -88,9 +91,11 @@ public class ExerciseViewModel extends AndroidViewModel {
                                                     .subscribeWith(new DisposableSingleObserver<PagedList<CycleExerciseData>>() {
                                                         @Override
                                                         public void onSuccess(@NonNull PagedList<CycleExerciseData> cycleExercises) {
+                                                            System.out.println("onSuccess2");
                                                             switch (cycle.getType()) {
                                                                 case "warmup":
                                                                     EntradaExercises.setValue(cycleExercises);
+                                                                    System.out.println(EntradaExercises.getValue());
                                                                     break;
                                                                 case "exercise":
                                                                     PrinExercises.setValue(cycleExercises);
@@ -102,6 +107,7 @@ public class ExerciseViewModel extends AndroidViewModel {
                                                         }
                                                         @Override
                                                         public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                                            System.out.println("onError");
                                                             e.printStackTrace();
                                                         }
                                                     })
@@ -110,17 +116,8 @@ public class ExerciseViewModel extends AndroidViewModel {
                             }
                             @Override
                             public void onError(@NonNull Throwable e) {
-                                System.out.println("onError");
                                 e.printStackTrace();
                             }
-
-                            @Override
-                            protected void onStart() {
-                                System.out.println("LPM");
-                                super.onStart();
-                            }
-
-
                         })
         );
         System.out.println("end fetchFromRemote");
