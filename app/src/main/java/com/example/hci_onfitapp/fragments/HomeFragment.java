@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -43,6 +42,7 @@ public class HomeFragment extends Fragment {
     boolean searching = false;
     boolean noMoreEntries = false;
     private int routineId;
+    private ImageSlider imageSlider;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = binding.swipeRefresh;
         View view = binding.getRoot();
 
-        ImageSlider imageSlider = view.findViewById(R.id.home_slider);
+        imageSlider = view.findViewById(R.id.home_slider);
 
         List<SlideModel> slideModels = new ArrayList<>();
 
@@ -69,30 +69,6 @@ public class HomeFragment extends Fragment {
         slideModels.add(new SlideModel("https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80", "Ultima rutina creada"));
 
         imageSlider.setImageList(slideModels, true);
-
-        imageSlider.setItemClickListener(i -> {
-            NavController navController = Navigation.findNavController(view);
-            switch (i) {
-                case 0:
-                    viewModel.updateUserRoutines();
-                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
-                        routineId = routineData.get(0).getId();
-                    });
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId));
-                    break;
-
-                case 1:
-                    viewModel.updateUserRoutinesByDate();
-                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
-                        System.out.println(routineData);
-                        routineId = routineData.get(0).getId();
-                    });
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId));
-                    break;
-            }
-        });
-
-
 
         return view;
     }
@@ -160,5 +136,31 @@ public class HomeFragment extends Fragment {
                         viewModel.updateDataFavs();
                     }
                 });
+
+        imageSlider.setItemClickListener(i -> {
+            switch (i) {
+                case 0:
+                    viewModel.updateUserRoutines();
+                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
+                        routineId = routineData.get(0).getId();
+                        NavDirections action = HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId);
+                        Navigation.findNavController(view).navigate(action);
+                    });
+                    break;
+                case 1:
+                    viewModel.updateUserRoutinesByDate();
+                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
+                        System.out.println("ENTRO");
+                        routineId = routineData.get(0).getId();
+                        System.out.println(routineId);
+                        NavDirections action2 = HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId);
+                        Navigation.findNavController(view).navigate(action2);
+                    });
+                    break;
+                default:
+                    break;
+            }
+        });
+
     }
 }
