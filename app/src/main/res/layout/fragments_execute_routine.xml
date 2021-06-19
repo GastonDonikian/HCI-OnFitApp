@@ -1,8 +1,8 @@
 
-<layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,13 +18,13 @@
     <ScrollView
         android:id="@+id/scview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="592dp"
         android:layout_weight="9"
         android:background="@color/lightgrey">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="9dp"
             android:background="@color/lightgrey"
             android:orientation="vertical"
             app:layout_constraintEnd_toStartOf="@+id/ExerciseDescription"
@@ -84,7 +84,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="50dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/nombre_rutina"
+                    android:text=""
                     android:textAlignment="center" />
             </RelativeLayout>
 
@@ -132,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/excercise_description"
+                android:text=""
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -161,6 +161,24 @@
 
 
     </ScrollView>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/playExe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_media_play" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </LinearLayout>

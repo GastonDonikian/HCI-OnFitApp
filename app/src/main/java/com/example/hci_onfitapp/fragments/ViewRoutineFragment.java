@@ -105,10 +105,8 @@ public class ViewRoutineFragment extends Fragment {
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
             playBtn.setVisibility(View.VISIBLE);
-            System.out.println("entro 1");
         }
         if (routineTemp != 0){
-            System.out.println("entro 2");
             playBtn.setVisibility(View.GONE);
             routineId = requireArguments().getInt("routineID");
         }

@@ -55,22 +55,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
             return;
         CycleExerciseData exercise = exerciseList.getContent().get(position);
         holder.itemView.setEData(exercise);
-//        if (exercise.isRunning()){
-//            holder.itemView.exerciseContainer.setBackgroundColor(parentContext.getColor(R.color.executionNotSelected));
-//            holder.itemView.exerciseName.setTextColor(parentContext.getColor(R.color.mainTextColorAlternative));
-//            holder.itemView.repsExercise.setTextColor(parentContext.getColor(R.color.mainTextColorAlternative));
-//            holder.itemView.timeExercise.setTextColor(parentContext.getColor(R.color.mainTextColorAlternative));
-//            holder.itemView.infoButton.setColorFilter(parentContext.getColor(R.color.mainTextColorAlternative));
-//        }
-//        else{
-//            holder.itemView.exerciseContainer.setBackgroundColor(parentContext.getColor(R.color.executionSelected));
-//            holder.itemView.exerciseName.setTextColor(parentContext.getColor(R.color.primaryColorAlternative));
-//            holder.itemView.repsExercise.setTextColor(parentContext.getColor(R.color.primaryColorAlternative));
-//            holder.itemView.timeExercise.setTextColor(parentContext.getColor(R.color.primaryColorAlternative));
-//            holder.itemView.infoButton.setColorFilter(parentContext.getColor(R.color.primaryColorAlternative));
-//        }
-
-//        holder.itemView.infoButton.setOnClickListener(v -> openExerciseInfoDialog(exercise));
         holder.itemView.repsExercise.setVisibility(exercise.getRepetitions() != 0 ? View.VISIBLE : View.GONE);
         holder.itemView.durExercise.setVisibility(exercise.getDuration() != 0 ? View.VISIBLE : View.GONE);
     }
