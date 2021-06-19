@@ -1,5 +1,8 @@
 package com.example.hci_onfitapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -9,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.hci_onfitapp.fragments.ViewRoutineFragment;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.example.hci_onfitapp.viewModel.UserViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -22,6 +26,14 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        Intent intent = getIntent();
+        String routineID = intent.getStringExtra("routineID");
+        if (routineID != null) {
+            Intent toViewRoutineActivity = new Intent(HomeActivity.this, ViewRoutineActivity.class);
+            toViewRoutineActivity.putExtra("routineID",routineID);
+            startActivity(toViewRoutineActivity);
+        }
 
         userviewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userviewModel.setUserData();
