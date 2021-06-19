@@ -155,6 +155,7 @@ public class ExecuteRoutineFragment extends Fragment {
     }
     private void playCycle(CycleData current) {
         currentCycleEx = current.getCycleExercises();
+        hasExercises();
         playExercise(currentCycleEx, 0);
 
     }
@@ -229,6 +230,18 @@ public class ExecuteRoutineFragment extends Fragment {
 
     }
 
+    private void hasExercises(){
+        if(currentCycleEx.getTotalCount() == 0){
+            currentCycle = getCurrentCycle();
+            if (finished){
+                end();
+                return;
+            }
+            currentCycleEx = currentCycle.getCycleExercises();
+            playRout(currentCycle);
+        }
+    }
+
     private CycleData getCurrentCycle() {
         if(currentCycleIndex <= routineCyclesList.size()){
             System.out.println(currentCycle);
@@ -255,6 +268,7 @@ public class ExecuteRoutineFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        countDownTimer.cancel();
+        if(countDownTimer != null)
+            countDownTimer.cancel();
     }
 }
