@@ -27,14 +27,6 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent intent = getIntent();
-        String routineID = intent.getStringExtra("routineID");
-        if (routineID != null) {
-            Intent toViewRoutineActivity = new Intent(HomeActivity.this, ViewRoutineActivity.class);
-            toViewRoutineActivity.putExtra("routineID",routineID);
-            startActivity(toViewRoutineActivity);
-        }
-
         userviewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userviewModel.setUserData();
 

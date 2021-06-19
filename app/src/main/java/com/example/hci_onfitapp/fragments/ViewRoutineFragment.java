@@ -26,6 +26,7 @@ import com.example.hci_onfitapp.api.model.ApiRoutine;
 import com.example.hci_onfitapp.api.model.ApiRoutineService;
 import com.example.hci_onfitapp.api.model.Status;
 import com.example.hci_onfitapp.databinding.FragmentViewRoutineBinding;
+
 import com.example.hci_onfitapp.viewModel.ExerciseViewModel;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -100,9 +101,18 @@ public class ViewRoutineFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         routinesService = new ApiRoutine(getActivity());
         app = (App) requireActivity().getApplication();
+        int routineTemp = requireArguments().getInt("routineID");
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
+            playBtn.setVisibility(View.VISIBLE);
+            System.out.println("entro 1");
         }
+        if (routineTemp != 0){
+            System.out.println("entro 2");
+            playBtn.setVisibility(View.GONE);
+            routineId = requireArguments().getInt("routineID");
+        }
+        System.out.println(routineId);
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
 
 
