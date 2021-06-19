@@ -19,14 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hci_onfitapp.App;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.ExerciseAdapter;
-import com.example.hci_onfitapp.api.RoutineAdapter;
 import com.example.hci_onfitapp.api.data.CycleData;
-import com.example.hci_onfitapp.api.data.CycleExerciseData;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
 import com.example.hci_onfitapp.api.model.ApiRoutineService;
-import com.example.hci_onfitapp.api.model.FavouritesModel;
-import com.example.hci_onfitapp.api.model.PagedList;
 import com.example.hci_onfitapp.api.model.Status;
 import com.example.hci_onfitapp.databinding.FragmentViewRoutineBinding;
 import com.example.hci_onfitapp.viewModel.ExerciseViewModel;
@@ -39,12 +35,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ViewRoutineFragment extends Fragment {
     private RoutineViewModel viewModel;
