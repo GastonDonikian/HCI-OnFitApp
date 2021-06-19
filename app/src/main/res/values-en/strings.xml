@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">HCI-OnFitApp</string>
+    <string name="launcher">Let us make your routine! Start training now with routines made for you free of charge!</string>
+    <string name="log_in">Log In</string>
+    <string name="log_out">Log Out</string>
+    <string name="mostrar_contrasenia">Show password</string>
+    <string name="pesas">WEIGHTS</string>
+    <string name="destacado">HOT</string>
+    <string name="enCasa">AT HOME</string>
+    <string name="running">RUNNING</string>
+    <string name="e_mail">E-mail</string>
+    <string name="Finalizar">Finish</string>
+    <string name="ModoVisualizacion">Select your routine viewer</string>
+    <string name="contrasenia">Password</string>
+    <string name="ModoBreve">FOCUSED</string>
+    <string name="ModoLargo">IN-DEPTH</string>
+    <string name="entrada_en_calor">Warm-up</string>
+    <string name="principal">Main</string>
+    <string name="aceptar">ACCEPT</string>
+    <string name="elongacion">Stretching</string>
+    <string name="IngreseURL">URL Address</string>
+    <string name="MisFavoritos">My Favourite Routines</string>
+    <string name="Confirmar_contrasenia">Confirm Password</string>
+    <string name="name">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="Register">Register</string>
+    <string name="ModifyAvatar">Avatar Link</string>
+    <string name="cerrarSesion">LOG OUT</string>
+    <string name="DarkMode">Dark Mode</string>
+    <string name="EliminarCuenta">DELETE ACCOUNT</string>
+    <string name="checkMail">Check your mail for your verification code</string>
+    <string name="reenviarMail">If the code didn\'t arrive, re-enter your e-mail address</string>
+    <string name="codigo">Code</string>
+    <string name="verificar">Verify</string>
+    <string name="reenviar">Re-send</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="avatar_link">Avatar Link</string>
+    <string name="apellido">Last Name</string>
+    <string name="descripci_n">DESCRIPTION</string>
+    <string name="elongaci_n">Stretching</string>
+    <string name="ejercicios">EXERCISES</string>
+    <string name="nombre_rutina">Routine name</string>
+    <string name="descripcion">Description</string>
+    <string name="excercise_description">Exercise description</string>
+</resources>
