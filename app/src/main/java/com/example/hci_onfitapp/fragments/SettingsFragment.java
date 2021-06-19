@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ public class SettingsFragment extends Fragment {
     AppPreferences preferences;
     UserViewModel userviewModel;
 
+    CheckBox checkBox;
+
     View view;
 
     private HomeActivity main;
@@ -58,7 +61,7 @@ public class SettingsFragment extends Fragment {
         view = binding.getRoot();
         preferences = new AppPreferences(getActivity().getApplication());
 
-
+        checkBox = view.findViewById(R.id.checkBox);
 
         Button logoutBtn = view.findViewById(R.id.cerrarSesion);
         logoutBtn.setOnClickListener(v -> logout());
@@ -107,13 +110,16 @@ public class SettingsFragment extends Fragment {
 
     private void validation(EditText nombre, EditText apellido, EditText avatar, User user) {
         if (nombre.getText() != null && !nombre.getText().toString().equals("")) {
-            user.setFirstName(nombre.getText().toString());
+
+            user.setFirstName(nombre.getText().toString().substring(0,1).toUpperCase() + nombre.getText().toString().substring(1));
         }
         if (apellido.getText() != null && !apellido.getText().toString().equals("")) {
-            user.setLastName(apellido.getText().toString());
+            user.setLastName(apellido.getText().toString().substring(0,1).toUpperCase() + apellido.getText().toString().substring(1));
         }
         if (avatar.getText() != null && !avatar.getText().toString().equals("")) {
             user.setAvatarUrl(avatar.getText().toString());
+        } else if (checkBox.isChecked()) {
+            user.setAvatarUrl("");
         }
     }
 
