@@ -12,8 +12,8 @@
     <string name="Finalizar">Finalizar</string>
     <string name="ModoVisualizacion">Elija su modo de ejecutar rutina</string>
     <string name="contrasenia">Contraseña</string>
-    <string name="ModoBreve">VISUALIZACIÓN BREVE</string>
-    <string name="ModoLargo">VISUALIZACIÓN DETALLADA</string>
+    <string name="ModoBreve">VISTA BREVE</string>
+    <string name="ModoLargo">VISTA DETALLADA</string>
     <string name="entrada_en_calor">Entrada en calor</string>
     <string name="principal">Principal</string>
     <string name="aceptar">ACEPTAR</string>

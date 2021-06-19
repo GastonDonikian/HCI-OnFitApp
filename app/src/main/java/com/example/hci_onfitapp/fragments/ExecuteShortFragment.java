@@ -27,6 +27,7 @@ import com.example.hci_onfitapp.api.model.Status;
 import com.example.hci_onfitapp.databinding.FragmentExecuteShortBinding;
 import com.example.hci_onfitapp.viewModel.ExerciseViewModel;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
+import com.google.android.material.chip.ChipGroup;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -56,6 +57,8 @@ public class ExecuteShortFragment  extends Fragment {
     private TextView repesElong;
     private TextView repesEntrada;
     private TextView repesPrin;
+    private Button detallado;
+    private Button breve;
     private CompositeDisposable disposable = new CompositeDisposable();
     private ApiRoutineService routinesService;
     private App app;
@@ -78,6 +81,8 @@ public class ExecuteShortFragment  extends Fragment {
         repesEntrada = binding.repesEntrada;
         repesPrin = binding.repesPrin;
         finalizarButton = binding.FinalizarButton;
+        breve = binding.executionBar.breve;
+        detallado = binding.executionBar.exe;
 
         finalizarButton = view.findViewById(R.id.FinalizarButton);
 
@@ -105,11 +110,19 @@ public class ExecuteShortFragment  extends Fragment {
                 Navigation.findNavController(v).navigate(action);
             });
 
+            detallado.setOnClickListener(v -> {
+                NavDirections action = ExecuteShortFragmentDirections.actionExecuteShortFragmentToExecuteRoutineFragment().setRoutineId(routineId);
+                Navigation.findNavController(v).navigate(action);
+            });
+
         });
 
         exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
         fetchFromRemote(routineId);
         observeExerciseViewModel();
+
+
+
     }
 
     private void observeExerciseViewModel() {

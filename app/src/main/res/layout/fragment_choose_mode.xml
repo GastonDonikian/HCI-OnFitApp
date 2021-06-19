@@ -6,36 +6,34 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent">
 
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupRoutines"
+        <Button
+            android:id="@+id/breve"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:backgroundTint="@color/pink"
+            android:text="@string/ModoBreve"
+            android:textColor="@color/white"
+            app:checkedIconVisible="false"
+            app:layout_constraintEnd_toStartOf="@+id/exe"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:singleSelection="true">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/destacado"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/pink"
-                android:text="@string/ModoBreve"
-                android:textColor="@color/white"
-                app:checkedIconVisible="false" />
+        <Button
+            android:id="@+id/exe"
+            style="@style/Widget.MaterialComponents.Chip.Filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="44dp"
+            android:layout_marginRight="44dp"
+            android:backgroundTint="@color/pink"
+            android:text="@string/ModoLargo"
+            android:textColor="@color/white"
+            app:checkedIconVisible="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/en_casa"
-                style="@style/Widget.MaterialComponents.Chip.Filter"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/pink"
-                android:textColor="@color/white"
-                android:text="@string/ModoLargo"
-                app:checkedIconVisible="false" />
-        </com.google.android.material.chip.ChipGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
