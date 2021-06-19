@@ -48,4 +48,5 @@
     <string name="navBar_principal">Principal</string>
     <string name="navBar_Explorar">Explorar</string>
     <string name="navBar_Perfil">Perfil</string>
+    <string name="checkBox_avatar">Borrar Imagen</string>
 </resources>

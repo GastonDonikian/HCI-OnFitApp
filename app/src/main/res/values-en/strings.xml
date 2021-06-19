@@ -48,4 +48,5 @@
     <string name="navBar_principal">Home</string>
     <string name="navBar_Explorar">Explore</string>
     <string name="navBar_Perfil">Profile</string>
+    <string name="checkBox_avatar">Delete Image</string>
 </resources>
