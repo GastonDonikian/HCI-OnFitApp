@@ -21,7 +21,7 @@
         android:textColorHint="@color/grey"
         android:textColorLink="@color/purple"
         android:textCursorDrawable="?android:attr/textCursorDrawable"
-        android:background="@color/grey"
+        android:background="#4DEBEBEB"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextEmailAddress"
@@ -31,6 +31,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:inputType="textPassword"
+            android:textColor="#000000"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,7 +45,7 @@
         android:layout_marginRight="15dp"
         android:hint="@string/e_mail"
         android:textColorHint="@color/grey"
-        android:background="@color/grey"
+        android:background="#4DEBEBEB"
         android:textCursorDrawable="?android:attr/textCursorDrawable"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -54,6 +55,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:inputType="textEmailAddress"
+            android:textColor="#000000"
             android:layout_height="61dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,9 +66,9 @@
         android:layout_height="wrap_content"
         android:hint="@string/name"
         android:textColorHighlight="@color/purple"
-        android:textColorHint="@color/grey"
+        android:textColorHint="#656565"
         android:textColorLink="@color/purple"
-        android:background="@color/grey"
+        android:background="#4DEBEBEB"
         android:textCursorDrawable="?android:attr/textCursorDrawable"
         app:layout_constraintBottom_toTopOf="@+id/editTextTextEmailAddress"
         app:layout_constraintEnd_toStartOf="@+id/apellido"
@@ -76,7 +78,9 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:inputType="textPersonName"
+            android:textColor="#000000"
             android:layout_height="match_parent" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -87,7 +91,7 @@
         android:layout_marginBottom="28dp"
         android:hint="@string/lastName"
         android:textColorHighlight="@color/purple"
-        android:background="@color/grey"
+        android:background="#4DEBEBEB"
         android:textColorHint="@color/grey"
         android:textColorLink="@color/purple"
         android:textCursorDrawable="?android:attr/textCursorDrawable"
@@ -100,6 +104,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:textColor="#000000"
             android:inputType="textPersonName"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +119,7 @@
         android:layout_marginRight="15dp"
         android:hint="@string/Confirmar_contrasenia"
         android:textColorHighlight="@color/purple"
-        android:background="@color/grey"
+        android:background="#4DEBEBEB"
         android:textColorHint="@color/grey"
         android:textColorLink="@color/purple"
         android:textCursorDrawable="?android:attr/textCursorDrawable"
@@ -127,6 +132,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
+            android:textColor="#000000"
             android:inputType="textPassword"
             android:layout_height="match_parent" />
     </com.google.android.material.textfield.TextInputLayout>
