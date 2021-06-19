@@ -32,9 +32,9 @@ public class FirstActivity extends AppCompatActivity{
             } else { //Cuando inicio la aplicacion normalmente
                 Intent intent;
                 if (preferences.getAuthToken() != null) {
-                    intent = new Intent(FirstActivity.this, MainActivity.class);
+                    intent = new Intent(FirstActivity.this, HomeActivity.class);
                 } else {
-                    intent = new Intent(FirstActivity.this, LoginActivity.class);
+                    intent = new Intent(FirstActivity.this, MainActivity.class);
                 }
                 startActivity(intent);
             }
