@@ -15,10 +15,6 @@ public class FirstActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppPreferences preferences = new AppPreferences(this.getApplication());
-        if (preferences.loadNightModeState())
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        else
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);

@@ -39,7 +39,6 @@ public class SettingsFragment extends Fragment {
 
     private HomeActivity main;
 
-    int nightMode = AppCompatDelegate.getDefaultNightMode();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,13 +50,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button darkMode = view.findViewById(R.id.enableDarkModeSwitch);
-        if (nightMode == AppCompatDelegate.MODE_NIGHT_YES) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            nightMode = AppCompatDelegate.MODE_NIGHT_NO;
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
     }
 
     @Override
