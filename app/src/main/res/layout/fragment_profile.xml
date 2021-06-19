@@ -60,7 +60,7 @@
             android:background="@drawable/my_button"
             android:padding="10dp"
             android:text="No me tendrias que ver..."
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -76,7 +76,7 @@
             android:background="@drawable/my_button"
             android:padding="10dp"
             android:text="No me tendrias que ver..."
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -92,7 +92,7 @@
             android:background="@drawable/my_button"
             android:padding="10dp"
             android:text="No me tendrias que ver..."
-            android:textColor="#ffffff"
+            android:textColor="@color/white"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
@@ -121,7 +121,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:strokeColor="#EBEBEB"
+            app:strokeColor="@color/lightgrey"
             app:strokeWidth="1dp">
 <!--puse una foto de menor calidad porque me crasheaba-->
             <ImageView

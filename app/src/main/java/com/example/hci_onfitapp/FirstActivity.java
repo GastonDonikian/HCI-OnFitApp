@@ -1,17 +1,14 @@
 package com.example.hci_onfitapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.navigation.NavDeepLinkBuilder;
-
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-import com.example.hci_onfitapp.fragments.LoginFragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.navigation.NavDeepLinkBuilder;
 
 
 public class FirstActivity extends AppCompatActivity{
@@ -35,11 +32,9 @@ public class FirstActivity extends AppCompatActivity{
             } else { //Cuando inicio la aplicacion normalmente
                 Intent intent;
                 if (preferences.getAuthToken() != null) {
-                    System.out.println("home");
-                    intent = new Intent(FirstActivity.this, HomeActivity.class);
-                } else {
-                    System.out.println("main");
                     intent = new Intent(FirstActivity.this, MainActivity.class);
+                } else {
+                    intent = new Intent(FirstActivity.this, LoginActivity.class);
                 }
                 startActivity(intent);
             }

@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="DESCRIPCIÓN" />
+                    android:text="@string/descripci_n" />
 
             </RelativeLayout>
 
@@ -128,7 +128,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Entrada en calor" />
+                        android:text="@string/entrada_en_calor" />
 
 
                 </RelativeLayout>
@@ -149,7 +149,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Principal" />
+                        android:text="@string/principal" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -168,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="Elongación" />
+                        android:text="@string/elongaci_n" />
                 </RelativeLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -197,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="EXERCISES"
+                    android:text="@string/ejercicios"
 
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

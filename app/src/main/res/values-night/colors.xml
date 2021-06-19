@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<resources>-->
+<!--    <color name="purple">#5767FF</color>-->
+<!--    <color name="purple_500">#FF6200EE</color>-->
+<!--    <color name="pink">#E46271</color>-->
+<!--    <color name="black">#FF000000</color>-->
+<!--    <color name="white">#FFFFFFFF</color>-->
+<!--    <color name="gray">#9E9E9E</color>-->
+<!--    <color name="destacado">#89D9D2</color>-->
+<!--    <color name="pesas">#7885FF</color>-->
+<!--    <color name="running">#F1B0B8</color>-->
+<!--    <color name="encasa">#B495C2</color>-->
+<!--    <color name="grey">#656565</color>-->
+<!--    <color name="lightgrey">#BFEBEBEB</color>-->
+<!--</resources>-->
+
+
+<resources>
+<color name="purple">#a89800</color>
+<color name="purple_500">#9dff11</color>
+<color name="pink">#1b9d8e</color>
+<color name="black">#ffffff</color>
+<color name="white">#000000</color>
+<color name="gray">#616161</color>
+<color name="destacado">#76262d</color>
+<color name="pesas">#877a00</color>
+<color name="running">#0e4f47</color>
+<color name="encasa">#4b6a3d</color>
+<color name="grey">#9a9a9a</color>
+<color name="lightgrey">#141414</color>
+</resources>

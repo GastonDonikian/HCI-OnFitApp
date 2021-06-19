@@ -11,12 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:background="#EBEBEB">
+        android:background="@color/lightgrey">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#EBEBEB"
+            android:background="@color/lightgrey"
             android:orientation="vertical"
             tools:context=".view.fragments.RoutineExecutionExerciseFragment"
             app:layout_constraintStart_toStartOf="@+id/ExerciseDescription"
@@ -55,7 +55,7 @@
                 android:id="@+id/relativeLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#EBEBEB"
+                android:background="@color/lightgrey"
                 android:padding="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,7 +69,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:text = "Nombre rutina"
+                    android:text = "@string/nombre_rutina"
                     android:textAlignment="center"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="5dp"
@@ -83,7 +83,7 @@
                 android:id="@+id/relativeLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#EBEBEB"
+                android:background="@color/lightgrey"
                 android:padding="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
-                android:background="#EBEBEB"
+                android:background="@color/lightgrey"
                 android:padding="20dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -114,12 +114,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="Descripcion" />
+                    android:text="@string/descripcion" />
             </RelativeLayout>
 
             <TextView
                 android:id="@+id/ExerciseDescription"
-                android:text="Excercise description"
+                android:text="@string/excercise_description"
                 style="@style/TextBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

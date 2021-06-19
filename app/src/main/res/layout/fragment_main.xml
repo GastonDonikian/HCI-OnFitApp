@@ -10,7 +10,7 @@
         android:id="@+id/textView"
         android:layout_width="286dp"
         android:layout_height="150dp"
-        android:background="#BFEBEBEB"
+        android:background="@color/lightgrey"
         android:text="@string/launcher"
         android:textColor="#000000"
         android:textSize="24sp"
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         android:textColor="@color/purple"
-        android:backgroundTint="#59EBEBEB"
+        android:backgroundTint="@color/gray"
         app:layout_constraintVertical_bias="0.692" />
 
     <ImageView
