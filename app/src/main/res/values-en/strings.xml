@@ -43,4 +43,6 @@
     <string name="nombre_rutina">Routine name</string>
     <string name="descripcion">Description</string>
     <string name="excercise_description">Exercise description</string>
+    <string name="fin_rutina">Congratulations! You finished the routine</string>
+    <string name="volver_a_rutina">RETURN TO ROUTINE</string>
 </resources>
