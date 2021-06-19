@@ -7,11 +7,11 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.hci_onfitapp.AppPreferences;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
 import com.example.hci_onfitapp.api.model.PagedList;
+import com.example.hci_onfitapp.api.model.RoutineRating;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -153,7 +153,6 @@ public class RoutineViewModel extends AndroidViewModel {
                             }
                         })
         );
-        System.out.println(disposable.toString());
     }
 
     public void getRoutineById(int id) {
@@ -462,5 +461,24 @@ public class RoutineViewModel extends AndroidViewModel {
 
     public int getFilterId() {
         return filterId;
+    }
+
+    public void rateRoutine(int routineId, int value) {
+        RoutineRating rating = new RoutineRating(value, "");
+        System.out.println(value);
+        disposable.add(
+                routinesService.rateRoutine(routineId, rating)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<RoutineData>() {
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull RoutineData routineData) {
+                            }
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                e.printStackTrace();
+                            }
+                        })
+        );
     }
 }

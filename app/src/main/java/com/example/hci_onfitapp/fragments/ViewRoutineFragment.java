@@ -1,5 +1,6 @@
 package com.example.hci_onfitapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,10 +50,6 @@ public class ViewRoutineFragment extends Fragment {
     private RoutineViewModel viewModel;
     private ExerciseViewModel exerciseViewModel;
     private RatingBar ratingBar;
-    FavouritesModel favouritesModel;
-
-    private RoutineAdapter routinesAdapter;
-    private FavouritesModel favViewModel;
 
     private FragmentViewRoutineBinding binding;
     private RoutineData routineData;
@@ -74,11 +71,11 @@ public class ViewRoutineFragment extends Fragment {
     private ApiRoutineService routinesService;
     private App app;
     View view;
+    private FloatingActionButton favouriteBtn;
+    private FloatingActionButton shareBtn;
 
     private @NonNull
     int routineId;
-    boolean isFav;
-    private Integer routId;
     private boolean fav = false;
 
 
@@ -97,8 +94,8 @@ public class ViewRoutineFragment extends Fragment {
         repesEntrada = binding.repesEntrada;
         repesPrin = binding.repesPrin;
 
-        FloatingActionButton favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
-        favouriteBtn.setOnClickListener(v -> addFav(routId));
+        favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
+
         return view;
     }
 
@@ -109,16 +106,50 @@ public class ViewRoutineFragment extends Fragment {
         app = (App) requireActivity().getApplication();
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
-            isFav = getArguments().getBoolean("isFav");
         }
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
-        favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);
+
 
         viewModel.getRoutineById(routineId);
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
-                this.routineData = routineData;
-                routineTitle.setText(routineData.getName());
-                ratingBar.setRating(routineData.getAverageRating());
+            this.routineData = routineData;
+            routineTitle.setText(routineData.getName());
+            ratingBar.setRating(routineData.getAverageRating());
+            viewModel.getFavouriteRoutines();
+            viewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), favourites -> {
+            boolean isFav = false;
+            for (RoutineData routine : favourites) {
+                if (routine.getId() == routineId) {
+                    isFav = true;
+                    break;
+                }
+            }
+            if (isFav) {
+                routineData.setFav(true);
+            } else {
+                routineData.setFav(false);
+            }
+            });
+            favouriteBtn.setOnClickListener(v ->{
+                if(!routineData.isFav()){
+                    addFav(routineData.getId());
+                }
+                else{
+                    unFav(routineData.getId());
+                }});
+
+            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                @Override
+                public void onRatingChanged(RatingBar ratingBar, float v, boolean b)
+                {
+                    viewModel.rateRoutine(routineId,(int)ratingBar.getRating());
+
+                }
+            });
+            shareBtn.setOnClickListener(v->{
+                share();
+            });
+
         });
 
         exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
@@ -128,6 +159,12 @@ public class ViewRoutineFragment extends Fragment {
 
     private void addFav(int routId){
         viewModel.addFav(routId);
+        routineData.setFav(true);
+    }
+
+    private void unFav(int routId){
+        viewModel.unFav(routId);
+        routineData.setFav(false);
     }
 
     private void observeExerciseViewModel() {
@@ -197,4 +234,14 @@ public class ViewRoutineFragment extends Fragment {
             }
         });
     }
+    private void share(){
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://www.onFit.com/Routines/" + routineId);
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, "Mensaje");
+        startActivity(shareIntent);
+    }
+
 }
