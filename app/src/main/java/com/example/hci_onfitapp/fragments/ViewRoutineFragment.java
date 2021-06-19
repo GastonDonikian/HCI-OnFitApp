@@ -144,8 +144,9 @@ public class ViewRoutineFragment extends Fragment {
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float v, boolean b)
                 {
-                    viewModel.rateRoutine(routineId,(int)ratingBar.getRating());
-
+                    if(ratingBar.getRating()>0) {
+                        viewModel.rateRoutine(routineId, (int) ratingBar.getRating());
+                    }
                 }
             });
             shareBtn.setOnClickListener(v->{
