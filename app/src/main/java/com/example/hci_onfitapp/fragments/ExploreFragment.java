@@ -117,6 +117,7 @@ public class ExploreFragment extends Fragment {
 
         chipGroup.setOnCheckedChangeListener(new ChipListener(viewModel));
         int filtered = viewModel.getFilterId();
+        System.out.println(filtered);
         if (filtered != -1) {
             int id = 0;
             if (filtered == 0) {

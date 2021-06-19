@@ -15,7 +15,6 @@ public class ChipListener implements ChipGroup.OnCheckedChangeListener {
     @Override
     public void onCheckedChanged(ChipGroup group, int checkedId) {
         Integer id = null;
-
         if (checkedId == R.id.destacado) {
             id = 0;
         } else if (checkedId == R.id.en_casa) {
@@ -25,7 +24,7 @@ public class ChipListener implements ChipGroup.OnCheckedChangeListener {
         } else if (checkedId == R.id.pesas) {
             id = 2;
         } else if (group.getCheckedChipId() == checkedId) {
-            id = -1;
+            return;
         }
         viewModel.filterRoutines(id);
     }
