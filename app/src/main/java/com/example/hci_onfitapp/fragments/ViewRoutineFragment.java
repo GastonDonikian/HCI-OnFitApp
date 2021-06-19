@@ -90,6 +90,7 @@ public class ViewRoutineFragment extends Fragment {
         routineTitle = binding.routTitle;
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
+        shareBtn = binding.floatingActionButtonShare;
         repesElong = binding.repesElong;
         repesEntrada = binding.repesEntrada;
         repesPrin = binding.repesPrin;
