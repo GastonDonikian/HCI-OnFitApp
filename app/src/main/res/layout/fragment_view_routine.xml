@@ -202,7 +202,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:focusable="true"
-        android:backgroundTint="@color/pink"
+        android:tint="@color/black"
         android:onClick="@{FavsListener::onClick}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -211,6 +211,21 @@
         app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
         app:layout_constraintVertical_bias="0.285"
         app:srcCompat="@drawable/ic_fav"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButtonUnFavorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:tint="@color/black"
+        android:onClick="@{FavsListener::onClick}"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/floatingActionButton"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton"
+        app:layout_constraintVertical_bias="0.285"
+        app:srcCompat="@drawable/unfav"/>
 
     <RatingBar
         android:id="@+id/ratingBar"
@@ -223,7 +238,6 @@
         android:isIndicator="false"
         android:numStars="5"
         android:progressTint="@color/pink"
-        android:rating="@{Routine.averageRating}"
         android:scaleX=".75"
         android:scaleY=".75"
         android:secondaryProgressTint="@color/pink"

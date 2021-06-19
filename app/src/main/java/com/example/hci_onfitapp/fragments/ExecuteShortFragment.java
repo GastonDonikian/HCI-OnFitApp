@@ -164,7 +164,6 @@ public class ExecuteShortFragment  extends Fragment {
                             String type = ciclo.getType();
                             switch (type) {
                                 case "warmup":
-                                    System.out.println(ciclo.getCycleExercises());
                                     repesEntrada.setText('x' + String.valueOf(ciclo.getRepetitions()));
                                     EntradaAdapter = new ExerciseAdapter(ciclo.getCycleExercises());
                                     recyclerViewEntrada = binding.warmUpExercises;

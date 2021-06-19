@@ -18,11 +18,10 @@ public class FavouritesListener implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        System.out.println("IMPRIMIENDO");
         int routineId = Integer.parseInt(((TextView) v.findViewById(R.id.routineId)).getText().toString());
         if(!fav) {
             favouritesModel.favRoutine(routineId);
-            System.out.println("EN FAV");
+
             fav = true;
         }else{
             favouritesModel.unfavRoutine(routineId);

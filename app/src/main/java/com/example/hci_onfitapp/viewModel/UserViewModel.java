@@ -185,8 +185,6 @@ public class UserViewModel extends AndroidViewModel {
 
     public void verifyUser(String code) {
         loading.setValue(true);
-        System.out.println(userInfo.getValue().getEmail());
-        System.out.println(code);
         disposable.add(userService.verifyEmail(new VerificationData(userInfo.getValue().getEmail(), code))
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -267,7 +265,7 @@ public class UserViewModel extends AndroidViewModel {
                 .subscribeWith(new DisposableSingleObserver<Response<Void>>() {
                     @Override
                     public void onSuccess(@NonNull Response<Void> voidResponse) {
-                        System.out.println("funciono! chau cuenta");
+
                     }
 
                     @Override

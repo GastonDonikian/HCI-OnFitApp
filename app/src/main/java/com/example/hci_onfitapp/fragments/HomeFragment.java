@@ -150,9 +150,6 @@ public class HomeFragment extends Fragment {
                     viewModel.updateRoutines();
                     viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
                         routineIdRating = routineData.get(0).getId();
-                        System.out.println(routineData);
-                        System.out.println("hola");
-                        System.out.println("rutina1: "+routineIdRating);
                     });
                     navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineIdRating));
                     break;
@@ -161,9 +158,6 @@ public class HomeFragment extends Fragment {
                     viewModel.updateRoutinesByDate();
                     viewModel.getRoutinesByDate().observe(getViewLifecycleOwner(), routineData -> {
                         routineIdLatest = routineData.get(0).getId();
-                        System.out.println("chau");
-                        System.out.println(routineData);
-                        System.out.println("rutina2: "+routineIdLatest);
                     });
                     navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineIdLatest));
                     break;
