@@ -65,6 +65,9 @@
             android:name="routineId"
             app:argType="integer"
             android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_executeRoutineFragment_to_endRoutineFragment"
+            app:destination="@id/endRoutineFragment" />
     </fragment>
     <fragment
         android:id="@+id/executeShortFragment"
@@ -80,5 +83,17 @@
         <action
             android:id="@+id/action_executeShortFragment_to_viewRoutineFragment"
             app:destination="@id/viewRoutineFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/endRoutineFragment"
+        android:name="com.example.hci_onfitapp.fragments.EndRoutineFragment"
+        android:label="EndRoutineFragment" >
+        <action
+            android:id="@+id/action_endRoutineFragment_to_viewRoutineFragment"
+            app:destination="@id/viewRoutineFragment" />
+        <argument
+            android:name="routineId"
+            app:argType="integer"
+            android:defaultValue="-1" />
     </fragment>
 </navigation>

@@ -110,10 +110,7 @@ public class ViewRoutineFragment extends Fragment {
             playBtn.setVisibility(View.GONE);
             routineId = requireArguments().getInt("routineID");
         }
-        System.out.println(routineId);
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
-
-
         viewModel.getRoutineById(routineId);
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
             this.routineData = routineData;

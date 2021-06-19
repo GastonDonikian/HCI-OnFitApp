@@ -7,15 +7,12 @@ import android.os.CountDownTimer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 
@@ -47,7 +44,7 @@ public class ExecuteRoutineFragment extends Fragment {
     private static final int WARMUP_CYCLE = 0;
     private static final int MAIN_CYCLE = 1;
     private static final int COOLDOWN_CYCLE = 2;
-    private int currentCycle = -1;
+    private CycleData currentCycle;
     private boolean finished = false;
 
     private PagedList<CycleExerciseData> currentCycleEx;
@@ -69,6 +66,9 @@ public class ExecuteRoutineFragment extends Fragment {
     private @NonNull
     int routineId;
     private int currentExerciseIndex;
+    private boolean isFinished;
+    private boolean isFinishedCycle;
+    private int currentCycleIndex = -1;
 
     public ExecuteRoutineFragment() {
 
@@ -109,7 +109,7 @@ public class ExecuteRoutineFragment extends Fragment {
                 app.getRoutineRepository().getRoutineCycles(routineId).observe(requireActivity(),c->{
                     if(c.getStatus() == Status.SUCCESS){
                         routineCyclesList = c.getData().getContent();
-                        System.out.println(c.getData());
+                        System.out.println(routineCyclesList);
                         cycleExerciseList = new ArrayList<>();
                         for(int i=0;i<routineCyclesList.size();i++){
                             CycleData cycle = routineCyclesList.get(i);
@@ -125,76 +125,110 @@ public class ExecuteRoutineFragment extends Fragment {
             }
 
         });
-        play.setOnClickListener(v -> playExe());
+        play.setOnClickListener(v -> playRout(currentCycle = getCurrentCycle()));
 
     }
 
-    private void playExe() {
+    private void playRout(CycleData current){
         finished = false;
-        ExerciseData exerciseData = null;
-        while (!finished){
-            currentCycleEx = getCurrentCycleEx();
-            System.out.println("holis");
-            if(currentCycleEx == null)
-                continue;
-            for (CycleExerciseData ex : currentCycleEx.getContent()) {
-                System.out.println("este for for ");
-                exerciseData = ex.getExercise();
-                binding.exerciseTitleInExecutionList.setText(exerciseData.getName());
-                if(exerciseData.getDetail().equals("")){
-                    binding.ExerciseDescription.setText(new String("No hay descripcion"));
-                    binding.ExerciseDescription.setTextColor(Color.GRAY);
-                } else
-                    binding.ExerciseDescription.setText(exerciseData.getDetail());
-                if (countDownTimer != null)
-                    countDownTimer.cancel();
-                if(ex.getDuration() != 0){
-                    binding.progressBar.setMax(ex.getDuration());
-                    countDownTimer = new CountDownTimer(ex.getDuration(), 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
-                        }
-
-                        @Override
-                        public void onFinish() {
-
-                        }
-                    };
-                } else  {
-                    int repes = ex.getRepetitions()*5;
-                    binding.progressBar.setMax(repes);
-                    countDownTimer = new CountDownTimer(repes, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            System.out.println("ticker");
-                            binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
-                        }
-
-                        @Override
-                        public void onFinish() {
-
-                        }
-                    };
-                }
-            }
+        isFinished = false;
+        isFinishedCycle = false;
+        int currentCycleRep = current.getRepetitions();
+        playCycle(currentCycleRep, current);
+    }
+    private void playCycle(int cycleRepes, CycleData current) {
+        currentCycleEx = current.getCycleExercises();
+        for (int i = 0; i < cycleRepes; i++) {
+            playExercise(currentCycleEx, 0, cycleRepes);
         }
     }
+    private void playExercise(PagedList<CycleExerciseData> content, int index, int cycleRepes) {
+        if(index == content.getTotalCount())
+            return;
+        CycleExerciseData cycleExerciseData = content.getContent().get(index);
+        ExerciseData exerciseData = cycleExerciseData.getExercise();
 
-    private PagedList<CycleExerciseData> getCurrentCycleEx() {
-        if(currentCycle <= routineCyclesList.size()){
+        binding.exerciseTitleInExecutionList.setText(exerciseData.getName());
+        if (exerciseData.getDetail().equals("")) {
+            binding.ExerciseDescription.setText(new String("No hay descripcion"));
+            binding.ExerciseDescription.setTextColor(Color.GRAY);
+        } else
+            binding.ExerciseDescription.setText(exerciseData.getDetail());
+        if (countDownTimer != null)
+            countDownTimer.cancel();
+        if (cycleExerciseData.getDuration() != 0) {
+            binding.progressBar.setMax(cycleExerciseData.getDuration());
+            countDownTimer = new CountDownTimer(cycleExerciseData.getDuration() * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
+                }
+
+                @Override
+                public void onFinish() {
+                    playExercise(currentCycleEx, index + 1, cycleRepes);
+                    playCycle(currentCycle.getRepetitions(), currentCycle);
+                    if(index + 1 == content.getTotalCount()) {
+                        currentCycle = getCurrentCycle();
+                        if (finished) {
+                            countDownTimer.cancel();
+                            end();
+                            return;
+                        }
+                        currentCycleEx = currentCycle.getCycleExercises();
+                        playRout(currentCycle);
+                    }
+                }
+            }.start();
+        } else {
+            int repes = cycleExerciseData.getRepetitions() * 5;
+            binding.progressBar.setMax(repes);
+            countDownTimer = new CountDownTimer(repes * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
+                }
+
+                @Override
+                public void onFinish() {
+                    playExercise(currentCycleEx, index + 1, cycleRepes);
+                    playCycle(currentCycle.getRepetitions(), currentCycle);
+                    if(index + 1 == content.getTotalCount()) {
+                        currentCycle = getCurrentCycle();
+                        if (finished){
+                            countDownTimer.cancel();
+                            end();
+                            return;
+                        }
+                        currentCycleEx = currentCycle.getCycleExercises();
+                        playRout(currentCycle);
+                    }
+                }
+            }.start();
+        }
+
+
+    }
+
+    private CycleData getCurrentCycle() {
+        if(currentCycleIndex <= routineCyclesList.size()){
             System.out.println(currentCycle);
-            if(currentCycle == COOLDOWN_CYCLE){
+            if(currentCycleIndex == COOLDOWN_CYCLE){
                 finished = true;
                 return null;
             }
-            currentCycle++;
-            cycleTitle = title[currentCycle];
+            currentCycleIndex++;
+            cycleTitle = title[currentCycleIndex];
             binding.routineCycleTitleInExecutionExercise.setText(cycleTitle);
-            currentExerciseIndex = 0;
         }
-        System.out.println(routineCyclesList.get(currentCycle));
-        return routineCyclesList.get(currentCycle).getCycleExercises();
+        System.out.println(currentCycle);
+        System.out.println(routineCyclesList.get(currentCycleIndex).getCycleExercises());
+        return routineCyclesList.get(currentCycleIndex);
+    }
+
+    private void end(){
+        NavDirections action = ExecuteRoutineFragmentDirections.actionExecuteRoutineFragmentToEndRoutineFragment().setRoutineId(routineId);
+        Navigation.findNavController(view).navigate(action);
     }
 
 }
