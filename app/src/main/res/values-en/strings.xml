@@ -45,4 +45,7 @@
     <string name="excercise_description">Exercise description</string>
     <string name="fin_rutina">Congratulations! You finished the routine</string>
     <string name="volver_a_rutina">RETURN TO ROUTINE</string>
+    <string name="navBar_principal">Home</string>
+    <string name="navBar_Explorar">Explore</string>
+    <string name="navBar_Perfil">Profile</string>
 </resources>

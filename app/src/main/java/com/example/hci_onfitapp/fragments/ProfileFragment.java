@@ -29,6 +29,7 @@ import com.example.hci_onfitapp.viewModel.UserViewModel;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class ProfileFragment extends Fragment {
 
@@ -123,16 +124,22 @@ public class ProfileFragment extends Fragment {
         String date = userViewModel.getUserInfo().getValue().getDate();
         long timeInMilis = (long) (System.currentTimeMillis() - Float.parseFloat(date));
         int days = (int) (timeInMilis / (1000*60*60*24));
-        birthdayBtn.setText(String.valueOf(days) + " Dias entrenando");
+        if (Locale.getDefault().getLanguage() != "en") {
+            birthdayBtn.setText(String.valueOf(days) + " Dias entrenando");
+        } else birthdayBtn.setText(String.valueOf(days) + " Days training");
 
         routineViewModel.getFavouriteRoutines(); //Seria mas como un updateFavouriteRoutines pero no tengo ganas de cambiar el nombre
         routineViewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), routineData -> {
-            favRoutines.setText(routineData.size() + " rutinas favoritas");
+            if (Locale.getDefault().getLanguage() != "en") {
+                favRoutines.setText(routineData.size() + " rutinas favoritas");
+            } else favRoutines.setText(routineData.size() + " favourite routines");
         });
 
         routineViewModel.updateUserRoutines();
         routineViewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
-            createdRoutines.setText(routineData.size() + " rutinas creadas");
+            if (Locale.getDefault().getLanguage() != "en") {
+                createdRoutines.setText(routineData.size() + " rutinas creadas");
+            } else createdRoutines.setText(routineData.size() + " created routines");
         });
 
         seedProfile();
