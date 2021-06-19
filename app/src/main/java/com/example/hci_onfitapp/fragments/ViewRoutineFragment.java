@@ -112,8 +112,6 @@ public class ViewRoutineFragment extends Fragment {
             routineId = requireArguments().getInt("routineID");
         }
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
-
-
         viewModel.getRoutineById(routineId);
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
             this.routineData = routineData;
