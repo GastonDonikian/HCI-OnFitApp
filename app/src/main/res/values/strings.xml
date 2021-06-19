@@ -45,4 +45,6 @@
     <string name="excercise_description">Descripcion ejercicio</string>
     <string name="fin_rutina">¡Felicitaciones! Has terminado la rutina</string>
     <string name="volver_a_rutina">VOLVER A RUTINA</string>
+    <string name="explorar">Explorar</string>
+    <string name="perfil">Perfil</string>
 </resources>
