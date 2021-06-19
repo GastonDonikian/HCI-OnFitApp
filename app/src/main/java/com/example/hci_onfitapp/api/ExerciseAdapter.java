@@ -1,10 +1,8 @@
 package com.example.hci_onfitapp.api;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -21,15 +19,10 @@ import java.util.List;
 public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ExerciseViewHolder> {
 
     private PagedList<CycleExerciseData> exerciseList;
-    private int currentExercise = -1;
     FragmentExcerciseBinding binding;
 
-    private Context parentContext;
-
-    private ImageView infoButton;
-
     public ExerciseAdapter(PagedList<CycleExerciseData> exerciseList) {
-        System.out.println(exerciseList);
+
         this.exerciseList = exerciseList;
     }
 
@@ -49,8 +42,6 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
-        System.out.println("onBingViewHolder");
-        System.out.println(exerciseList.getContent());
         if(exerciseList.getContent() == null)
             return;
         CycleExerciseData exercise = exerciseList.getContent().get(position);

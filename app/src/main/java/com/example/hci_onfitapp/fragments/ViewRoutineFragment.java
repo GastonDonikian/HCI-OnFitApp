@@ -66,6 +66,7 @@ public class ViewRoutineFragment extends Fragment {
     private App app;
     View view;
     private FloatingActionButton favouriteBtn;
+    private FloatingActionButton unFavouriteBtn;
     private FloatingActionButton shareBtn;
     private FloatingActionButton playBtn;
 
@@ -85,6 +86,7 @@ public class ViewRoutineFragment extends Fragment {
         routineTitle = binding.routTitle;
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
+        unFavouriteBtn = binding.floatingActionButtonUnFavorite;
         shareBtn = binding.floatingActionButtonShare;
         repesElong = binding.repesElong;
         repesEntrada = binding.repesEntrada;
@@ -92,6 +94,7 @@ public class ViewRoutineFragment extends Fragment {
         playBtn = binding.floatingActionButton;
 
         favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
+        unFavouriteBtn = view.findViewById(R.id.floatingActionButtonUnFavorite);
 
         return view;
     }
@@ -104,7 +107,7 @@ public class ViewRoutineFragment extends Fragment {
         int routineTemp = requireArguments().getInt("routineID");
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
-            System.out.println("routineID desde el viewRoutine: "+routineId);
+
             playBtn.setVisibility(View.VISIBLE);
         }
         if (routineTemp != 0){
@@ -116,7 +119,6 @@ public class ViewRoutineFragment extends Fragment {
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
             this.routineData = routineData;
             routineTitle.setText(routineData.getName());
-            ratingBar.setRating(routineData.getAverageRating());
             viewModel.getFavouriteRoutines();
             viewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), favourites -> {
             boolean isFav = false;
@@ -127,25 +129,33 @@ public class ViewRoutineFragment extends Fragment {
                 }
             }
             if (isFav) {
+                favouriteBtn.setVisibility(View.GONE);
+                unFavouriteBtn.setVisibility(View.VISIBLE);
                 routineData.setFav(true);
             } else {
+                favouriteBtn.setVisibility(View.VISIBLE);
+                unFavouriteBtn.setVisibility(View.GONE);
                 routineData.setFav(false);
             }
             });
-            favouriteBtn.setOnClickListener(v ->{
-                if(!routineData.isFav()){
-                    addFav(routineData.getId());
-                }
-                else{
-                    unFav(routineData.getId());
-                }});
+            favouriteBtn.setOnClickListener(v -> {
+                addFav(routineData.getId());
+                favouriteBtn.setVisibility(View.GONE);
+                unFavouriteBtn.setVisibility(View.VISIBLE);
+            });
+            unFavouriteBtn.setOnClickListener(v -> {
+                unFav(routineData.getId());
+                favouriteBtn.setVisibility(View.VISIBLE);
+                unFavouriteBtn.setVisibility(View.GONE);
+            });
 
             ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
                 @Override
                 public void onRatingChanged(RatingBar ratingBar, float v, boolean b)
                 {
-                    viewModel.rateRoutine(routineId,(int)ratingBar.getRating());
-
+                    if(ratingBar.getRating()>0) {
+                        viewModel.rateRoutine(routineId, (int) ratingBar.getRating());
+                    }
                 }
             });
             shareBtn.setOnClickListener(v->{

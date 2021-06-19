@@ -11,8 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
-
-import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.databinding.FragmentEndRoutineBinding;
 
 import org.jetbrains.annotations.NotNull;

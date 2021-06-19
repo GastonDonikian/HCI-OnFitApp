@@ -16,7 +16,7 @@
     <string name="ModoBreve">FOCUSED</string>
     <string name="ModoLargo">IN-DEPTH</string>
     <string name="entrada_en_calor">Warm-up</string>
-    <string name="principal">Home</string>
+    <string name="principal">Main</string>
     <string name="aceptar">ACCEPT</string>
     <string name="elongacion">Stretching</string>
     <string name="IngreseURL">URL Address</string>
@@ -43,7 +43,9 @@
     <string name="nombre_rutina">Routine name</string>
     <string name="descripcion">Description</string>
     <string name="excercise_description">Exercise description</string>
-    <string name="explorar">Explore</string>
-    <string name="perfil">Profile</string>
-
+    <string name="fin_rutina">Congratulations! You finished the routine</string>
+    <string name="volver_a_rutina">RETURN TO ROUTINE</string>
+    <string name="navBar_principal">Home</string>
+    <string name="navBar_Explorar">Explore</string>
+    <string name="navBar_Perfil">Profile</string>
 </resources>
