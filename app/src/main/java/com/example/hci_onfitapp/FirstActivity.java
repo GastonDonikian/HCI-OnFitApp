@@ -26,9 +26,19 @@ public class FirstActivity extends AppCompatActivity{
         new Handler().postDelayed(() -> {
             Intent appLinkIntent = getIntent();
             Uri appLinkData = appLinkIntent.getData();
+            System.out.println("bienvenido a la app!");
             if (appLinkData != null) { // cuando inicio la aplicacion desde un link
                 String routineId = appLinkData.getLastPathSegment();
-                newActivity(preferences, routineId);
+                System.out.println("Este es el routineID " + routineId);
+                Intent intent;
+                if (preferences.getAuthToken() != null) {
+                    intent = new Intent(FirstActivity.this, HomeActivity.class);
+                } else {
+                    intent = new Intent(FirstActivity.this, MainActivity.class);
+                }
+                intent.putExtra("routineID", routineId);
+                startActivity(intent);
+//                newActivity(preferences, routineId);
             } else { //Cuando inicio la aplicacion normalmente
                 Intent intent;
                 if (preferences.getAuthToken() != null) {
