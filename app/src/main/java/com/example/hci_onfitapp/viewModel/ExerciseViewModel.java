@@ -36,7 +36,6 @@ import okhttp3.Response;
 public class ExerciseViewModel extends AndroidViewModel {
 
 
-
     private MediatorLiveData<PagedList<CycleExerciseData>> EntradaExercises = new MediatorLiveData<>();
     private MediatorLiveData<PagedList<CycleExerciseData>> PrinExercises = new MediatorLiveData<>();
     private MediatorLiveData<PagedList<CycleExerciseData>> ElongExercises = new MediatorLiveData<>();
@@ -79,10 +78,9 @@ public class ExerciseViewModel extends AndroidViewModel {
                         .subscribeWith(new DisposableSingleObserver<PagedList<CycleData>>() {
                             @Override
                             public void onSuccess(@NonNull PagedList<CycleData> cycles) {
-                                System.out.println("onSuccess");
+
                                 routineCycles.addAll(cycles.getContent());
                                 for (CycleData cycle : routineCycles) {
-                                    System.out.println(cycle.getId());
                                     System.out.println(routinesService.getExercises(cycle.getId(), options));
                                     disposable.add(
                                             routinesService.getExercises(cycle.getId(), options)
@@ -91,11 +89,9 @@ public class ExerciseViewModel extends AndroidViewModel {
                                                     .subscribeWith(new DisposableSingleObserver<PagedList<CycleExerciseData>>() {
                                                         @Override
                                                         public void onSuccess(@NonNull PagedList<CycleExerciseData> cycleExercises) {
-                                                            System.out.println("onSuccess2");
                                                             switch (cycle.getType()) {
                                                                 case "warmup":
                                                                     EntradaExercises.setValue(cycleExercises);
-                                                                    System.out.println(EntradaExercises.getValue());
                                                                     break;
                                                                 case "exercise":
                                                                     PrinExercises.setValue(cycleExercises);
@@ -105,6 +101,8 @@ public class ExerciseViewModel extends AndroidViewModel {
                                                                     break;
                                                             }
                                                         }
+
+
                                                         @Override
                                                         public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
                                                             System.out.println("onError");
@@ -121,9 +119,7 @@ public class ExerciseViewModel extends AndroidViewModel {
                         })
         );
         System.out.println("end fetchFromRemote");
-        System.out.println();
     }
-
 
 
     @Override
@@ -140,11 +136,11 @@ public class ExerciseViewModel extends AndroidViewModel {
         this.executed = executed;
     }
 
-    public int getStatus(){
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(int status){
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -157,7 +153,9 @@ public class ExerciseViewModel extends AndroidViewModel {
         return PrinExercises;
     }
 
-    public MutableLiveData<PagedList<CycleExerciseData>> getElongExercises() {return ElongExercises;}
+    public MutableLiveData<PagedList<CycleExerciseData>> getElongExercises() {
+        return ElongExercises;
+    }
 
 
     public void setStarted(boolean state) {
@@ -168,10 +166,11 @@ public class ExerciseViewModel extends AndroidViewModel {
         return started;
     }
 
-    public boolean getIsFirstTime(){
+    public boolean getIsFirstTime() {
         return isFirstTime;
     }
-    public void setIsFirstTime(boolean state){
+
+    public void setIsFirstTime(boolean state) {
         isFirstTime = state;
     }
 

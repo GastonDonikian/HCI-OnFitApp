@@ -71,7 +71,8 @@ public class ViewRoutineFragment extends Fragment {
 
 
         favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
-
+        exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
+        exerciseViewModel.refresh(routineId);
         return view;
     }
 
@@ -119,17 +120,13 @@ public class ViewRoutineFragment extends Fragment {
             }});
         });
 
-        exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
-        exerciseViewModel.refresh(routineId);
-        exerciseViewModel.refresh(routineId);
 
+        System.out.println("Aca cargo a los pelotudos");
         System.out.println(exerciseViewModel.getElongExercises().getValue());
         System.out.println(exerciseViewModel.getPrinExercises().getValue());
         System.out.println(exerciseViewModel.getEntradaExercises().getValue());
 
-        ElongAdapter = new ExerciseAdapter(exerciseViewModel.getElongExercises().getValue());
-        PrinAdapter = new ExerciseAdapter(exerciseViewModel.getPrinExercises().getValue());
-        EntradaAdapter = new ExerciseAdapter(exerciseViewModel.getEntradaExercises().getValue());
+
 
         recyclerViewEntrada = binding.recyclerViewEntrada;
         recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
