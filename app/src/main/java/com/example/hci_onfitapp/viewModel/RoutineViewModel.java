@@ -82,6 +82,31 @@ public class RoutineViewModel extends AndroidViewModel {
         }
     }
 
+    public void updateUserRoutinesByDate() {
+        Map<String, String> options = new HashMap<>();
+        options.put("page", "0");
+        options.put("orderBy", "date");
+        options.put("direction", direction);
+        options.put("size", String.valueOf(1000));
+        //TODO:el otro error que no entiendo
+        disposable.add(
+                routinesService.getUserRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
+                                userRoutines.setValue(routinesEntries.getContent());
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                e.printStackTrace();
+                            }
+                        })
+        );
+    }
+
     public void updateUserRoutines() {
         Map<String, String> options = new HashMap<>();
         options.put("page", "0");
