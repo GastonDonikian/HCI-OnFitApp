@@ -182,7 +182,7 @@ public class ViewRoutineFragment extends Fragment {
     private void share(){
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://www.onFit.com/Routines/" + routineId);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://www.onfit.com/Routines/" + routineId);
         sendIntent.setType("text/plain");
 
         Intent shareIntent = Intent.createChooser(sendIntent, "Mensaje");
