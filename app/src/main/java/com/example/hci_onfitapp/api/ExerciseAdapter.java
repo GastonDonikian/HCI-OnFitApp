@@ -2,6 +2,7 @@ package com.example.hci_onfitapp.api;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -28,6 +29,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
     private ImageView infoButton;
 
     public ExerciseAdapter(PagedList<CycleExerciseData> exerciseList) {
+        System.out.println(exerciseList);
         this.exerciseList = exerciseList;
     }
 
@@ -47,8 +49,12 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 
     @Override
     public void onBindViewHolder(@NonNull ExerciseViewHolder holder, int position) {
-//        CycleExerciseData exercise = exerciseList.getContent().get(position);
-//        holder.itemView.setEData(exercise);
+        System.out.println("onBingViewHolder");
+        System.out.println(exerciseList.getContent());
+        if(exerciseList.getContent() == null)
+            return;
+        CycleExerciseData exercise = exerciseList.getContent().get(position);
+        holder.itemView.setEData(exercise);
 //        if (exercise.isRunning()){
 //            holder.itemView.exerciseContainer.setBackgroundColor(parentContext.getColor(R.color.executionNotSelected));
 //            holder.itemView.exerciseName.setTextColor(parentContext.getColor(R.color.mainTextColorAlternative));
@@ -65,15 +71,13 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.Exerci
 //        }
 
 //        holder.itemView.infoButton.setOnClickListener(v -> openExerciseInfoDialog(exercise));
-//        if(exercise.getRepetitions() != 0) {
-//            holder.itemView.repsExercise.setText(exercise.getRepetitions());
-//        } else
-//            holder.itemView.repsExercise.setText(exercise.getDuration());
+        holder.itemView.repsExercise.setVisibility(exercise.getRepetitions() != 0 ? View.VISIBLE : View.GONE);
+        holder.itemView.durExercise.setVisibility(exercise.getDuration() != 0 ? View.VISIBLE : View.GONE);
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return exerciseList.getTotalCount();
     }
 
     public static class ExerciseViewHolder extends RecyclerView.ViewHolder {
