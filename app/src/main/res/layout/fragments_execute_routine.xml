@@ -1,3 +1,5 @@
+
+<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,10 +8,17 @@
     android:orientation="vertical"
     android:weightSum="10">
 
+    <include
+        android:id="@+id/executionBar"
+        layout="@layout/fragment_choose_mode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/scview"/>
+
     <ScrollView
         android:id="@+id/scview"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="9"
         android:background="@color/lightgrey">
 
@@ -18,9 +27,9 @@
             android:layout_height="0dp"
             android:background="@color/lightgrey"
             android:orientation="vertical"
-            tools:context=".view.fragments.RoutineExecutionExerciseFragment"
+            app:layout_constraintEnd_toStartOf="@+id/ExerciseDescription"
             app:layout_constraintStart_toStartOf="@+id/ExerciseDescription"
-            app:layout_constraintEnd_toStartOf="@+id/ExerciseDescription">
+            tools:context=".view.fragments.RoutineExecutionExerciseFragment">
 
             <RelativeLayout
                 android:id="@+id/relativeLayout4"
@@ -36,18 +45,18 @@
                 <ProgressBar
                     android:id="@+id/progress_bar"
                     style="?android:attr/progressBarStyle"
-                    android:progressDrawable="@drawable/circle"
                     android:layout_width="150dp"
                     android:layout_height="150dp"
+                    android:layout_centerInParent="true"
                     android:indeterminateOnly="false"
-                    android:layout_centerInParent="true" />
+                    android:progressDrawable="@drawable/circle" />
 
                 <TextView
                     android:id="@+id/timeExercise"
-                    android:textColor="@color/purple"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/purple" />
 
             </RelativeLayout>
 
@@ -67,16 +76,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:text = "@string/nombre_rutina"
-                    android:textAlignment="center"
+                    android:layout_alignParentRight="true"
                     android:layout_marginStart="50dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="50dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:text="@string/nombre_rutina"
+                    android:textAlignment="center" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -119,13 +128,11 @@
 
             <TextView
                 android:id="@+id/ExerciseDescription"
-                android:text="@string/excercise_description"
                 style="@style/TextBody"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="@string/excercise_description"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintStart_toStartOf="parent"
@@ -142,11 +149,11 @@
 
                 <TextView
                     android:id="@+id/exerciseTitleInExecutionList"
-                    android:textSize="20dp"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" />
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
             </RelativeLayout>
 
 
@@ -157,3 +164,5 @@
 
 
 </LinearLayout>
+
+</layout>

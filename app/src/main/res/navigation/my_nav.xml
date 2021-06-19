@@ -50,5 +50,35 @@
         <action
             android:id="@+id/action_viewRoutineFragment_to_exploreFragment2"
             app:destination="@id/exploreFragment" />
+        <action
+            android:id="@+id/action_viewRoutineFragment_to_executeShortFragment"
+            app:destination="@id/executeShortFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/executeRoutineFragment"
+        android:name="com.example.hci_onfitapp.fragments.ExecuteRoutineFragment"
+        android:label="ExecuteRoutineFragment" >
+        <action
+            android:id="@+id/action_executeRoutineFragment_to_executeShortFragment"
+            app:destination="@id/executeShortFragment" />
+        <argument
+            android:name="routineId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/executeShortFragment"
+        android:name="com.example.hci_onfitapp.fragments.ExecuteShortFragment"
+        android:label="ExecuteShortFragment" >
+        <action
+            android:id="@+id/action_executeShortFragment_to_executeRoutineFragment"
+            app:destination="@id/executeRoutineFragment" />
+        <argument
+            android:name="routineId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+        <action
+            android:id="@+id/action_executeShortFragment_to_viewRoutineFragment"
+            app:destination="@id/viewRoutineFragment" />
     </fragment>
 </navigation>
