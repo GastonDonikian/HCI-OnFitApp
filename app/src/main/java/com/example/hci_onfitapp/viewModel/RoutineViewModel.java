@@ -131,7 +131,6 @@ public class RoutineViewModel extends AndroidViewModel {
                             }
                         })
         );
-        System.out.println(disposable.toString());
     }
 
     public void updateRoutinesByDate() {
@@ -157,7 +156,6 @@ public class RoutineViewModel extends AndroidViewModel {
                             }
                         })
         );
-        System.out.println(disposable.toString());
     }
 
     public void getFavouriteRoutines() {
@@ -496,7 +494,6 @@ public class RoutineViewModel extends AndroidViewModel {
 
     public void rateRoutine(int routineId, int value) {
         RoutineRating rating = new RoutineRating(value, "");
-        System.out.println(value);
         disposable.add(
                 routinesService.rateRoutine(routineId, rating)
                         .subscribeOn(Schedulers.newThread())

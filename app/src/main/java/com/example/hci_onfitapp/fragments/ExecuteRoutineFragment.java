@@ -119,7 +119,6 @@ public class ExecuteRoutineFragment extends Fragment {
                 app.getRoutineRepository().getRoutineCycles(routineId).observe(requireActivity(),c->{
                     if(c.getStatus() == Status.SUCCESS){
                         routineCyclesList = c.getData().getContent();
-                        System.out.println(routineCyclesList);
                         cycleExerciseList = new ArrayList<>();
                         for(int i=0;i<routineCyclesList.size();i++){
                             CycleData cycle = routineCyclesList.get(i);
@@ -244,7 +243,6 @@ public class ExecuteRoutineFragment extends Fragment {
 
     private CycleData getCurrentCycle() {
         if(currentCycleIndex <= routineCyclesList.size()){
-            System.out.println(currentCycle);
             if(currentCycleIndex == COOLDOWN_CYCLE){
                 finished = true;
                 return null;

@@ -84,14 +84,9 @@ public class SettingsFragment extends Fragment {
     // Hice esta asquerocidad porque no se hacer un async await. No juzgar
     private void acceptChanges(int countRec) {
         if (countRec <= 0) return;
-        System.out.println(userviewModel.getUserInfo().getValue().getFirstName());
         EditText nombre = view.findViewById(R.id.Nombre);
-        System.out.println(nombre.getText());
         EditText apellido = view.findViewById(R.id.Apellido);
-        System.out.println(apellido.getText());
         EditText avatar_url = view.findViewById(R.id.Avatar);
-        System.out.println(avatar_url.getText());
-
 
         User user = new User(userviewModel.getUserInfo().getValue().getUsername(),
                 userviewModel.getUserInfo().getValue().getPassword(),
@@ -104,7 +99,6 @@ public class SettingsFragment extends Fragment {
                 userviewModel.getUserInfo().getValue().getAvatarUrl());
 
         validation(nombre, apellido, avatar_url, user);
-//          TODO no funciona el modifyUser deSystem.out.println("funciona"); UserViewModel
         userviewModel.modifyUser(user);
         userviewModel.setUserData();
 

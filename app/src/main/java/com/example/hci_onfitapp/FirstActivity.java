@@ -24,7 +24,6 @@ public class FirstActivity extends AppCompatActivity{
             Uri appLinkData = appLinkIntent.getData();
             if (appLinkData != null) { // cuando inicio la aplicacion desde un link
                 String routineId = appLinkData.getLastPathSegment();
-                System.out.println("Este es el routineID " + routineId);
                 Intent intent;
                 if (preferences.getAuthToken() != null) {
                     intent = new Intent(FirstActivity.this, ViewRoutineActivity.class);

@@ -95,8 +95,6 @@ public class RegisterFragment extends Fragment {
         if (!validateEmail() | !validateUsername() | !validatePassword()) {
             return;
         }
-        System.out.println(name.getEditText().getText().toString());
-        System.out.println(lastName.getEditText().getText().toString());
         User userInfo = new User(username.getEditText().getText().toString()
                 , password.getEditText().getText().toString()
                 , name.getEditText().getText().toString()
