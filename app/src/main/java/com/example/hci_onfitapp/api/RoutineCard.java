@@ -165,16 +165,5 @@ import org.jetbrains.annotations.NotNull;
         }
 
 
-        public void favRoutine() {
-            fav.setVisible(true);
-            unfav.setVisible(false);
-        }
-
-        public void unfavRoutine() {
-            fav.setVisible(false);
-            unfav.setVisible(true);
-        }
-
-
 
     }

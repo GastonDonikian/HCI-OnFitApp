@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.hci_onfitapp.AppPreferences;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
@@ -153,7 +152,6 @@ public class RoutineViewModel extends AndroidViewModel {
                             }
                         })
         );
-        System.out.println(disposable.toString());
     }
 
     public void getRoutineById(int id) {

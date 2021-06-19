@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -18,18 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.ExerciseAdapter;
 import com.example.hci_onfitapp.api.RoutineAdapter;
-import com.example.hci_onfitapp.api.data.CycleExerciseData;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.FavouritesModel;
-import com.example.hci_onfitapp.api.model.PagedList;
 import com.example.hci_onfitapp.databinding.FragmentViewRoutineBinding;
 import com.example.hci_onfitapp.viewModel.ExerciseViewModel;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.concurrent.TimeUnit;
 
 public class ViewRoutineFragment extends Fragment {
     private RoutineViewModel viewModel;
@@ -53,6 +48,7 @@ public class ViewRoutineFragment extends Fragment {
     private ExerciseAdapter PrinAdapter;
     private ExerciseAdapter ElongAdapter;
     private TextView routineTitle;
+    private FloatingActionButton favouriteBtn;
 
     private @NonNull
     int routineId;
@@ -73,8 +69,9 @@ public class ViewRoutineFragment extends Fragment {
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
 
-        Button favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
-        favouriteBtn.setOnClickListener(v -> addFav(routId));
+
+        favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
+
         return view;
     }
 
@@ -89,13 +86,37 @@ public class ViewRoutineFragment extends Fragment {
             System.out.println("VIEW ROUTINE FRAGMENT");
         }
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
-        favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);
+        //favViewModel = new ViewModelProvider(getActivity()).get(FavouritesModel.class);
+
 
         viewModel.getRoutineById(routineId);
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
                 this.routineData = routineData;
+            System.out.println(routineData);
                 routineTitle.setText(routineData.getName());
                 ratingBar.setRating(routineData.getAverageRating());
+            viewModel.getFavouriteRoutines();
+        viewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), favourites -> {
+            boolean isFav = false;
+            for (RoutineData routine : favourites) {
+                if (routine.getId() == routineId) {
+                    isFav = true;
+                    break;
+                }
+            }
+            if (isFav) {
+                routineData.setFav(true);
+            } else {
+                routineData.setFav(false);
+            }
+        });
+        favouriteBtn.setOnClickListener(v ->{
+            if(!routineData.isFav()){
+                addFav(routineData.getId());
+            }
+            else{
+                unFav(routineData.getId());
+            }});
         });
 
         exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
@@ -122,10 +143,45 @@ public class ViewRoutineFragment extends Fragment {
         recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewElong.setAdapter(ElongAdapter);
 //        observeExerciseViewModel();
+
+
+        viewModel.getFavouriteRoutines();
+        /*
+        viewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), favourites -> {
+            boolean isFav = false;
+            for (RoutineData routine : favourites) {
+                if (routine.getId() == routineId) {
+                    isFav = true;
+                    break;
+                }
+            }
+            if (isFav) {
+                System.out.println("IS FAV");
+                System.out.println(routineData);
+                routineData.setFav(true);
+            } else {
+                routineData.setFav(false);
+            }
+        });
+        favouriteBtn.setOnClickListener(v ->{
+            if(routineData.isFav()){
+                addFav(routineData.getId());
+            }
+            else{
+                unFav(routineData.getId());
+            }});
+
+         */
     }
 
     private void addFav(int routId){
         viewModel.addFav(routId);
+        routineData.setFav(true);
+    }
+
+    private void unFav(int routId){
+        viewModel.unFav(routId);
+        routineData.setFav(false);
     }
 
     private void observeExerciseViewModel() {

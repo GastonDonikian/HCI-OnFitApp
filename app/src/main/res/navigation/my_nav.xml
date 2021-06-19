@@ -50,9 +50,5 @@
         <action
             android:id="@+id/action_viewRoutineFragment_to_exploreFragment2"
             app:destination="@id/exploreFragment" />
-        <argument
-            android:name="isFav"
-            app:argType="boolean"
-            android:defaultValue="false" />
     </fragment>
 </navigation>

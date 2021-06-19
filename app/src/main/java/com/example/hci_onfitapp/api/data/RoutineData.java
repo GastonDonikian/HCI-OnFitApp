@@ -42,6 +42,10 @@ public class RoutineData implements Serializable {
     @SerializedName("user")
     @Expose
     private User user;
+    @SerializedName("isFav")
+    @Expose
+    private boolean isFav = false;
+
 
     private PagedList<CycleData> routineCycles = null;
     private String image;
@@ -61,6 +65,7 @@ public class RoutineData implements Serializable {
         this.metadata = metadata;
         this.category = category;
         this.user = user;
+        this.isFav = false;
     }
 
     public int getId() {
@@ -185,5 +190,13 @@ public class RoutineData implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public boolean isFav() {
+        return isFav;
+    }
+
+    public void setFav(boolean fav) {
+        isFav = fav;
     }
 }
