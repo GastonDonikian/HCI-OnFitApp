@@ -43,6 +43,8 @@ public class HomeFragment extends Fragment {
     boolean searching = false;
     boolean noMoreEntries = false;
     private int routineId;
+    private int routineIdRating;
+    private int routineIdLatest;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,36 +63,6 @@ public class HomeFragment extends Fragment {
         swipeRefreshLayout = binding.swipeRefresh;
         View view = binding.getRoot();
 
-        ImageSlider imageSlider = view.findViewById(R.id.home_slider);
-
-        List<SlideModel> slideModels = new ArrayList<>();
-
-        slideModels.add(new SlideModel("https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80","Rutinas Mejor Valoradas" ));
-        slideModels.add(new SlideModel("https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80", "Ultima rutina creada"));
-
-        imageSlider.setImageList(slideModels, true);
-
-        imageSlider.setItemClickListener(i -> {
-            NavController navController = Navigation.findNavController(view);
-            switch (i) {
-                case 0:
-                    viewModel.updateUserRoutines();
-                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
-                        routineId = routineData.get(0).getId();
-                    });
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId));
-                    break;
-
-                case 1:
-                    viewModel.updateUserRoutinesByDate();
-                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
-                        System.out.println(routineData);
-                        routineId = routineData.get(0).getId();
-                    });
-                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineId));
-                    break;
-            }
-        });
 
 
 
@@ -149,6 +121,46 @@ public class HomeFragment extends Fragment {
         viewModel.getNoMoreEntries().observe(getViewLifecycleOwner(), value -> {
             if (value != null) {
                 noMoreEntries = value;
+            }
+        });
+
+
+        ImageSlider imageSlider = view.findViewById(R.id.home_slider);
+
+        List<SlideModel> slideModels = new ArrayList<>();
+
+        slideModels.add(new SlideModel("https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=668&q=80","Rutinas Mejor Valoradas" ));
+        slideModels.add(new SlideModel("https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1951&q=80", "Ultima rutina creada"));
+
+        imageSlider.setImageList(slideModels, true);
+
+
+        viewModel.updateRoutines();
+        viewModel.updateRoutinesByDate();
+        imageSlider.setItemClickListener(i -> {
+            NavController navController = Navigation.findNavController(view);
+            switch (i) {
+                case 0:
+                    viewModel.updateRoutines();
+                    viewModel.getUserRoutines().observe(getViewLifecycleOwner(), routineData -> {
+                        routineIdRating = routineData.get(0).getId();
+                        System.out.println(routineData);
+                        System.out.println("hola");
+                        System.out.println("rutina1: "+routineIdRating);
+                    });
+                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineIdRating));
+                    break;
+
+                case 1:
+                    viewModel.updateRoutinesByDate();
+                    viewModel.getRoutinesByDate().observe(getViewLifecycleOwner(), routineData -> {
+                        routineIdLatest = routineData.get(0).getId();
+                        System.out.println("chau");
+                        System.out.println(routineData);
+                        System.out.println("rutina2: "+routineIdLatest);
+                    });
+                    navController.navigate(HomeFragmentDirections.actionHomeFragmentToViewRoutineFragment().setRoutineId(routineIdLatest));
+                    break;
             }
         });
 
