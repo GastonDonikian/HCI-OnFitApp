@@ -102,6 +102,10 @@ public class ExecuteRoutineFragment extends Fragment {
             if(r.getStatus() == Status.SUCCESS){
                 routineData = r.getData();
                 binding.routineNameTitleInExecutionExercise.setText(routineData.getName());
+                breve.setOnClickListener(v -> {
+                    NavDirections action = ExecuteRoutineFragmentDirections.actionExecuteRoutineFragmentToExecuteShortFragment().setRoutineId(routineId);
+                    Navigation.findNavController(v).navigate(action);
+                });
                 app.getRoutineRepository().getRoutineCycles(routineId).observe(requireActivity(),c->{
                     if(c.getStatus() == Status.SUCCESS){
                         routineCyclesList = c.getData().getContent();
