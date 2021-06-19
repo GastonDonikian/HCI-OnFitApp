@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class RoutineViewModel extends AndroidViewModel {
     private MediatorLiveData<List<RoutineData>> routineCards = new MediatorLiveData<>();
     private MutableLiveData<List<RoutineData>> userRoutines = new MutableLiveData<>();
+    private MutableLiveData<List<RoutineData>> userRoutinesByDate = new MutableLiveData<>();
     private MutableLiveData<List<RoutineData>> userFavourites = new MutableLiveData<>();
     private MutableLiveData<List<RoutineData>> userHistory = new MutableLiveData<>();
     private MutableLiveData<RoutineData> currentRoutine = new MutableLiveData<>();
@@ -82,31 +83,6 @@ public class RoutineViewModel extends AndroidViewModel {
         }
     }
 
-    public void updateUserRoutinesByDate() {
-        Map<String, String> options = new HashMap<>();
-        options.put("page", "0");
-        options.put("orderBy", "date");
-        options.put("direction", direction);
-        options.put("size", String.valueOf(1000));
-        //TODO:el otro error que no entiendo
-        disposable.add(
-                routinesService.getUserRoutines(options)
-                        .subscribeOn(Schedulers.newThread())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
-                            @Override
-                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
-                                userRoutines.setValue(routinesEntries.getContent());
-                            }
-
-                            @Override
-                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                                e.printStackTrace();
-                            }
-                        })
-        );
-    }
-
     public void updateUserRoutines() {
         Map<String, String> options = new HashMap<>();
         options.put("page", "0");
@@ -147,6 +123,32 @@ public class RoutineViewModel extends AndroidViewModel {
                             @Override
                             public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
                                 userRoutines.setValue(routinesEntries.getContent());
+                            }
+
+                            @Override
+                            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                                e.printStackTrace();
+                            }
+                        })
+        );
+        System.out.println(disposable.toString());
+    }
+
+    public void updateRoutinesByDate() {
+        Map<String, String> options = new HashMap<>();
+        options.put("page", "0");
+        options.put("orderBy", "date");
+        options.put("direction", direction);
+        options.put("size", String.valueOf(1000));
+        //TODO:el otro error que no entiendo
+        disposable.add(
+                routinesService.getRoutines(options)
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<PagedList<RoutineData>>() {
+                            @Override
+                            public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull PagedList<RoutineData> routinesEntries) {
+                                userRoutinesByDate.setValue(routinesEntries.getContent());
                             }
 
                             @Override
@@ -432,6 +434,10 @@ public class RoutineViewModel extends AndroidViewModel {
 
     public MutableLiveData<List<RoutineData>> getUserRoutines() {
         return userRoutines;
+    }
+
+    public MutableLiveData<List<RoutineData>> getRoutinesByDate() {
+        return userRoutinesByDate;
     }
 
     public MutableLiveData<List<RoutineData>> getUserFavouriteRoutines() { return userFavourites; }

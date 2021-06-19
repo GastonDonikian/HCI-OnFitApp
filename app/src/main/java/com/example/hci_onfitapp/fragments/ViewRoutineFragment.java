@@ -104,13 +104,13 @@ public class ViewRoutineFragment extends Fragment {
         int routineTemp = requireArguments().getInt("routineID");
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
+            System.out.println("routineID desde el viewRoutine: "+routineId);
             playBtn.setVisibility(View.VISIBLE);
         }
         if (routineTemp != 0){
             playBtn.setVisibility(View.GONE);
             routineId = requireArguments().getInt("routineID");
         }
-        System.out.println(routineId);
         viewModel = new ViewModelProvider(getActivity()).get(RoutineViewModel.class);
 
 
@@ -214,7 +214,6 @@ public class ViewRoutineFragment extends Fragment {
                             String type = ciclo.getType();
                             switch (type) {
                                 case "warmup":
-                                    System.out.println(ciclo.getCycleExercises());
                                     repesEntrada.setText('x' + String.valueOf(ciclo.getRepetitions()));
                                     EntradaAdapter = new ExerciseAdapter(ciclo.getCycleExercises());
                                     recyclerViewEntrada = binding.recyclerViewEntrada;
