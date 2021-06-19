@@ -1,11 +1,10 @@
 package com.example.hci_onfitapp.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,10 +24,9 @@ import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
 import com.example.hci_onfitapp.api.model.ApiRoutineService;
 import com.example.hci_onfitapp.api.model.Status;
-import com.example.hci_onfitapp.databinding.FragmentViewRoutineBinding;
+import com.example.hci_onfitapp.databinding.FragmentExecuteShortBinding;
 import com.example.hci_onfitapp.viewModel.ExerciseViewModel;
 import com.example.hci_onfitapp.viewModel.RoutineViewModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -39,15 +37,13 @@ import java.util.Map;
 
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
-public class ViewRoutineFragment extends Fragment {
+public class ExecuteShortFragment  extends Fragment {
     private RoutineViewModel viewModel;
     private ExerciseViewModel exerciseViewModel;
-    private RatingBar ratingBar;
 
-    private FragmentViewRoutineBinding binding;
+    private @NonNull FragmentExecuteShortBinding binding;
     private RoutineData routineData;
-    private FloatingActionButton favButton;
-
+    private Button finalizarButton;
 
     private RecyclerView recyclerViewElong;
     private RecyclerView recyclerViewPrin;
@@ -64,33 +60,26 @@ public class ViewRoutineFragment extends Fragment {
     private ApiRoutineService routinesService;
     private App app;
     View view;
-    private FloatingActionButton favouriteBtn;
-    private FloatingActionButton shareBtn;
-    private FloatingActionButton playBtn;
 
     private @NonNull
     int routineId;
-    private boolean fav = false;
 
+    public ExecuteShortFragment() {
 
-    public ViewRoutineFragment() {
     }
 
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        binding = FragmentViewRoutineBinding.inflate(getLayoutInflater());
+        binding = FragmentExecuteShortBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
-        routineTitle = binding.routTitle;
-        ratingBar = binding.ratingBar;
-        favButton = binding.floatingActionButtonFavorite;
-        shareBtn = binding.floatingActionButtonShare;
+        routineTitle = binding.routineNameTitleInExecutionList;
         repesElong = binding.repesElong;
         repesEntrada = binding.repesEntrada;
         repesPrin = binding.repesPrin;
-        playBtn = binding.floatingActionButton;
+        finalizarButton = binding.FinalizarButton;
 
-        favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
+        finalizarButton = view.findViewById(R.id.FinalizarButton);
 
         return view;
     }
@@ -110,44 +99,9 @@ public class ViewRoutineFragment extends Fragment {
         viewModel.getCurrentRoutine().observe(getViewLifecycleOwner(), routineData -> {
             this.routineData = routineData;
             routineTitle.setText(routineData.getName());
-            ratingBar.setRating(routineData.getAverageRating());
-            viewModel.getFavouriteRoutines();
-            viewModel.getUserFavouriteRoutines().observe(getViewLifecycleOwner(), favourites -> {
-            boolean isFav = false;
-            for (RoutineData routine : favourites) {
-                if (routine.getId() == routineId) {
-                    isFav = true;
-                    break;
-                }
-            }
-            if (isFav) {
-                routineData.setFav(true);
-            } else {
-                routineData.setFav(false);
-            }
-            });
-            favouriteBtn.setOnClickListener(v ->{
-                if(!routineData.isFav()){
-                    addFav(routineData.getId());
-                }
-                else{
-                    unFav(routineData.getId());
-                }});
 
-            ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                @Override
-                public void onRatingChanged(RatingBar ratingBar, float v, boolean b)
-                {
-                    viewModel.rateRoutine(routineId,(int)ratingBar.getRating());
-
-                }
-            });
-            shareBtn.setOnClickListener(v->{
-                share();
-            });
-
-            playBtn.setOnClickListener(v->{
-                NavDirections action = ViewRoutineFragmentDirections.actionViewRoutineFragmentToExecuteShortFragment().setRoutineId(routineId);
+            finalizarButton.setOnClickListener(v->{
+                NavDirections action = ExecuteShortFragmentDirections.actionExecuteShortFragmentToViewRoutineFragment().setRoutineId(routineId);
                 Navigation.findNavController(v).navigate(action);
             });
 
@@ -156,16 +110,6 @@ public class ViewRoutineFragment extends Fragment {
         exerciseViewModel = new ViewModelProvider(getActivity()).get(ExerciseViewModel.class);
         fetchFromRemote(routineId);
         observeExerciseViewModel();
-    }
-
-    private void addFav(int routId){
-        viewModel.addFav(routId);
-        routineData.setFav(true);
-    }
-
-    private void unFav(int routId){
-        viewModel.unFav(routId);
-        routineData.setFav(false);
     }
 
     private void observeExerciseViewModel() {
@@ -188,6 +132,7 @@ public class ViewRoutineFragment extends Fragment {
         });
     }
 
+
     private void fetchFromRemote(int routineId) {
         Map<String, String> options = new HashMap<>();
         options.put("page", "0");
@@ -209,21 +154,21 @@ public class ViewRoutineFragment extends Fragment {
                                     System.out.println(ciclo.getCycleExercises());
                                     repesEntrada.setText('x' + String.valueOf(ciclo.getRepetitions()));
                                     EntradaAdapter = new ExerciseAdapter(ciclo.getCycleExercises());
-                                    recyclerViewEntrada = binding.recyclerViewEntrada;
+                                    recyclerViewEntrada = binding.warmUpExercises;
                                     recyclerViewEntrada.setLayoutManager(new LinearLayoutManager(getContext()));
                                     recyclerViewEntrada.setAdapter(EntradaAdapter);
                                     break;
                                 case "exercise":
                                     PrinAdapter = new ExerciseAdapter(ciclo.getCycleExercises());
                                     repesPrin.setText('x' + String.valueOf(ciclo.getRepetitions()));
-                                    recyclerViewPrin = binding.recyclerViewPrincipal;
+                                    recyclerViewPrin = binding.mainExercises;
                                     recyclerViewPrin.setLayoutManager(new LinearLayoutManager(getContext()));
                                     recyclerViewPrin.setAdapter(PrinAdapter);
                                     break;
                                 case "cooldown":
                                     ElongAdapter = new ExerciseAdapter(ciclo.getCycleExercises());
                                     repesElong.setText('x' + String.valueOf(ciclo.getRepetitions()));
-                                    recyclerViewElong = binding.recyclerViewElong;
+                                    recyclerViewElong = binding.cooldownExercises;
                                     recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
                                     recyclerViewElong.setAdapter(ElongAdapter);
                                     break;
@@ -235,14 +180,4 @@ public class ViewRoutineFragment extends Fragment {
             }
         });
     }
-    private void share(){
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "http://www.onfit.com/Routines/" + routineId);
-        sendIntent.setType("text/plain");
-
-        Intent shareIntent = Intent.createChooser(sendIntent, "Mensaje");
-        startActivity(shareIntent);
-    }
-
 }
