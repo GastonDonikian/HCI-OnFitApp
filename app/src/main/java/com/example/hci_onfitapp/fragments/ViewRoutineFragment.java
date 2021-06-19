@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.ExerciseAdapter;
 import com.example.hci_onfitapp.api.RoutineAdapter;
 import com.example.hci_onfitapp.api.data.CycleExerciseData;
@@ -54,6 +56,7 @@ public class ViewRoutineFragment extends Fragment {
 
     private @NonNull
     int routineId;
+    boolean isFav;
     private Integer routId;
     private boolean fav = false;
 
@@ -69,6 +72,9 @@ public class ViewRoutineFragment extends Fragment {
         routineTitle = binding.routTitle;
         ratingBar = binding.ratingBar;
         favButton = binding.floatingActionButtonFavorite;
+
+        Button favouriteBtn = view.findViewById(R.id.floatingActionButtonFavorite);
+        favouriteBtn.setOnClickListener(v -> addFav(routId));
         return view;
     }
 
@@ -78,7 +84,7 @@ public class ViewRoutineFragment extends Fragment {
 
         if (getArguments() != null) {
             routineId = getArguments().getInt("routineId");
-
+            isFav = getArguments().getBoolean("isFav");
             System.out.println(routineId);
             System.out.println("VIEW ROUTINE FRAGMENT");
         }
@@ -116,6 +122,10 @@ public class ViewRoutineFragment extends Fragment {
         recyclerViewElong.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerViewElong.setAdapter(ElongAdapter);
 //        observeExerciseViewModel();
+    }
+
+    private void addFav(int routId){
+        viewModel.addFav(routId);
     }
 
     private void observeExerciseViewModel() {

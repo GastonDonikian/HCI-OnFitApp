@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.hci_onfitapp.AppPreferences;
 import com.example.hci_onfitapp.R;
 import com.example.hci_onfitapp.api.data.RoutineData;
 import com.example.hci_onfitapp.api.model.ApiRoutine;
@@ -21,6 +22,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Response;
 
 public class RoutineViewModel extends AndroidViewModel {
     private MediatorLiveData<List<RoutineData>> routineCards = new MediatorLiveData<>();
@@ -334,6 +336,42 @@ public class RoutineViewModel extends AndroidViewModel {
         );
     }
 
+    public void addFav(int routId){
+        disposable.add(routinesService.favRoutine(routId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<Void>>() {
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Response<Void> voidResponse) {
+
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+    }
+
+    public void unFav(int routId){
+        disposable.add(routinesService.unfavRoutine(routId)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<Response<Void>>() {
+                    @Override
+                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull Response<Void> voidResponse) {
+
+                    }
+
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        e.printStackTrace();
+                    }
+                })
+        );
+    }
+
     @Override
     protected void onCleared() {
         super.onCleared();
@@ -375,14 +413,6 @@ public class RoutineViewModel extends AndroidViewModel {
     public MutableLiveData<List<RoutineData>> getUserFavouriteRoutines() { return userFavourites; }
 
     public MutableLiveData<RoutineData> getCurrentRoutine() {
-        return currentRoutine;
-    }
-
-    public MutableLiveData<RoutineData> loadRoutineInformation(){
-        Map<String, String> options = new HashMap<>();
-        options.put("page", "0");
-        options.put("size", "100");
-
         return currentRoutine;
     }
 

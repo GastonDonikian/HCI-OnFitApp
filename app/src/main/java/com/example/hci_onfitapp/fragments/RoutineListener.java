@@ -24,6 +24,7 @@ public class RoutineListener implements View.OnClickListener {
     public void onClick(View view) {
         int routineId = Integer.parseInt(((TextView) view.findViewById(R.id.routineId)).getText().toString());
         routineViewModel.getRoutineById(routineId);
+        //boolean fav = routineViewModel.getCurrentRoutine().getValue();
         if (from == ROUTINES_ID){
             NavDirections action1 = ExploreFragmentDirections.actionExploreFragmentToViewRoutineFragment().setRoutineId(routineId);
             Navigation.findNavController(view).navigate(action1);
