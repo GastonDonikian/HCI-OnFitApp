@@ -11,13 +11,12 @@
             style="@style/Widget.MaterialComponents.Chip.Filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginLeft="44dp"
             android:backgroundTint="@color/pink"
             android:text="@string/ModoBreve"
             android:textColor="@color/white"
             app:checkedIconVisible="false"
-            app:layout_constraintEnd_toStartOf="@+id/exe"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
