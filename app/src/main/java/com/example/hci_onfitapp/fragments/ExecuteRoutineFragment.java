@@ -185,7 +185,7 @@ public class ExecuteRoutineFragment extends Fragment {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
-                    binding.timeExercise.setText(String.valueOf(duration--));
+                    binding.timeExercise.setText(String.valueOf(duration--) + "s");
                 }
 
                 @Override
@@ -213,8 +213,9 @@ public class ExecuteRoutineFragment extends Fragment {
                 public void onTick(long millisUntilFinished) {
                     binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
                     if(repes % 5 == 0) {
-                        binding.timeExercise.setText(String.valueOf(repes-- / 5));
+                        binding.timeExercise.setText("x" + String.valueOf(repes / 5));
                     }
+                    repes--;
                 }
 
                 @Override
