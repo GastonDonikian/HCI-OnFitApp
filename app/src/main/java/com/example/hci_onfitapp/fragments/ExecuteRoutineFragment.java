@@ -56,6 +56,8 @@ public class ExecuteRoutineFragment extends Fragment {
     private String cycleTitle;
     private TextView exTitle;
     private TextView exDetail;
+    private TextView timeEx;
+    private int duration;
     private TextView cycleRepes;
     private String repesText;
     private Button detallado;
@@ -74,6 +76,7 @@ public class ExecuteRoutineFragment extends Fragment {
     private boolean isFinishedCycle;
     private int currentCycleIndex = -1;
     private int currentCycleRep = 0;
+    private int repes;
 
     public ExecuteRoutineFragment() {
 
@@ -88,6 +91,7 @@ public class ExecuteRoutineFragment extends Fragment {
         cycleTextView = binding.routineCycleTitleInExecutionExercise;
         exTitle = binding.exerciseTitleInExecutionList;
         exDetail = binding.ExerciseDescription;
+        timeEx = binding.timeExercise;
         breve = binding.executionBar.breve;
         detallado = binding.executionBar.exe;
         cycleRepes = binding.repesCiclo;
@@ -175,15 +179,18 @@ public class ExecuteRoutineFragment extends Fragment {
         if (countDownTimer != null)
             countDownTimer.cancel();
         if (cycleExerciseData.getDuration() != 0) {
+            duration = cycleExerciseData.getDuration();
             binding.progressBar.setMax(cycleExerciseData.getDuration());
             countDownTimer = new CountDownTimer(cycleExerciseData.getDuration() * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
+                    binding.timeExercise.setText(String.valueOf(duration--));
                 }
 
                 @Override
                 public void onFinish() {
+                    binding.timeExercise.setText("");
                     playExercise(currentCycleEx, index + 1);
                     if(index + 1 == content.getTotalCount()) {
                         if(--currentCycleRep == 0)
@@ -199,12 +206,15 @@ public class ExecuteRoutineFragment extends Fragment {
                 }
             }.start();
         } else {
-            int repes = cycleExerciseData.getRepetitions() * 5;
+            repes = cycleExerciseData.getRepetitions() * 5;
             binding.progressBar.setMax(repes);
             countDownTimer = new CountDownTimer(repes * 1000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     binding.progressBar.setProgress((int) (millisUntilFinished / 1000));
+                    if(repes % 5 == 0) {
+                        binding.timeExercise.setText(String.valueOf(repes-- / 5));
+                    }
                 }
 
                 @Override
